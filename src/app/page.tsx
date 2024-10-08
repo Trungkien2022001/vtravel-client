@@ -1,101 +1,234 @@
-import Image from "next/image";
+"use client";
+import Header from "@/components/header/Header";
+import Footer from "@/components/layout/footer";
+import PictureGrid from "@/components/picture/picture";
+import { useState } from "react";
+
+const destinations = [
+  'Jeddah, Makkah Province, Saudi Arabia',
+  'Durrat Al-Arous, Jeddah, Makkah Province, Saudi Arabia',
+  'Al Riyadh, Jeddah, Makkah Province, Saudi Arabia',
+  'Ṣumaymah, Jeddah, Makkah Province, Saudi Arabia',
+  'Banī Mālik, Jeddah, Makkah Province, Saudi Arabia',
+  'Al-Hamadaniyah, Jeddah, Makkah Province, Saudi Arabia',
+  'Thuwal, Jeddah, Makkah Province, Saudi Arabia',
+  'Dhahban, Jeddah, Makkah Province, Saudi Arabia',
+  'Obhur Al-Shamaliyah, Jeddah, Makkah Province, Saudi Arabia',
+  'Obhur Al-Janoubiyah, Jeddah, Makkah Province, Saudi Arabia',
+  'Ali Salamah, Jeddah, Makkah Province, Saudi Arabia',
+  'Jeddah Cloud, Al Barak, Jeddah, Makkah Province, Saudi Arabia',
+  'Aerotel Jeddah - Transit Hotel in Terminal 1',
+  'Holiday Inn Jeddah Corniche, an IHG Hotel',
+  'Laten Suites Al Salim Plaza, Jeddah',
+];
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [showTravellerDropdown, setShowTravellerDropdown] = useState(false);
+  const [departureDate, setDepartureDate] = useState('');
+  const [roomCount, setRoomCount] = useState(1);
+  const [adultCount, setAdultCount] = useState(1);
+  const [childrenCount, setChildrenCount] = useState(0);
+  const [infantCount, setInfantCount] = useState(0);
+  const [rooms, setRooms] = useState([{ adults: 1, children: 0, infants: 0 }]);
+  const [query, setQuery] = useState('');
+  const [filteredDestinations, setFilteredDestinations] = useState(destinations);
+  const handleInputChange = (e) => {
+    const value = e.target.value.toLowerCase();
+    setQuery(value);
+    setFilteredDestinations(
+      destinations.filter((destination) =>
+        destination.toLowerCase().includes(value)
+      )
+    );
+  };
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+
+  const addRoom = () => {
+    if (rooms.length < 3) { // Limit to a maximum of 3 rooms
+      setRooms([...rooms, { adults: 1, children: 0, infants: 0 }]);
+    }
+  };
+
+  const removeRoom = (index) => {
+    const newRooms = rooms.filter((_, roomIndex) => roomIndex !== index);
+    setRooms(newRooms);
+  };
+  const toggleTravellerDropdown = () => {
+    setShowTravellerDropdown(!showTravellerDropdown);
+  };
+
+  const handleDateChange = (event) => {
+    setDepartureDate(event.target.value);
+  };
+  return (
+    <div className="min-h-screen">
+      <Header />
+      <div className="bg-white border-b shadow min-h-screen">
+        <div className="container mx-auto flex items-center justify-between p-4">
+          {/* Destination Input */}
+          <div className="relative w-full max-w-md mx-auto">
+            <input
+              type="text"
+              value={query}
+              onChange={handleInputChange}
+              placeholder="Search destination"
+              className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            {query && (
+              <ul className="absolute left-0 right-0 mt-2 max-h-60 overflow-y-auto bg-white border border-gray-300 rounded-lg shadow-lg z-10">
+                {filteredDestinations.length > 0 ? (
+                  filteredDestinations.map((destination, index) => (
+                    <li
+                      key={index}
+                      className="p-2 hover:bg-gray-100 cursor-pointer"
+                      onClick={() => setQuery(destination)}
+                    >
+                      {destination}
+                    </li>
+                  ))
+                ) : (
+                  <li className="p-2 text-gray-500">No destinations found</li>
+                )}
+              </ul>
+            )}
+          </div>
+
+          {/* Departure Date Picker */}
+          <div className="flex items-center border rounded-md mr-4">
+            <span className="p-2 text-gray-500">📅</span>
+            <input
+              type="date"
+              value={departureDate}
+              onChange={handleDateChange}
+              className="p-2 outline-none rounded-md"
+            />
+          </div>
+
+          {/* Traveller Dropdown */}
+          <div className="relative">
+            <div
+              className="flex items-center border rounded-md cursor-pointer p-2"
+              onClick={toggleTravellerDropdown}
+            >
+              <span className="text-gray-500">
+                Traveller: {rooms.length} Rooms, {rooms.reduce((acc, room) => acc + room.adults, 0)} Adults
+              </span>
+            </div>
+            {showTravellerDropdown && (
+              <div className="absolute right-0 z-10 mt-2 w-64 bg-white border rounded-md shadow-lg">
+                <div className="p-4">
+                  {rooms.map((room, index) => (
+                    <div key={index} className="mb-4 border-b pb-2">
+                      <h3 className="font-bold">Room {index + 1}</h3>
+                      <div className="flex justify-between items-center">
+                        <span>Adults (18 or above)</span>
+                        <div className="flex items-center space-x-2">
+                          <button
+                            onClick={() => {
+                              if (room.adults > 0) {
+                                const newRooms = [...rooms];
+                                newRooms[index].adults--;
+                                setRooms(newRooms);
+                              }
+                            }}
+                            className="bg-gray-200 p-1 rounded"
+                          >
+                            -
+                          </button>
+                          <span>{room.adults}</span>
+                          <button
+                            onClick={() => {
+                              const newRooms = [...rooms];
+                              newRooms[index].adults++;
+                              setRooms(newRooms);
+                            }}
+                            className="bg-gray-200 p-1 rounded"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center mt-2">
+                        <span>Children (Ages 2-17)</span>
+                        <div className="flex items-center space-x-2">
+                          <button
+                            onClick={() => {
+                              if (room.children > 0) {
+                                const newRooms = [...rooms];
+                                newRooms[index].children--;
+                                setRooms(newRooms);
+                              }
+                            }}
+                            className="bg-gray-200 p-1 rounded"
+                          >
+                            -
+                          </button>
+                          <span>{room.children}</span>
+                          <button
+                            onClick={() => {
+                              const newRooms = [...rooms];
+                              newRooms[index].children++;
+                              setRooms(newRooms);
+                            }}
+                            className="bg-gray-200 p-1 rounded"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center mt-2">
+                        <span>Infants (Under 2)</span>
+                        <div className="flex items-center space-x-2">
+                          <button
+                            onClick={() => {
+                              if (room.infants > 0) {
+                                const newRooms = [...rooms];
+                                newRooms[index].infants--;
+                                setRooms(newRooms);
+                              }
+                            }}
+                            className="bg-gray-200 p-1 rounded"
+                          >
+                            -
+                          </button>
+                          <span>{room.infants}</span>
+                          <button
+                            onClick={() => {
+                              const newRooms = [...rooms];
+                              newRooms[index].infants++;
+                              setRooms(newRooms);
+                            }}
+                            className="bg-gray-200 p-1 rounded"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
+                      <button
+                        className="text-red-500 mt-2"
+                        onClick={() => removeRoom(index)}
+                      >
+                        Remove Room
+                      </button>
+                    </div>
+                  ))}
+                  <div className="mt-4 text-orange-500 cursor-pointer" onClick={addRoom}>
+                    + Add Room
+                  </div>
+                  <p className="text-sm text-gray-500 mt-2">
+                    Maximum room is 3 per booking. Age of children/infants should be considered from the date of departure.
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Search Button */}
+          <button className="bg-orange-500 text-white rounded px-4 py-2">SEARCH NOW</button>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
+      <PictureGrid/>
+      <Footer />
     </div>
   );
 }
