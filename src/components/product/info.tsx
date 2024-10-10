@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 // pages/hotel.js
 import React from 'react';
 

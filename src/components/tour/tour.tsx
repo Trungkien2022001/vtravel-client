@@ -17,7 +17,7 @@ const Tour = ({ tours }) => {
               </ul>
             </div>
             <div>
-              <p className="text-xl font-bold text-red-600">From {Math.round(tour.price, 2)} {tour.currency}</p>
+              <p className="text-xl font-bold text-red-600">From {Math.round(tour.price)} {tour.currency}</p>
               {/* <p className="text-sm text-gray-500">08/10/2024 - 09/10/2024</p> */}
             </div>
           </div>

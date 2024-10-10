@@ -13,16 +13,17 @@ export default function HotelList({list, conditional}) {
   });
 
   const filteredHotels = list.filter((hotel) => {
-    const matchesStars =
-      !filters.stars.length || filters.stars.includes(hotel.rating);
-    const matchesBudget =
-      !filters.budget ||
-      (parseFloat(hotel.price.replace('SR', '')) >= parseInt(filters.budget.split('-')[0]) &&
-        parseFloat(hotel.price.replace('SR', '')) <= parseInt(filters.budget.split('-')[1]));
-    const matchesLocation =
-      !filters.location.length || filters.location.some((loc) => hotel.location.includes(loc));
+    // const matchesStars =
+    //   !filters.stars.length || filters.stars.includes(hotel.rating);
+    // const matchesBudget =
+    //   !filters.budget ||
+    //   (parseFloat(hotel.price.replace('SR', '')) >= parseInt(filters.budget.split('-')[0]) &&
+    //     parseFloat(hotel.price.replace('SR', '')) <= parseInt(filters.budget.split('-')[1]));
+    // const matchesLocation =
+    //   !filters.location.length || filters.location.some((loc) => hotel.location.includes(loc));
 
-    return matchesStars && matchesBudget && matchesLocation;
+    // return matchesStars && matchesBudget && matchesLocation;
+    return !!hotel
   });
 
   return (
