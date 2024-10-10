@@ -6,7 +6,7 @@ import ProductList from "@/components/product/product-list";
 import RoomTabs from "@/components/product/rooms";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 export default function Hotel() {
   const searchParams = useSearchParams();
@@ -59,7 +59,7 @@ useEffect(() => {
   getData()
 }, [])
 return (
-  <>
+  <Suspense>
   {hotel.id ? 
    <div className="max-w-5xl mx-auto p-4">
    <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
@@ -116,6 +116,6 @@ return (
  </div>
  : <></>}
  
-  </>
+  </Suspense>
 );
 }

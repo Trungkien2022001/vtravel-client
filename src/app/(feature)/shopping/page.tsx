@@ -3,7 +3,7 @@ import HotelList from '@/components/hotel-list/HotelList'
 import Tour from '@/components/tour/tour';
 import Vehicle from '@/components/vehicle/vehicle';
 import { useSearchParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 
 const Page = () => {
   const searchParams = useSearchParams();
@@ -144,14 +144,14 @@ const Page = () => {
   }, [])
   // console.log(tours, hotels, vehicles)
   return (
-    <div>
+    <Suspense>
        <div className="min-h-screen bg-gray-100 p-8">
       <h1 className="text-2xl font-bold mb-6">Your stay in {region_name_full}</h1>
       <HotelList list={hotels} conditional ={{region_id, checkin, checkout, rooms, currency}}/>
       <Tour tours = {tours}/>
       <Vehicle vehicles = {vehicles}/>
     </div>
-    </div>
+    </Suspense>
   )
 }
 
