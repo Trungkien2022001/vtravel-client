@@ -1,0 +1,44 @@
+curl --location 'http://api.locanda.com/webservice/jp/operations/availtransactions.asmx' \
+--header 'Content-Type: text/xml;charset=UTF-8' \
+--header 'Cookie: StatC=xcao25IwU0jkzAvNDXmwNQ==; StatP=YTidSyydD8eKpRKN+MaY9ipB/Jc6GPqPNVZRfB8VAkTat08v6H0dG/Sr4RCEHlUw; idioma=en' \
+--data-raw '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns="http://www.juniper.es/webservice/2007/">
+    <soapenv:Header />
+    <soapenv:Body>
+        <HotelAvail >
+            <HotelAvailRQ Version="1.1" Language="en">
+                <Login Email="XMLUmrahClick" Password="XML_click@24"/>
+                <Paxes>
+                    <Pax IdPax="1">
+                        <Age>30</Age>
+                    </Pax>
+                </Paxes>
+                <HotelRequest>
+                    <RelPaxesDist>
+                        <RelPaxDist>
+                            <RelPaxes>
+                                <RelPax IdPax="1" />
+                            </RelPaxes>
+                        </RelPaxDist>
+                    </RelPaxesDist>
+                    <SearchSegmentsHotels>
+                        <SearchSegmentHotels Start="2024-10-24" End="2024-10-26" />
+                        <CountryOfResidence>AE</CountryOfResidence>
+                        <HotelCodes>
+                            <HotelCode>JP02616R</HotelCode>
+                        </HotelCodes>
+                    </SearchSegmentsHotels>
+                </HotelRequest>
+                <AdvancedOptions>
+                    <ShowHotelInfo>true</ShowHotelInfo>
+                    <ShowOnlyAvailable>true</ShowOnlyAvailable>
+                    <ShowCompleteInfo>true</ShowCompleteInfo>
+                    <ShowCancellationPolicies>true</ShowCancellationPolicies>
+                    <ShowBreakdownPrice>true</ShowBreakdownPrice>
+                    <ShowAvailabilityBreakdown>true</ShowAvailabilityBreakdown>
+                    <ShowOnlyBestPriceCombination>false</ShowOnlyBestPriceCombination>
+                    <TimeOut>10000</TimeOut>
+                </AdvancedOptions>
+            </HotelAvailRQ>
+        </HotelAvail>
+    </soapenv:Body>
+</soapenv:Envelope>'

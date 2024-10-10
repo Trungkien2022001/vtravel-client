@@ -107,7 +107,7 @@ return (
       </div>
     </div>
 
-   <RoomTabs rooms={hotel.rooms}/>
+   <RoomTabs/>
 
    <div className="mt-8">
      <ProductList rooms={hotel.rooms}/>
