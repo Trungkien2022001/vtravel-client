@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 const tabItems = ['Rooms', 'Amenities', 'About', 'General Policy', 'Location'];
 
-export default function RoomTabs({rooms}) {
+export default function RoomTabs() {
   const [activeTab, setActiveTab] = useState('Rooms');
 
   return (
