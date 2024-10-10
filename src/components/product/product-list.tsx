@@ -2,31 +2,7 @@
 import { useState } from 'react';
 import ProductCard from './product-card';
 
-const rooms = [
-  {
-    id: 1,
-    type: 'TWIN DELUXE ROOM CITY VIEW',
-    description: 'Contemporary decor, bright room, city view, balcony, data port, in-room safe, 42-inch LED TV.',
-    price: 'SR 914.16',
-    cancellationPolicy: 'Non-Refundable',
-  },
-  {
-    id: 2,
-    type: 'KING DELUXE ROOM CITY VIEW',
-    description: 'Contemporary decor, bright room, city view, balcony, data port, in-room safe, 42-inch LED TV.',
-    price: 'SR 914.16',
-    cancellationPolicy: 'Non-Refundable',
-  },
-  {
-    id: 3,
-    type: 'KING DELUXE CITY VIEW',
-    description: 'Bright room with city view and modern amenities. Data port, in-room safe, 42-inch LED TV.',
-    price: 'SR 922.42',
-    cancellationPolicy: 'Non-Refundable',
-  },
-];
-
-export default function ProductList() {
+export default function ProductList({rooms}) {
   const [selectedRoom, setSelectedRoom] = useState(null);
 
   const handleSelectRoom = (room) => {

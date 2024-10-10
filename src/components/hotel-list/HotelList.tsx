@@ -3,39 +3,16 @@ import { useState } from 'react';
 import Filters from '../hotel-filter/HotelFilter';
 import HotelCard from '../hotel-card/HotelCard';
 
-const hotels = [
-  {
-    name: 'Jeddah Hilton',
-    location: 'North Corniche Road, Jeddah',
-    rating: 5,
-    price: 'SR 914.16',
-    imageUrl: '/path/to/hilton-image.jpg',
-  },
-  {
-    name: 'Radisson Blu Hotel, Jeddah Plaza',
-    location: 'King Abdullah Road, Jeddah',
-    rating: 4,
-    price: 'SR 764.15',
-    imageUrl: '/path/to/radisson-image.jpg',
-  },
-  {
-    name: 'ibis Jeddah City Center',
-    location: 'Madinah Branch Road, Jeddah',
-    rating: 3,
-    price: 'SR 526.27',
-    imageUrl: '/path/to/ibis-image.jpg',
-  },
-  // Add more hotels
-];
 
-export default function HotelList() {
+export default function HotelList({list, conditional}) {
+  // console.log(JSON.stringify(list[0]))
   const [filters, setFilters] = useState({
     stars: [],
     budget: '',
     location: [],
   });
 
-  const filteredHotels = hotels.filter((hotel) => {
+  const filteredHotels = list.filter((hotel) => {
     const matchesStars =
       !filters.stars.length || filters.stars.includes(hotel.rating);
     const matchesBudget =
@@ -49,19 +26,22 @@ export default function HotelList() {
   });
 
   return (
+    <>
+    <div className='text-center font-bold text-2xl'>We find {filteredHotels.length} hotels!</div>
     <div className="flex">
       <div className="w-1/4">
         <Filters filters={filters} setFilters={setFilters} />
       </div>
       <div className="w-3/4 pl-8">
         {filteredHotels.length > 0 ? (
-          filteredHotels.map((hotel, index) => (
-            <HotelCard key={index} hotel={hotel} />
+          filteredHotels.slice(0,10).map((hotel, index) => (
+            <HotelCard key={index} hotel={hotel} conditional = {conditional}/>
           ))
         ) : (
           <p>No hotels match your criteria.</p>
         )}
       </div>
     </div>
+    </>
   );
 }

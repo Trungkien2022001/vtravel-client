@@ -68,11 +68,11 @@ export default function Home() {
         text: h.region_name_full,
         type: 'region'
       }))
-      console.log(hotels, regions)
+      // console.log(hotels, regions)
       const list =  [...regions, ...hotels].filter((destination) =>
         destination.text.toLowerCase().includes(query)
       )
-      console.log(list)
+      // console.log(list)
       setFilteredDestinations(list as SetStateAction<never[]>)
     } catch (error) {
       console.error("Error fetching suggestions:", error);
@@ -104,9 +104,6 @@ export default function Home() {
   
 
   const handleSubmit = async () => {
-    console.log(checkinDate, checkoutDate)
-    console.log(rooms)
-    console.log(region)
     const task = [
 
       searchHotelsByRegion(),
@@ -119,6 +116,7 @@ export default function Home() {
       checkin: checkinDate,
       checkout: checkoutDate,
       rooms: JSON.stringify(rooms), // Assuming rooms is an object or array
+      region_name_full: region.region_name_full,
       currency: 'USD'
     }).toString();
     router.push(`/shopping?${params}`);
@@ -154,7 +152,7 @@ export default function Home() {
       }
   
       const res = await _res.json();
-      console.log(res.data); // Handle the response (e.g., update the UI or state)
+      // console.log(res.data); // Handle the response (e.g., update the UI or state)
     } catch (error) {
       console.error("Error searching hotels:", error);
     }
@@ -192,7 +190,7 @@ export default function Home() {
       }
   
       const res = await _res.json();
-      console.log(res.data); // Handle the response (e.g., update the UI or state)
+      // console.log(res.data); // Handle the response (e.g., update the UI or state)
     } catch (error) {
       console.error("Error searching tours:", error);
     }
@@ -230,7 +228,7 @@ export default function Home() {
       }
   
       const res = await _res.json();
-      console.log(res.data); // Handle the response (e.g., update the UI or state)
+      // console.log(res.data); // Handle the response (e.g., update the UI or state)
     } catch (error) {
       console.error("Error searching transfers:", error);
     }

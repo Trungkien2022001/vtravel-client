@@ -43,7 +43,7 @@ export default function Hotel() {
       }
 
       const res = await _res.json();
-      console.log(JSON.stringify(res.data));
+      // console.log(JSON.stringify(res.data));
       setHotel(res.data)
       return res.data // Handle the response (e.g., update the UI or state)
     } catch (error) {
