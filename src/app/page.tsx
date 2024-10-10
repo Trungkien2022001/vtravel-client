@@ -20,15 +20,15 @@ export default function Home() {
     setCheckoutDate(event.target.value);
   };
   const [showTravellerDropdown, setShowTravellerDropdown] = useState(false);
-  const [departureDate, setDepartureDate] = useState('');
-  const [roomCount, setRoomCount] = useState(1);
-  const [adultCount, setAdultCount] = useState(1);
-  const [childrenCount, setChildrenCount] = useState(0);
-  const [infantCount, setInfantCount] = useState(0);
+  // const [departureDate, setDepartureDate] = useState('');
+  // const [roomCount, setRoomCount] = useState(1);
+  // const [adultCount, setAdultCount] = useState(1);
+  // const [childrenCount, setChildrenCount] = useState(0);
+  // const [infantCount, setInfantCount] = useState(0);
   const [rooms, setRooms] = useState([{ adult: 1, children: 0, infant: 0 }]);
   const [query, setQuery] = useState('');
   const [debouncedQuery, setDebouncedQuery] = useState(query);
-  const [region, setRegion] = useState({})
+  const [region, setRegion] = useState({} as any)
   const [filteredDestinations, setFilteredDestinations] = useState([]);
   const handleInputChange = (e) => {
     const value = e.target.value.toLowerCase();
@@ -104,12 +104,6 @@ export default function Home() {
   
 
   const handleSubmit = async () => {
-    const task = [
-
-      searchHotelsByRegion(),
-      getToursByRegion(),
-      getTransferByRegion(),
-    ]
     // const result = await Promise.all(task)
     const params = new URLSearchParams({
       region_id: (region as any).region_id,
@@ -123,116 +117,6 @@ export default function Home() {
     // console.log(result)
   }
 
-  const searchHotelsByRegion = async () => {
-    try {
-      const region_id = (region as any).region_id
-      const data = {
-        rooms,
-        checkin: checkinDate,
-        checkout: checkoutDate,
-        region_id,
-        currency: "SGD"
-      }
-      const _res = await fetch(
-        `${process.env.NEXT_PUBLIC_MICRO_SERVICE_URL}/api/v1/hotel/search/region`,
-        {
-          method: "POST", // HTTP method
-          headers: {
-            "x-key": "superkey", // Add x-key header
-            "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwid29ya3NwYWNlIjoiYWdlbnQsIiwiaWF0IjoxNzI4MDk4MzI2LCJleHAiOjE3Mjg5NjIzMjZ9.ALI-BMgkrugKtcwaHULP3UDBtlJZYZF-pjNjjFLTlBs", // Add your access token
-            "Content-Type": "application/json", // Make sure you're sending JSON
-          },
-          body: JSON.stringify(data),
-          cache: "no-cache", // Avoid caching the response
-        }
-      );
-  
-      if (!_res.ok) {
-        throw new Error("Failed to search hotels");
-      }
-  
-      const res = await _res.json();
-      // console.log(res.data); // Handle the response (e.g., update the UI or state)
-    } catch (error) {
-      console.error("Error searching hotels:", error);
-    }
-  };
-
-  const getToursByRegion = async () => {
-    try {
-      const region_id = (region as any).region_id;
-      const data = {
-        checkin: checkinDate,
-        duration: 1,
-        adult: rooms.reduce((s, r)=> r.adult + s, 0),
-        children: rooms.reduce((s, r)=> r.children + s, 0),
-        infant: rooms.reduce((s, r)=> r.infant + s, 0),
-        currency: "VND",
-        region_id
-      };
-  
-      const _res = await fetch(
-        `${process.env.NEXT_PUBLIC_MICRO_SERVICE_URL}/api/v1/tour/search/region`,
-        {
-          method: "POST", // HTTP method
-          headers: {
-            "x-key": "superkey", // Add x-key header
-            "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwid29ya3NwYWNlIjoiYWdlbnQsIiwiaWF0IjoxNzI4MDk4MzI2LCJleHAiOjE3Mjg5NjIzMjZ9.ALI-BMgkrugKtcwaHULP3UDBtlJZYZF-pjNjjFLTlBs", // Add your access token
-            "Content-Type": "application/json", // Make sure you're sending JSON
-          },
-          body: JSON.stringify(data),
-          cache: "no-cache", // Avoid caching the response
-        }
-      );
-  
-      if (!_res.ok) {
-        throw new Error("Failed to search tours");
-      }
-  
-      const res = await _res.json();
-      // console.log(res.data); // Handle the response (e.g., update the UI or state)
-    } catch (error) {
-      console.error("Error searching tours:", error);
-    }
-  };
-
-  const getTransferByRegion = async () => {
-    try {
-      const region_id = (region as any).region_id;
-      const data = {
-        checkin: checkinDate,
-        duration: 1,
-        adult: rooms.reduce((s, r)=> r.adult + s, 0),
-        children: rooms.reduce((s, r)=> r.children + s, 0),
-        infant: rooms.reduce((s, r)=> r.infant + s, 0),
-        currency: "VND",
-        region_id
-      };
-  
-      const _res = await fetch(
-        `${process.env.NEXT_PUBLIC_MICRO_SERVICE_URL}/api/v1/vehicle/search/region`,
-        {
-          method: "POST", // HTTP method
-          headers: {
-            "x-key": "superkey", // Add x-key header
-            "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwid29ya3NwYWNlIjoiYWdlbnQsIiwiaWF0IjoxNzI4MDk4MzI2LCJleHAiOjE3Mjg5NjIzMjZ9.ALI-BMgkrugKtcwaHULP3UDBtlJZYZF-pjNjjFLTlBs", // Add your access token
-            "Content-Type": "application/json", // Ensure the request sends JSON
-          },
-          body: JSON.stringify(data),
-          cache: "no-cache", // Prevent caching
-        }
-      );
-  
-      if (!_res.ok) {
-        throw new Error("Failed to search transfers");
-      }
-  
-      const res = await _res.json();
-      // console.log(res.data); // Handle the response (e.g., update the UI or state)
-    } catch (error) {
-      console.error("Error searching transfers:", error);
-    }
-  };
   
   
   
@@ -252,9 +136,6 @@ export default function Home() {
     setShowTravellerDropdown(!showTravellerDropdown);
   };
 
-  const handleDateChange = (event) => {
-    setDepartureDate(event.target.value);
-  };
   return (
     <div className="min-h-screen">
       <Header />

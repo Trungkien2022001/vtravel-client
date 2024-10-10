@@ -14,7 +14,8 @@ export default function Hotel() {
   const checkout = searchParams.get('checkout');
   const rooms = JSON.parse(searchParams.get('rooms') || '{}');
   const currency = searchParams.get('currency');
-  const [hotel, setHotel] = useState({})
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [hotel, setHotel] = useState({} as any)
   const searchHotelsByRegion = async () => {
     try {
       const data = {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // pages/hotel.js
 "use client";
 import HotelPage from "@/components/product/info";
@@ -14,7 +15,7 @@ export default function Hotel() {
   const checkout = searchParams.get('checkout');
   const rooms = JSON.parse(searchParams.get('rooms') || '{}');
   const currency = searchParams.get('currency');
-  const [hotel, setHotel] = useState({})
+  const [hotel, setHotel] = useState({} as any)
   const searchHotelsByRegion = async () => {
     try {
       const data = {

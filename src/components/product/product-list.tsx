@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ProductCard from './product-card';
 
 export default function ProductList({rooms}) {
-  const [selectedRoom, setSelectedRoom] = useState(null);
+  const [selectedRoom , setSelectedRoom] = useState();
 
   const handleSelectRoom = (room) => {
     setSelectedRoom(room);
