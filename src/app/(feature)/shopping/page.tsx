@@ -144,7 +144,7 @@ const Page = () => {
   }, [])
   // console.log(tours, hotels, vehicles)
   return (
-    <Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
        <div className="min-h-screen bg-gray-100 p-8">
       <h1 className="text-2xl font-bold mb-6">Your stay in {region_name_full}</h1>
       <HotelList list={hotels} conditional ={{region_id, checkin, checkout, rooms, currency}}/>
