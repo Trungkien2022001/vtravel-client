@@ -42,7 +42,7 @@ export default function Home() {
           method: "POST", // Specify the HTTP method
           headers: {
             "x-key": "superkey", // Add your x-key header
-            "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwid29ya3NwYWNlIjoiYWdlbnQsIiwiaWF0IjoxNzI4MDk4MzI2LCJleHAiOjE3Mjg5NjIzMjZ9.ALI-BMgkrugKtcwaHULP3UDBtlJZYZF-pjNjjFLTlBs", // Add your token
+            "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwid29ya3NwYWNlIjoiYWdlbnQsIiwiaWF0IjoxNzI4OTY4MTQ5LCJleHAiOjE3Mjk4MzIxNDl9.gQCd3T4gl48gyh6slUQ2Y0VrmjXtgMq58SJ2tUK5JvQ", // Add your token
             "Content-Type": "application/json", // Ensure the request sends JSON
           },
           body: JSON.stringify({
