@@ -12,18 +12,18 @@ const Header = () => {
         setIsCurrencyDropdownOpen((prev) => !prev);
     };
     return (
-        <div className='h-20 flex justify-between items-center px-10 bg-fuchsia-100'>
-            <div className="text-2xl font-bold text-red-500">VTRAVEL</div>
+        <div className='h-28 flex justify-between items-center px-10 bg-teal-500 text-xl'>
+            <div className="text-2xl font-bold text-purple-50">VTRAVEL</div>
             <div className="flex space-x-4">
                 <div className="relative">
                     <button
                         onClick={toggleLanguageDropdown}
-                        className='focus:outline-none'
+                        className='focus:outline-none text-white'
                     >
                         Language
                     </button>
                     {isLanguageDropdownOpen && (
-                        <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded shadow-lg">
+                        <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded shadow-lg text-teal-500 ">
                             <ul>
                                 <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Vietnamese</li>
                                 <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Spanish</li>
@@ -34,12 +34,12 @@ const Header = () => {
                 <div className="relative">
                     <button
                         onClick={toggleCurrencyDropdown}
-                        className='focus:outline-none'
+                        className='focus:outline-none text-white'
                     >
                         Currency
                     </button>
                     {isCurrencyDropdownOpen && (
-                        <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded shadow-lg">
+                        <div className="absolute right-0 mt-2 w-40 z-20 bg-white border border-gray-200 rounded shadow-lg text-teal-500">
                             <ul>
                                 <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">VND</li>
                                 <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">USD</li>
@@ -47,7 +47,7 @@ const Header = () => {
                         </div>
                     )}
                 </div>
-                <div className="login">Login</div>
+                <div className="login text-white">Help</div>
             </div>
         </div>
     )

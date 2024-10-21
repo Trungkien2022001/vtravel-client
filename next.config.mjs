@@ -9,6 +9,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: '**', // Allow all domains
       },
+      {
+        protocol: 'http',
+        hostname: '**', // Allow all domains
+      },
     ],
   },
   experimental: {
