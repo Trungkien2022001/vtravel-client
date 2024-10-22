@@ -12,7 +12,7 @@ export default function ProductList({rooms}) {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4">Room Selection</h2>
+      <h2 className="text-2xl font-bold mb-4 text-teal-500 ml-5">Room Selection</h2>
       {rooms.map((room) => (
         <ProductCard
           key={room.id}

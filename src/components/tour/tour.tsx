@@ -1,55 +1,142 @@
 import Image from 'next/image';
 
 const Tour = ({ tours }) => {
-  console.log(tours)
+  const handleFilterChange = (event) => {
+
+  };
   return (
     <>
-    <div className='text-center font-bold text-xl text-teal-500'>Total: {tours?.length} tours!</div>
-      {tours.slice(0, 5).map(tour => (
-        <div key={tour.id} className="max-w-4xl mt-5 mx-auto p-6 bg-white shadow-md rounded-lg">
-          {/* Header Section */}
-          <div className="flex justify-between items-center mb-6">
-            <div>
-              <h1 className=" font-bold">{tour.name}</h1>
-              {/* <p className="text-gray-600">{tour.city_code}</p> */}
-              <ul className="text-gray-600 space-y-1">
-                <li>🕒 Duration: {tour.duration}</li>
-              </ul>
+      <div className='text-center font-bold text-xl text-teal-500'>Total: {tours?.length} tours!</div>
+      <div className='flex'>
+        <div className="w-1/4">
+          <div className="w-64 bg-white border p-4 rounded-lg shadow-sm">
+            <h2 className="text-lg font-bold mb-4">Filters</h2>
+
+            <div className="mb-4">
+              <h3 className="font-semibold mb-2">Stars</h3>
+              <div className="space-y-2">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <label key={star} className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      name="stars"
+                      value={star}
+                      onChange={handleFilterChange}
+                      className="form-checkbox"
+                    />
+                    <span>{star} Stars</span>
+                  </label>
+                ))}
+              </div>
             </div>
+
+            <div className="mb-4">
+              <h3 className="font-semibold mb-2">Budget</h3>
+              <div className="space-y-2">
+                <label className="flex items-center space-x-2">
+                  <input
+                    type="radio"
+                    name="budget"
+                    value="0-100"
+                    onChange={handleFilterChange}
+                    className="form-radio"
+                  />
+                  <span>Less than SR 100</span>
+                </label>
+                <label className="flex items-center space-x-2">
+                  <input
+                    type="radio"
+                    name="budget"
+                    value="100-500"
+                    onChange={handleFilterChange}
+                    className="form-radio"
+                  />
+                  <span>SR 100 - SR 500</span>
+                </label>
+                <label className="flex items-center space-x-2">
+                  <input
+                    type="radio"
+                    name="budget"
+                    value="500-1000"
+                    onChange={handleFilterChange}
+                    className="form-radio"
+                  />
+                  <span>SR 500 - SR 1000</span>
+                </label>
+              </div>
+            </div>
+
             <div>
-              <p className="text-xl font-bold text-red-600">From {Math.round(tour.price)} {tour.currency}</p>
-              {/* <p className="text-sm text-gray-500">08/10/2024 - 09/10/2024</p> */}
+              <h3 className="font-semibold mb-2">Nearby Locations</h3>
+              <div className="space-y-2">
+                {['Central Fish Market', 'Shorbanty House', 'Fakieh Aquarium'].map(
+                  (location) => (
+                    <label key={location} className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        name="location"
+                        value={location}
+                        onChange={handleFilterChange}
+                        className="form-checkbox"
+                      />
+                      <span>{location}</span>
+                    </label>
+                  )
+                )}
+              </div>
             </div>
           </div>
+        </div>
+        <div className='w-3/4'>
 
-          {/* Main Image */}
-          <div className="flex gap-4">
-            {/* Image with flex-1 */}
-            <div className="relative mb-4 basis-1/4">
-              <Image
-                src="https://scontent-iad3-1.xx.fbcdn.net/v/t39.30808-1/454777130_2130759000652254_1868790218362913884_n.jpg?stp=dst-jpg_s320x320&_nc_cat=107&ccb=1-7&_nc_sid=0ecb9b&_nc_eui2=AeFkUNNe71-8oYMfC-lgaeQGjywSi-aSyzyPLBKL5pLLPOe-OYC05AC9Q_-_ld9QDUPM6f10No2bR07iQPa0wIqX&_nc_ohc=1vXVpisGh24Q7kNvgF6pN3Y&_nc_ht=scontent-iad3-1.xx&_nc_gid=A4PeXp1jomjAtL5nA3N9pPw&oh=00_AYCS1d9IwiwWbF9bW0BWeX5C_Z8OcYFWteJ5PSgbY5_EJw&oe=670D5801"
-                alt="Saudi Flag"
-                width={206}
-                height={206}
-                className="rounded-md"
-              />
-            </div>
+          {tours.slice(0, 250).map(tour => (
+            <div key={tour.id} className="border rounded-lg shadow-sm p-4 mb-4 bg-white">
+              {/* Header Section */}
+              <div className="flex justify-between items-center mb-6">
+                <div>
+                  <h1 className=" font-bold">{tour.name}</h1>
+                  {/* <p className="text-gray-600">{tour.city_code}</p> */}
+                  <ul className="text-gray-600 space-y-1">
+                    <li>🕒 Duration: {tour.duration}</li>
+                  </ul>
+                </div>
+                <div>
+                  <p className="font-bold text-red-600">From {Math.round(tour.price)} {tour.currency}</p>
+                  {/* <p className="text-sm text-gray-500">08/10/2024 - 09/10/2024</p> */}
+                  <button className="bg-teal-500  text-white rounded-lg py-2 px-8 mt-0 hover:bg-gray-200">
+                    Select
+                  </button>
+                </div>
+              </div>
 
-            {/* Description with flex-2 */}
-            <div className="bg-gray-100 p-4 rounded-lg mb-6 basis-3/4 max-h-52 w-52 overflow-y-scroll">
-              <h2 className="text-xl font-semibold mb-3">Overview</h2>
-              <div dangerouslySetInnerHTML={{ __html: tour.description }} />
-            </div>
-          </div>
+              {/* Main Image */}
+              <div className="flex gap-4">
+                {/* Image with flex-1 */}
+                <div className="relative mb-4 basis-1/4">
+                  <Image
+                    src="https://scontent-iad3-1.xx.fbcdn.net/v/t39.30808-1/454777130_2130759000652254_1868790218362913884_n.jpg?stp=dst-jpg_s320x320&_nc_cat=107&ccb=1-7&_nc_sid=0ecb9b&_nc_eui2=AeFkUNNe71-8oYMfC-lgaeQGjywSi-aSyzyPLBKL5pLLPOe-OYC05AC9Q_-_ld9QDUPM6f10No2bR07iQPa0wIqX&_nc_ohc=1vXVpisGh24Q7kNvgF6pN3Y&_nc_ht=scontent-iad3-1.xx&_nc_gid=A4PeXp1jomjAtL5nA3N9pPw&oh=00_AYCS1d9IwiwWbF9bW0BWeX5C_Z8OcYFWteJ5PSgbY5_EJw&oe=670D5801"
+                    alt="Saudi Flag"
+                    width={206}
+                    height={206}
+                    className="rounded-md"
+                  />
+                </div>
 
-          {/* Details Section */}
-          {/* <div className="flex justify-between items-start"> */}
-            {/* <div>
+                {/* Description with flex-2 */}
+                <div className="bg-gray-100 p-4 rounded-lg basis-3/4 max-h-52 w-52 overflow-y-scroll">
+                  <h2 className="text-xl font-semibold mb-3">Overview</h2>
+                  <div dangerouslySetInnerHTML={{ __html: tour.description }} />
+                </div>
+              </div>
+
+              {/* Details Section */}
+              {/* <div className="flex justify-between items-start"> */}
+              {/* <div>
               <ul className="text-gray-600 space-y-1">
                 <li>🕒 {tour.duration}</li>
               </ul>
             </div> */}
-            {/* <div>
+              {/* <div>
               <Image
                 src="/currency.jpg" // Add your currency image URL or use Next.js Image loader if needed
                 alt="Currency"
@@ -58,16 +145,13 @@ const Tour = ({ tours }) => {
                 className="rounded-md"
               />
             </div> */}
-          {/* </div> */}
-          {/* Booking Button */}
-          <div className="text-center">
-          <button className="bg-white text-teal-500 rounded-lg py-2 px-6 mt-4 hover:bg-gray-200">
-          Select
-        </button>
-          </div>
-        </div>
+              {/* </div> */}
+              {/* Booking Button */}
+            </div>
 
-      ))}
+          ))}
+        </div>
+      </div>
     </>
   );
 };

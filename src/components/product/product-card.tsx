@@ -5,62 +5,82 @@ import Image from 'next/image';
 export default function ProductCard({ room, selectedRoom, onSelect }) {
   const roomLength = room.rate.length;
   const idx = Math.floor(Math.random() * roomLength);
-  const rate = room.rate[idx];
 
   const isSelected = selectedRoom?.id === room.id;
   // console.log(room.images[0].urls[0].url)
 
   return (
-    <div className={`p-4 mb-4 border rounded-lg ${isSelected ? 'border-teal-500' : 'border-gray-200'} bg-white shadow-sm`}>
-    {/* Room Image and Title */}
-    <div className="flex justify-between items-start">
-      <div className="flex flex-col">
-        <h3 className="text-lg font-semibold">{rate.rate_name}</h3>
-        {room.images && room.images.length > 0 && room.images[0].urls.length > 0 ? (
-          <div className="relative w-full h-40 mb-4">
-            <Image
-              src={room.images[0].urls[0].url}
-              alt={`Image of ${room.name}`}
-              width={300}
-              height={200}
-              className="rounded-md"
-            />
-          </div>
-        ) : (
-          <p>No image available</p>
-        )}
+    <div className={` h-auto p-4 mb-4 border rounded-lg ${isSelected ? 'border-teal-500' : 'border-gray-200'} bg-white shadow-sm`}>
+      {/* Room Image and Title */}
+      <div className="flex">
+        <div className="">
+          {/* Images chiếm 1/4 */}
+          {room.images && room.images.length > 0 && room.images[0].urls.length > 0 ? (
+            <div className="relative ">
+              <Image
+                src={room.images[0].urls[3] ? room.images[0].urls[3].url : room.images[0].urls[0].url}
+                alt={`Image of ${room.name}`}
+                width={520}
+                height={450}
+                className="rounded-md"
+              />
+            </div>
+          ) : (
+            <p>No image available</p>
+          )}
+
+          {/* Amenities chiếm 2/4 và sử dụng flex wrap */}
+        </div>
+        <div className='px-4' dangerouslySetInnerHTML={{ __html: room.overview }} />
       </div>
-  
-      {/* Rate and Price */}
-      <div className="ml-4 text-right">
-        <p className="text-xl font-semibold text-teal-500">{rate.full_rate} {rate.currency}</p>
-        <p className="text-sm text-gray-500">Taxes and fees included</p>
+      <div className='flex border-t-2 mt-2 pt-2'>
+        <div className="w-full flex flex-wrap  px-2">
+          {room.amenities.map((a, index) => (
+            <div key={index} className="flex-none w-1/5 py-1 pr-1 flex items-center">
+              {/* Dấu tích xanh */}
+              <span className="text-green-500 mr-1">&#10003;</span> {/* Ký hiệu dấu tích */}
+              {a.name}
+            </div>
+          ))}
+        </div>
+
+        {/* Book chiếm 1/4 */}
       </div>
-    </div>
-  
-    {/* Breakfast and Other Info */}
-    <div className="mt-4 grid mt-10 grid-cols-2 gap-4">
-      <div>
-        <h4 className="font-medium text-gray-800">Breakfast</h4>
-        <ul className="text-sm text-gray-500 list-none space-y-1">
-          <li>{rate.isRefundable ? 'Refundable' : 'Non-Refundable'}</li>
-          <li>{rate.breakfastIncluded ? 'Daily Breakfast Included' : 'No Breakfast'}</li>
-        </ul>
+      <div className='border-t-2 pt-2 mt-2 overflow-y-scroll' style={{height: "440px"}}>
+
+        {
+          room.rate.map(rate => (
+            <div className=" ml-2 h-16 bg-white border border-teal-500 mb-2 text-teal-500 rounded-lg p-4 flex items-center">
+              {/* rate_name chiếm 5 phần */}
+              <div className="flex-basis-5/8 flex-grow">
+                <h3 className="text-lg font-semibold truncate">{rate.rate_name}</h3>
+              </div>
+              {/* refundable chiếm 1 phần */}
+              <div className="flex-basis-1/8 flex justify-center items-center px-1 ml-5">
+                {rate.refundable ? (
+                  <span className="text-green-500">&#10003; Refunable</span> // Tích xanh
+                ) : (
+                  <span className="text-red-500">&#10007; Non-refunable</span> // Dấu chéo đỏ
+                )}
+              </div>
+              {/* full_rate và price breakdown chiếm 1 phần */}
+              <div className="flex-basis-1/8 text-center ml-5">
+                <p className="text-base font-bold">{rate.full_rate} {rate.currency}</p>
+                <p className="text-xs mt-2 underline cursor-pointer">Price Breakdown</p>
+              </div>
+              {/* button chiếm 1 phần */}
+              <div className="flex-basis-1/8 text-center ml-5">
+                <button className="bg-teal-500 text-white rounded-lg py-2 px-6 hover:bg-teal-800">
+                  Select
+                </button>
+              </div>
+            </div>
+          ))
+        }
       </div>
+
     </div>
-  
-    {/* Select Button */}
-    <div className="mt-4 flex justify-end">
-      <button
-        className={`px-4 py-2 rounded-md ${isSelected ? 'bg-green-500 text-white' : 'bg-teal-500 text-white hover:bg-orange-600'}`}
-        onClick={() => onSelect(room)}
-      >
-        {isSelected ? 'Selected' : 'Select & Book'}
-      </button>
-    </div>
-  </div>
-  
+
   );
 }
 
-  

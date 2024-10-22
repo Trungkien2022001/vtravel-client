@@ -1,17 +1,21 @@
 "use client";
 import HotelList from '@/components/hotel-list/HotelList'
 import HotelPage from '@/components/product/info';
+import ProductList from '@/components/product/product-list';
 import RoomTabs from '@/components/product/rooms';
 import Tour from '@/components/tour/tour';
 import Vehicle from '@/components/vehicle/vehicle';
 import moment from 'moment';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/router';
-import React, { Suspense, useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useRef, useState } from 'react'
+import Guilder from '../guider/page';
 const tabItems = ['Hotels', 'Flights', 'Tours', 'Vehicles', 'Tour Guide', 'Insurances'];
 const Page = () => {
+  const popupHotelDetailRef = useRef(null);
   const searchParams = useSearchParams();
-  const [activeTab, setActiveTab] = useState('Flights');
+  const [activeTab, setActiveTab] = useState('Tour Guide');
+  const [hotelId, setHotelId] = useState('');
   const propertyId = searchParams.get('property_id');
   const propertyType = searchParams.get('property_type');
   const region_name_full = searchParams.get('region_name_full');
@@ -25,11 +29,26 @@ const Page = () => {
   const [tours, setTours] = useState([])
   const [flights, setFlights] = useState([])
   const [vehicles, setVehicles] = useState([])
+  const [isHotelDetailOpen, setHotelDetailOpen] = useState(false);
   const [filters, setFilters] = useState({
     stars: [],
     budget: '',
     location: [],
   });
+
+  // useEffect(() => {
+  //   const handleClickOutside = (event) => {
+  //     if (popupHotelDetailRef.current && !popupHotelDetailRef.current.contains(event.target)) {
+  //       setHotelDetailOpen(false);
+  //       console.log("Kiennnnn")
+  //     }
+  //   };
+
+  //   document.addEventListener('mousedown', handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener('mousedown', handleClickOutside);
+  //   };
+  // }, [isHotelDetailOpen]);
 
   const searchHotels = async () => {
     try {
@@ -181,7 +200,7 @@ const Page = () => {
   };
 
   // const router = useRouter(); 
-  const handleGetRooms = () => {
+  const handleGetRooms = (hotel_id) => {
     // const params = new URLSearchParams({
     //   hotel_id: hotel.hotel_id,
     //   checkin: conditional.checkin,
@@ -191,6 +210,112 @@ const Page = () => {
     // }).toString();
     // // router.replace(`/products?${params}`);
     // router.push(`/products?${params}`);
+    setHotelDetailOpen(true);
+    setHotelId(hotel_id)
+  }
+
+  const Hotel = () => {
+    const searchParams = useSearchParams();
+    const checkin = searchParams.get('checkin');
+    const checkout = searchParams.get('checkout');
+    const rooms = JSON.parse(searchParams.get('rooms') || '{}');
+    const currency = searchParams.get('currency');
+    const [hotel, setHotel] = useState({} as any)
+    const searchHotelsByRegion = async () => {
+      try {
+        const data = {
+          rooms,
+          checkin,
+          checkout,
+          hotel_id: hotelId,
+          currency
+        }
+        const _res = await fetch(
+          `${process.env.NEXT_PUBLIC_MICRO_SERVICE_URL}/api/v1/hotel/detail`,
+          {
+            method: "POST", // HTTP method
+            headers: {
+              "x-key": "superkey", // Add x-key header
+              "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwid29ya3NwYWNlIjoiYWdlbnQsIiwiaWF0IjoxNzI5NDMxNDEzLCJleHAiOjE4MTU4MzE0MTN9.Td4LHircGbJxDfepwE4oMkQfM-tbXqOgPf9o7DLhEsQ", // Add your access token
+              "Content-Type": "application/json", // Make sure you're sending JSON
+            },
+            body: JSON.stringify(data),
+            cache: "no-cache", // Avoid caching the response
+          }
+        );
+
+        if (!_res.ok) {
+          throw new Error("Failed to search hotels");
+        }
+
+        const res = await _res.json();
+        setHotel(res.data)
+        return res.data // Handle the response (e.g., update the UI or state)
+      } catch (error) {
+        console.error("Error searching hotels:", error);
+      }
+    };
+    const getData = async () => {
+
+      await searchHotelsByRegion()
+    }
+    useEffect(() => {
+      getData()
+    }, [])
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        {hotel.id ?
+          <div className="max-w-7xl mx-auto">
+            <div className="max-w-7xl mx-auto mb-5 bg-white shadow-lg rounded-lg overflow-hidden">
+              {/* Hotel Name and Star Rating */}
+              <div className="px-6 py-4">
+                <h1 className="text-2xl font-semibold text-teal-500">{hotel.name}</h1>
+                <div className="flex items-center mt-1">
+                  {/* Placeholder for star rating (replace with dynamic star rating if available) */}
+                  <span className="text-yellow-500 text-lg">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                </div>
+              </div>
+
+              <div className="flex">
+                <div className="w-1/2">
+                  <img
+                    src={hotel.images[0].urls[2].url}
+                    alt={hotel.name}
+                    width={480}
+                    height={480}
+                    className="w-full max-h-[480px] object-contain rounded-lg"
+                  />
+                </div>
+
+                <div className="w-1/2 grid grid-cols-3 gap-3 pl-3 overflow-y-scroll" style={{ height: "500px" }}>
+                  {hotel.images.map((image, idx) => (
+                    <img
+                      key={idx}
+                      src={image.urls[0].url}
+                      alt={`Image ${idx + 1}`}
+                      className="w-full h-40 object-cover rounded-lg"
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Address Section */}
+              <div className="px-6 py-4">
+                <div className="flex items-center">
+                  <span className="text-gray-600 text-sm font-medium">Address</span>
+                  <p className="ml-2 text-gray-800">{hotel.address}</p>
+                </div>
+              </div>
+            </div>
+
+            <ProductList rooms={hotel.rooms} />
+
+            <HotelPage />
+          </div>
+          : <></>}
+
+      </Suspense>
+    );
   }
 
   const handleFilterChange = (event) => {
@@ -214,6 +339,12 @@ const Page = () => {
     // Tạo chuỗi kết quả dạng "xx hours, xx minutes"
     return `${hours}h${minutes}m`;
   }
+
+
+  // Function to close the popup
+  const handleClose = () => {
+    setHotelDetailOpen(false);
+  };
 
   const getTransferByRegion = async () => {
     try {
@@ -331,39 +462,39 @@ const Page = () => {
           {/* Inbound Flight */}
           <div>
             {flight.inbound.map((leg, index) => (
-             <div key={index} className="flex items-center mb-1">
-             <div className="w-14 h-14 mr-5 rounded-3xl bg-teal-500 text-white flex items-center justify-center text-xl font-bold">
-               {airlineName}
-             </div>
-             <div key={index} className="flex flex-grow flex-col items-center">
-               {/* Row for time */}
-               <div className="flex justify-between items-center w-full text-sm text-teal-500 px-8 py-1">
-                 {/* Departure time */}
-                 <p>{leg.departure_airport_code}</p>
+              <div key={index} className="flex items-center mb-1">
+                <div className="w-14 h-14 mr-5 rounded-3xl bg-teal-500 text-white flex items-center justify-center text-xl font-bold">
+                  {airlineName}
+                </div>
+                <div key={index} className="flex flex-grow flex-col items-center">
+                  {/* Row for time */}
+                  <div className="flex justify-between items-center w-full text-sm text-teal-500 px-8 py-1">
+                    {/* Departure time */}
+                    <p>{leg.departure_airport_code}</p>
 
-                 <div className="relative w-full mx-4 ">
-                   <hr className="border-gray-300" />
-                   <div className="absolute inset-0 flex items-center justify-center">
-                     <span className="bg-white px-2">
-                       {leg.flight_no}
-                     </span>
-                     <div className='relative'>
+                    <div className="relative w-full mx-4 ">
+                      <hr className="border-gray-300" />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="bg-white px-2">
+                          {leg.flight_no}
+                        </span>
+                        <div className='relative'>
 
 
-                     </div>
-                   </div>
-                 </div>
+                        </div>
+                      </div>
+                    </div>
 
-                 <p>{leg.arrival_airport_code}</p>
-               </div>
+                    <p>{leg.arrival_airport_code}</p>
+                  </div>
 
-               <div className="flex justify-between items-center w-full text-sm text-gray-500 ">
-                 <p>{moment(leg.departure_date_time).format('HH:mm DD/MM/YY')}</p>
-                 <p>{calculateDuration(leg)}</p>
-                 <p>{moment(leg.arrival_date_time).format('HH:mm DD/MM/YY')}</p>
-               </div>
-             </div>
-           </div>
+                  <div className="flex justify-between items-center w-full text-sm text-gray-500 ">
+                    <p>{moment(leg.departure_date_time).format('HH:mm DD/MM/YY')}</p>
+                    <p>{calculateDuration(leg)}</p>
+                    <p>{moment(leg.arrival_date_time).format('HH:mm DD/MM/YY')}</p>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -488,8 +619,8 @@ const Page = () => {
                     </div>
                     <div className="w-3/4">
                       {hotels?.length > 0 ? (
-                        hotels?.slice(0, 10).map((hotel, index) => (
-                          <div className="flex border rounded-lg shadow-sm p-4 mb-4 bg-white">
+                        hotels?.slice(0, 250).map((hotel, index) => (
+                          <div key= {index} className="flex border rounded-lg shadow-sm p-4 mb-4 bg-white">
                             <img
                               src={hotel.images?.[0]?.url}
                               alt={hotel.name}
@@ -511,7 +642,7 @@ const Page = () => {
                               <p className="text-teal-500 text-xl font-semibold">
                                 {hotel.total_price} {hotel.price_currency} <span className="text-sm">per night</span>
                               </p>
-                              <button className="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600" onClick={handleGetRooms}>
+                              <button className="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600" onClick={() => handleGetRooms(hotel.hotel_id)}>
                                 Select
                               </button>
                               <button className="mt-2 text-blue-500 hover:underline">
@@ -620,8 +751,11 @@ const Page = () => {
                   </div>}
                 {activeTab === 'Tours' && <Tour tours={tours} />}
                 {activeTab === 'Vehicles' && <Vehicle vehicles={vehicles} />}
-                {activeTab === 'Tour Guide' && <div className='text-center font-bold text-xl text-teal-500'>Total: 0 Tour Guide!</div>}
-                {activeTab === 'Insurances' && <div className='text-center font-bold text-xl text-teal-500'>Total: 0 Insurance!</div>}
+                {activeTab === 'Tour Guide' && <Guilder />}
+                {activeTab === 'Insurances' && <div className=' px-24 text-center font-bold text-2xl text-teal-500'>
+                  Currently, we offer only one insurance service: You can enjoy your travel experience with peace of mind.
+                  If anything differs from what we have described, please call our customer service center.
+                  If what you report is correct, you will receive a full refund of your travel expenses.!</div>}
               </div>
             </div>
           </div>
@@ -670,6 +804,22 @@ const Page = () => {
               CONTINUE
             </button>
           </div>
+
+          {isHotelDetailOpen && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+              <div className="bg-gray-100 w-full max-w-7xl h-full max-h-[95vh] p-6 relative rounded-lg overflow-auto">
+                {/* Close button */}
+                <button
+                  className="absolute top-0 right-0 text-red-400 text-6xl font-bold bg-gray-500 rounded-full w-16 h-16"
+                  onClick={handleClose}
+                >
+                  &times;
+                </button>
+                {/* Hotel Detail Content */}
+                <Hotel />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </Suspense>
