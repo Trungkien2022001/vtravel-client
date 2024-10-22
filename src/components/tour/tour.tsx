@@ -4,7 +4,7 @@ const Tour = ({ tours }) => {
   console.log(tours)
   return (
     <>
-    <div className='text-center text-2xl font-bold'>Your tour explore</div>
+    <div className='text-center font-bold text-xl text-teal-500'>Total: {tours?.length} tours!</div>
       {tours.slice(0, 5).map(tour => (
         <div key={tour.id} className="max-w-4xl mt-5 mx-auto p-6 bg-white shadow-md rounded-lg">
           {/* Header Section */}
@@ -61,9 +61,9 @@ const Tour = ({ tours }) => {
           {/* </div> */}
           {/* Booking Button */}
           <div className="text-center">
-            <button className="bg-teal-500 text-white py-2 px-4rounded-lg text-lg">
-              BOOK NOW - SR 960.00
-            </button>
+          <button className="bg-white text-teal-500 rounded-lg py-2 px-6 mt-4 hover:bg-gray-200">
+          Select
+        </button>
           </div>
         </div>
 

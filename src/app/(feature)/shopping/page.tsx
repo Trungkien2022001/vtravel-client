@@ -12,7 +12,6 @@ const tabItems = ['Hotels', 'Flights', 'Tours', 'Vehicles', 'Tour Guide', 'Insur
 const Page = () => {
   const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState('Flights');
-  const region_id = searchParams.get('property_id');
   const propertyId = searchParams.get('property_id');
   const propertyType = searchParams.get('property_type');
   const region_name_full = searchParams.get('region_name_full');
@@ -89,18 +88,33 @@ const Page = () => {
 
   const getToursByRegion = async () => {
     try {
-      const data = {
+      const data: any = {
         checkin,
         duration: 1,
         adult: rooms.reduce((s, r) => r.adult + s, 0),
         children: rooms.reduce((s, r) => r.children + s, 0),
         infant: rooms.reduce((s, r) => r.infant + s, 0),
         currency: "USD",
-        region_id: "1428"
       };
 
+      let searchType = ''
+      switch (propertyType) {
+        case 'region':
+          data.region_id = propertyId
+          searchType = 'region'
+          break;
+
+        case 'airport':
+          data.airport_code = propertyId
+          searchType = 'airport-code'
+          break;
+
+        default:
+          break;
+      }
+
       const _res = await fetch(
-        `${process.env.NEXT_PUBLIC_MICRO_SERVICE_URL}/api/v1/tour/search/region`,
+        `${process.env.NEXT_PUBLIC_MICRO_SERVICE_URL}/api/v1/tour/search/${searchType}`,
         {
           method: "POST", // HTTP method
           headers: {
@@ -203,18 +217,32 @@ const Page = () => {
 
   const getTransferByRegion = async () => {
     try {
-      const data = {
+      const data: any = {
         checkin,
         duration: 1,
         adult: rooms.reduce((s, r) => r.adult + s, 0),
         children: rooms.reduce((s, r) => r.children + s, 0),
         infant: rooms.reduce((s, r) => r.infant + s, 0),
         currency: "USD",
-        region_id: "1428"
       };
 
+      let searchType = ''
+      switch (propertyType) {
+        case 'region':
+          data.region_id = propertyId
+          searchType = 'region'
+          break;
+
+        case 'airport':
+          data.airport_code = propertyId
+          searchType = 'airport-code'
+          break;
+
+        default:
+          break;
+      }
       const _res = await fetch(
-        `${process.env.NEXT_PUBLIC_MICRO_SERVICE_URL}/api/v1/vehicle/search/region`,
+        `${process.env.NEXT_PUBLIC_MICRO_SERVICE_URL}/api/v1/vehicle/search/${searchType}`,
         {
           method: "POST", // HTTP method
           headers: {
@@ -377,7 +405,7 @@ const Page = () => {
 
               <div>
                 {activeTab === 'Hotels' && <>
-                  <div className='text-center font-bold text-2xl'>We find {hotels?.length} hotels!</div>
+                  <div className='text-center font-bold text-xl text-teal-500'>Total: {hotels?.length} hotels!</div>
                   <div className="flex">
                     <div className="w-1/4">
                       <div className="w-64 bg-white border p-4 rounded-lg shadow-sm">
@@ -499,98 +527,101 @@ const Page = () => {
                   </div>
                 </>}
                 {activeTab === 'Flights' &&
-                  <div className="min-h-screen bg-gray-100 flex">
-                    <div className="w-1/4 p-8">
-                      <div className="w-64 bg-white border p-4 rounded-lg shadow-sm">
-                        <h2 className="text-lg font-bold mb-4">Filters</h2>
+                  <div className="min-h-screen bg-gray-100">
+                    <div className='text-center font-bold text-xl text-teal-500'>Total: {flights?.length} flights!</div>
+                    <div className='flex'>
+                      <div className="w-1/4">
+                        <div className="w-64 bg-white border p-4 rounded-lg shadow-sm">
+                          <h2 className="text-lg font-bold mb-4">Filters</h2>
 
-                        <div className="mb-4">
-                          <h3 className="font-semibold mb-2">Stars</h3>
-                          <div className="space-y-2">
-                            {[1, 2, 3, 4, 5].map((star) => (
-                              <label key={star} className="flex items-center space-x-2">
-                                <input
-                                  type="checkbox"
-                                  name="stars"
-                                  value={star}
-                                  onChange={handleFilterChange}
-                                  className="form-checkbox"
-                                />
-                                <span>{star} Stars</span>
-                              </label>
-                            ))}
-                          </div>
-                        </div>
-
-                        <div className="mb-4">
-                          <h3 className="font-semibold mb-2">Budget</h3>
-                          <div className="space-y-2">
-                            <label className="flex items-center space-x-2">
-                              <input
-                                type="radio"
-                                name="budget"
-                                value="0-100"
-                                onChange={handleFilterChange}
-                                className="form-radio"
-                              />
-                              <span>Less than SR 100</span>
-                            </label>
-                            <label className="flex items-center space-x-2">
-                              <input
-                                type="radio"
-                                name="budget"
-                                value="100-500"
-                                onChange={handleFilterChange}
-                                className="form-radio"
-                              />
-                              <span>SR 100 - SR 500</span>
-                            </label>
-                            <label className="flex items-center space-x-2">
-                              <input
-                                type="radio"
-                                name="budget"
-                                value="500-1000"
-                                onChange={handleFilterChange}
-                                className="form-radio"
-                              />
-                              <span>SR 500 - SR 1000</span>
-                            </label>
-                          </div>
-                        </div>
-
-                        <div>
-                          <h3 className="font-semibold mb-2">Nearby Locations</h3>
-                          <div className="space-y-2">
-                            {['Central Fish Market', 'Shorbanty House', 'Fakieh Aquarium'].map(
-                              (location) => (
-                                <label key={location} className="flex items-center space-x-2">
+                          <div className="mb-4">
+                            <h3 className="font-semibold mb-2">Stars</h3>
+                            <div className="space-y-2">
+                              {[1, 2, 3, 4, 5].map((star) => (
+                                <label key={star} className="flex items-center space-x-2">
                                   <input
                                     type="checkbox"
-                                    name="location"
-                                    value={location}
+                                    name="stars"
+                                    value={star}
                                     onChange={handleFilterChange}
                                     className="form-checkbox"
                                   />
-                                  <span>{location}</span>
+                                  <span>{star} Stars</span>
                                 </label>
-                              )
-                            )}
+                              ))}
+                            </div>
+                          </div>
+
+                          <div className="mb-4">
+                            <h3 className="font-semibold mb-2">Budget</h3>
+                            <div className="space-y-2">
+                              <label className="flex items-center space-x-2">
+                                <input
+                                  type="radio"
+                                  name="budget"
+                                  value="0-100"
+                                  onChange={handleFilterChange}
+                                  className="form-radio"
+                                />
+                                <span>Less than SR 100</span>
+                              </label>
+                              <label className="flex items-center space-x-2">
+                                <input
+                                  type="radio"
+                                  name="budget"
+                                  value="100-500"
+                                  onChange={handleFilterChange}
+                                  className="form-radio"
+                                />
+                                <span>SR 100 - SR 500</span>
+                              </label>
+                              <label className="flex items-center space-x-2">
+                                <input
+                                  type="radio"
+                                  name="budget"
+                                  value="500-1000"
+                                  onChange={handleFilterChange}
+                                  className="form-radio"
+                                />
+                                <span>SR 500 - SR 1000</span>
+                              </label>
+                            </div>
+                          </div>
+
+                          <div>
+                            <h3 className="font-semibold mb-2">Nearby Locations</h3>
+                            <div className="space-y-2">
+                              {['Central Fish Market', 'Shorbanty House', 'Fakieh Aquarium'].map(
+                                (location) => (
+                                  <label key={location} className="flex items-center space-x-2">
+                                    <input
+                                      type="checkbox"
+                                      name="location"
+                                      value={location}
+                                      onChange={handleFilterChange}
+                                      className="form-checkbox"
+                                    />
+                                    <span>{location}</span>
+                                  </label>
+                                )
+                              )}
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div className='w-3/4 p-8'>
+                      <div className='w-3/4'>
 
-                      {
-                        flights.map((flightData) => (<FlightCard {...flightData} />))
-                      }
+                        {
+                          flights.map((flightData) => (<FlightCard {...flightData} />))
+                        }
+                      </div>
                     </div>
 
                   </div>}
                 {activeTab === 'Tours' && <Tour tours={tours} />}
                 {activeTab === 'Vehicles' && <Vehicle vehicles={vehicles} />}
-                {activeTab === 'Tour Guide' && <div>Tour Guide</div>}
-                {activeTab === 'Insurances' && <div>Insurances</div>}
+                {activeTab === 'Tour Guide' && <div className='text-center font-bold text-xl text-teal-500'>Total: 0 Tour Guide!</div>}
+                {activeTab === 'Insurances' && <div className='text-center font-bold text-xl text-teal-500'>Total: 0 Insurance!</div>}
               </div>
             </div>
           </div>
