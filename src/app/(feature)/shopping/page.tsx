@@ -186,6 +186,21 @@ const Page = () => {
     });
   };
 
+  function calculateDuration(leg) {
+    const departureTime = moment(leg.departure_date_time);
+    const arrivalTime = moment(leg.arrival_date_time);
+
+    // Tính sự khác biệt về phút
+    const totalMinutes = arrivalTime.diff(departureTime, 'minutes');
+
+    // Tính giờ và phút
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+
+    // Tạo chuỗi kết quả dạng "xx hours, xx minutes"
+    return `${hours}h${minutes}m`;
+  }
+
   const getTransferByRegion = async () => {
     try {
       const data = {
@@ -243,42 +258,43 @@ const Page = () => {
     const airlineName = flight.flight_id.substring(0, 2)
     return (
 
-      <div className="flex border rounded-lg shadow-sm p-4 mb-4 bg-white" style={{width: "850px"}}>
+      <div className="flex border rounded-lg shadow-sm p-4 mb-4 bg-white">
         {/* Left side with flight details */}
         <div className="flex flex-col w-3/4">
           {/* Outbound Flight */}
-          <div className="border-b mb-1">
+          <div className="border-b mb-5">
             {flight.outbound.map((leg, index) => (
-             <div key={index} className="flex items-center mb-4">
-             <img src={airlineName} alt={airlineName} className="w-16 h-16 rounded-md mr-4" />
-             <div key={index} className="flex flex-col items-center mb-4">
-             {/* Row for time */}
-             <div className="flex justify-between items-center w-96 text-sm text-gray-600">
-               {/* Departure time */}
-               <p>{leg.departure_date_time}</p>
+              <div key={index} className="flex items-center mt-1">
+                <img src={airlineName} alt={airlineName} className="w-16 h-16 rounded-md mr-4" />
+                <div key={index} className="flex flex-col items-center">
+                  {/* Row for time */}
+                  <div className="flex justify-between items-center w-96 text-sm text-teal-500 px-8 py-1">
+                    {/* Departure time */}
+                    <p>{leg.departure_airport_code}</p>
 
-               <div className="relative w-full mx-4">
-                 <hr className="border-gray-300" />
-                 <div className="absolute inset-0 flex items-center justify-center">
-                   <span className="bg-white px-2 text-orange-500">
-                     {"4h20"} {/* Example: 10h 35m */}
-                   </span>
-                   <div className='relative'>
-                    <img src="/path-to-plane-icon.svg" alt="plane icon" className="w-4 h-4 ml-2" />
-                      <p className="absolute text-teal-500 mt-2">{leg.flight_no}</p>
-                   </div>
-                 </div>
-               </div>
+                    <div className="relative w-full mx-4 ">
+                      <hr className="border-gray-300" />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="bg-white px-2">
+                          {leg.flight_no}
+                        </span>
+                        <div className='relative'>
 
-               <p>{leg.arrival_date_time}</p>
-             </div>
 
-             <div className="flex justify-between items-center w-full text-sm text-gray-500 mt-2">
-               <p>{leg.departure_airport_code}</p>
-               <p>{leg.arrival_airport_code}</p>
-             </div>
-           </div>
-           </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <p>{leg.arrival_airport_code}</p>
+                  </div>
+
+                  <div className="flex justify-between items-center w-full text-sm text-gray-500 ">
+                    <p>{moment(leg.departure_date_time).format('HH:mm DD/MM/YY')}</p>
+                    <p>{calculateDuration(leg)}</p>
+                    <p>{moment(leg.arrival_date_time).format('HH:mm DD/MM/YY')}</p>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
 
@@ -288,42 +304,44 @@ const Page = () => {
               <div key={index} className="flex items-center mb-4">
                 <img src={airlineName} alt={airlineName} className="w-16 h-16 rounded-md mr-4" />
                 <div key={index} className="flex flex-col items-center mb-4">
-                {/* Row for time */}
-                <div className="flex justify-between items-center w-96 text-sm text-gray-600">
-                  {/* Departure time */}
-                  <p>{leg.departure_date_time}</p>
+                  {/* Row for time */}
+                  <div className="flex justify-between items-center w-96 text-sm text-teal-500 px-8">
+                    {/* Departure time */}
+                    <p>{leg.departure_airport_code}</p>
 
-                  <div className="relative w-full mx-4">
-                    <hr className="border-gray-300" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="bg-white px-2 text-orange-500">
-                        {leg.duration} {/* Example: 10h 35m */}
-                      </span>
-                      <img src="/path-to-plane-icon.svg" alt="plane icon" className="w-4 h-4 ml-2" />
+                    <div className="relative w-full mx-4 ">
+                      <hr className="border-gray-300" />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="bg-white px-2">
+                          {leg.flight_no}
+                        </span>
+                        <div className='relative'>
+
+
+                        </div>
+                      </div>
                     </div>
+
+                    <p>{leg.arrival_airport_code}</p>
                   </div>
 
-                  <p>{leg.arrival_date_time}</p>
+                  <div className="flex justify-between items-center w-full text-sm text-gray-500 ">
+                    <p>{moment(leg.departure_date_time).format('HH:mm DD/MM/YY')}</p>
+                    <p>{calculateDuration(leg)}</p>
+                    <p>{moment(leg.arrival_date_time).format('HH:mm DD/MM/YY')}</p>
+                  </div>
                 </div>
-
-                <div className="flex justify-between items-center w-full text-sm text-gray-500 mt-2">
-                  <p>{leg.departure_airport_code} (and vicinity)</p>
-                  <p className="text-orange-500">Via {leg.layover_airport_code}</p>
-                  <p>{leg.arrival_airport_code}</p>
-                </div>
-                <p className="text-teal-500 mt-2">{leg.flight_no}</p>
-              </div>
               </div>
             ))}
           </div>
         </div>
 
         {/* Right side with price and actions */}
-        <div className="bg-orange-500 text-white rounded-lg p-4 text-center w-64 flex flex-col justify-center">
+        <div className="ml-5 bg-white border border-teal-500 text-teal-500 rounded-lg p-4 text-center w-64 flex flex-col">
           <p className="text-lg">PRICE</p>
-          <p className="text-2xl font-bold">{flight.fares[0].total_fare}</p>
+          <p className="text-2xl font-bold">{flight.fares[0].total_fare} {flight.fares[0].currency}</p>
           <p className="text-sm">Round Trip</p>
-          <button className="bg-white text-orange-500 rounded-lg py-2 px-6 mt-4 hover:bg-gray-200">
+          <button className="bg-teal-500 text-white rounded-lg py-2 px-6 mt-4 hover:bg-teal-800">
             Select
           </button>
           <p className="text-xs mt-2 underline cursor-pointer">Price Breakdown</p>
@@ -335,8 +353,8 @@ const Page = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div className="min-h-screen bg-gray-100 p-8 mx">
-        <h1 className=" mx-28 text-2xl font-bold">Your stay in {region_name_full}</h1>
-        <div className='mx-28 flex w-full'>
+        <h1 className=" mx-12 text-2xl font-bold">Your stay in {region_name_full}</h1>
+        <div className='mx-12 flex'>
 
           <div className="product ">
             <div className="mt-2">
@@ -437,7 +455,7 @@ const Page = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="w-3/4 pl-8">
+                    <div className="w-3/4">
                       {hotels?.length > 0 ? (
                         hotels?.slice(0, 10).map((hotel, index) => (
                           <div className="flex border rounded-lg shadow-sm p-4 mb-4 bg-white">
@@ -567,7 +585,7 @@ const Page = () => {
 
                   </div>}
                 {activeTab === 'Tours' && <Tour tours={tours} />}
-                {activeTab === 'Vehicles' &&  <Vehicle vehicles={vehicles} />}
+                {activeTab === 'Vehicles' && <Vehicle vehicles={vehicles} />}
                 {activeTab === 'Tour Guide' && <p>Tour Guide</p>}
                 {activeTab === 'Insurances' && <p>Insurances</p>}
               </div>
