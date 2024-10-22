@@ -9,6 +9,12 @@ import moment from 'moment';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/router';
 import React, { Suspense, useEffect, useRef, useState } from 'react'
+import FlightIcon from '@mui/icons-material/Flight';
+import HotelOutlinedIcon from '@mui/icons-material/HotelOutlined';
+import TourOutlinedIcon from '@mui/icons-material/TourOutlined';
+import DirectionsCarFilledOutlinedIcon from '@mui/icons-material/DirectionsCarFilledOutlined';
+import SupportAgentOutlinedIcon from '@mui/icons-material/SupportAgentOutlined';
+import HealthAndSafetyOutlinedIcon from '@mui/icons-material/HealthAndSafetyOutlined';
 import Guilder from '../guider/page';
 const tabItems = ['Hotels', 'Flights', 'Tours', 'Vehicles', 'Tour Guide', 'Insurances'];
 const Page = () => {
@@ -620,7 +626,7 @@ const Page = () => {
                     <div className="w-3/4">
                       {hotels?.length > 0 ? (
                         hotels?.slice(0, 250).map((hotel, index) => (
-                          <div key= {index} className="flex border rounded-lg shadow-sm p-4 mb-4 bg-white">
+                          <div key={index} className="flex border rounded-lg shadow-sm p-4 mb-4 bg-white">
                             <img
                               src={hotel.images?.[0]?.url}
                               alt={hotel.name}
@@ -759,50 +765,84 @@ const Page = () => {
               </div>
             </div>
           </div>
-          <div className="bg-white shadow-lg rounded-lg p-6 w-96 mx-5 mt-15">
+          <div className="bg-white shadow-lg rounded-lg p-6 w-[450px] mx-5 mt-15">
             <h2 className="text-xl font-bold mb-4">Prices</h2>
+            <hr className="mb-5" />
             <div className="space-y-4">
               <div className="flex justify-between items-center">
                 <div className="flex items-center space-x-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 21h4M8 3h4M8 16h4M9.5 21l-1.75-2M9.5 3L7.75 5M9.5 16L7.75 18M15.5 21l1.75-2M15.5 3L17.25 5M15.5 16l1.75 2" />
-                  </svg>
-                  <span>DOH - JED - DOH</span>
+                  <FlightIcon className='text-teal-500' />
+                  <span className="text-sm overflow-hidden text-ellipsis line-clamp-2 max-w-[200px]">
+                    VJ197-VJ194-VJ197-VJ194-VJ197-VJ194
+                  </span>
                 </div>
-                <span>SR 1,072.40</span>
+                <span className="whitespace-nowrap min-w-16 text-teal-500 ml-2">USD 1101.01</span>
               </div>
-
+              <hr className="" />
               <div className="flex justify-between items-center">
                 <div className="flex items-center space-x-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 20h12M6 8h12M6 4h12M6 12h12" />
-                  </svg>
-                  <span>Dara Hamra</span>
+                  <HotelOutlinedIcon className='text-teal-500' />
+                  <span className="text-sm overflow-hidden text-ellipsis line-clamp-2 max-w-[200px]">
+                    Free Airport Misaki Hotel by VOOH
+                  </span>
                 </div>
-                <span>SR 743.25</span>
+                <span className="whitespace-nowrap min-w-16 text-teal-500 ml-2">USD 1101.01</span>
               </div>
-
+              <hr className="" />
               <div className="flex justify-between items-center">
                 <div className="flex items-center space-x-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6M6 16h12" />
-                  </svg>
-                  <span>Airline Taxes And Fees</span>
+                  <TourOutlinedIcon className='text-teal-500' />
+                  <span className="text-sm overflow-hidden text-ellipsis line-clamp-2 max-w-[200px]">
+                    Free Airport Misaki Hotel by VOOH
+                  </span>
                 </div>
-                <span>SR 1,123.47</span>
+                <span className="whitespace-nowrap min-w-16 text-teal-500 ml-2">USD 1101.01</span>
               </div>
-
-              <hr className="my-2" />
-
-              <div className="flex justify-between items-center font-bold text-lg">
-                <span>Total</span>
-                <span>SR 2,939.12</span>
+              <hr className="" />
+              <div className="flex justify-between items-center">
+                <div className="flex items-center space-x-2">
+                  <DirectionsCarFilledOutlinedIcon className='text-teal-500' />
+                  <span className="text-sm overflow-hidden text-ellipsis line-clamp-2 max-w-[200px]">
+                    Free Airport Misaki Hotel by VOOH
+                  </span>
+                </div>
+                <span className="whitespace-nowrap min-w-16 text-teal-500 ml-2">USD 1101.01</span>
               </div>
+              <hr className="" />
+              <div className="flex justify-between items-center">
+                <div className="flex items-center space-x-2">
+                  <SupportAgentOutlinedIcon className='text-teal-500' />
+                  <span className="text-sm overflow-hidden text-ellipsis line-clamp-2 max-w-[200px]">
+                    Free Airport Misaki Hotel by VOOH
+                  </span>
+                </div>
+                <span className="whitespace-nowrap min-w-16 text-teal-500 ml-2">USD 1101.01</span>
+              </div>
+              <hr className="" />
             </div>
 
-            <button className="mt-6 w-full bg-teal-500 text-white py-3 rounded-lg font-bold">
-              CONTINUE
+            <button className="mt-6 w-full bg-teal-500 text-white py-2 rounded-lg font-bold flex flex-col items-center">
+              <span className='text-lg'>CONTINUE</span>
+              <span className="text-sm mt-1">1200 USD</span>
             </button>
+            <hr className='mt-16 mb-5' />
+            <div className="flex justify-between items-center">
+              <div className="flex items-center space-x-2">
+                <HealthAndSafetyOutlinedIcon className='text-teal-500' />
+                <span className="text-sm overflow-hidden text-ellipsis line-clamp-2 max-w-[200px]">
+                  Travel Insurance
+                </span>
+              </div>
+              <span className="whitespace-nowrap min-w-16 text-teal-500 ml-2">USD 1101.01</span>
+            </div>
+            <hr className="mt-5" />
+
+            <button className="mt-6 w-full bg-teal-500 text-white py-2 rounded-lg font-bold flex flex-col items-center">
+              <span className='text-lg'>CONTINUE WITH INSURANCES</span>
+              <span className="text-sm mt-1">1200 USD</span>
+            </button>
+
+            <div className='text-sm text-teal-500 mt-2'>Adding travel insurance ensures your safety and protects your rights during unexpected events on your journey.</div>
           </div>
 
           {isHotelDetailOpen && (
