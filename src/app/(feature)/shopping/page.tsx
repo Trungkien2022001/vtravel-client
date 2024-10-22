@@ -264,8 +264,10 @@ const Page = () => {
           {/* Outbound Flight */}
           <div className="border-b mb-5">
             {flight.outbound.map((leg, index) => (
-              <div key={index} className="flex items-center mt-1">
-                <img src={airlineName} alt={airlineName} className="w-16 h-16 rounded-md mr-4" />
+              <div key={index} className="flex items-center mb-1">
+                <div className="w-14 h-14 rounded-3xl bg-teal-500 text-white flex items-center justify-center text-xl font-bold">
+                  {airlineName}
+                </div>
                 <div key={index} className="flex flex-col items-center">
                   {/* Row for time */}
                   <div className="flex justify-between items-center w-96 text-sm text-teal-500 px-8 py-1">
@@ -301,11 +303,13 @@ const Page = () => {
           {/* Inbound Flight */}
           <div>
             {flight.inbound.map((leg, index) => (
-              <div key={index} className="flex items-center mb-4">
-                <img src={airlineName} alt={airlineName} className="w-16 h-16 rounded-md mr-4" />
-                <div key={index} className="flex flex-col items-center mb-4">
+              <div key={index} className="flex items-center mb-1">
+                <div className="w-14 h-14 rounded-3xl bg-teal-500 text-white flex items-center justify-center text-xl font-bold">
+                  {airlineName}
+                </div>
+                <div key={index} className="flex flex-col items-center">
                   {/* Row for time */}
-                  <div className="flex justify-between items-center w-96 text-sm text-teal-500 px-8">
+                  <div className="flex justify-between items-center w-96 text-sm text-teal-500 px-8 py-1">
                     {/* Departure time */}
                     <p>{leg.departure_airport_code}</p>
 
@@ -353,10 +357,9 @@ const Page = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div className="min-h-screen bg-gray-100 p-8 mx">
-        <h1 className=" mx-12 text-2xl font-bold">Your stay in {region_name_full}</h1>
+        <h1 className=" mx-12 text-2xl font-bold">Your trip in {region_name_full}</h1>
         <div className='mx-12 flex'>
-
-          <div className="product ">
+          <div className="product w-full">
             <div className="mt-2">
               <div className="border-b border-gray-200 mb-4">
                 <nav className="flex space-x-6 justify-between">
@@ -460,7 +463,7 @@ const Page = () => {
                         hotels?.slice(0, 10).map((hotel, index) => (
                           <div className="flex border rounded-lg shadow-sm p-4 mb-4 bg-white">
                             <img
-                              src={hotel.images?.[1]?.url}
+                              src={hotel.images?.[0]?.url}
                               alt={hotel.name}
                               className="w-32 h-32 object-cover rounded-md"
                             />
@@ -586,8 +589,8 @@ const Page = () => {
                   </div>}
                 {activeTab === 'Tours' && <Tour tours={tours} />}
                 {activeTab === 'Vehicles' && <Vehicle vehicles={vehicles} />}
-                {activeTab === 'Tour Guide' && <p>Tour Guide</p>}
-                {activeTab === 'Insurances' && <p>Insurances</p>}
+                {activeTab === 'Tour Guide' && <div>Tour Guide</div>}
+                {activeTab === 'Insurances' && <div>Insurances</div>}
               </div>
             </div>
           </div>

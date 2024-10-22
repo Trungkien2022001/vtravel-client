@@ -29,14 +29,14 @@ const Tour = ({ tours }) => {
               <Image
                 src="https://scontent-iad3-1.xx.fbcdn.net/v/t39.30808-1/454777130_2130759000652254_1868790218362913884_n.jpg?stp=dst-jpg_s320x320&_nc_cat=107&ccb=1-7&_nc_sid=0ecb9b&_nc_eui2=AeFkUNNe71-8oYMfC-lgaeQGjywSi-aSyzyPLBKL5pLLPOe-OYC05AC9Q_-_ld9QDUPM6f10No2bR07iQPa0wIqX&_nc_ohc=1vXVpisGh24Q7kNvgF6pN3Y&_nc_ht=scontent-iad3-1.xx&_nc_gid=A4PeXp1jomjAtL5nA3N9pPw&oh=00_AYCS1d9IwiwWbF9bW0BWeX5C_Z8OcYFWteJ5PSgbY5_EJw&oe=670D5801"
                 alt="Saudi Flag"
-                width={200}
-                height={200}
+                width={206}
+                height={206}
                 className="rounded-md"
               />
             </div>
 
             {/* Description with flex-2 */}
-            <div className="bg-gray-100 p-4 rounded-lg mb-6 basis-3/4">
+            <div className="bg-gray-100 p-4 rounded-lg mb-6 basis-3/4 max-h-52 w-52 overflow-y-scroll">
               <h2 className="text-xl font-semibold mb-3">Overview</h2>
               <div dangerouslySetInnerHTML={{ __html: tour.description }} />
             </div>
