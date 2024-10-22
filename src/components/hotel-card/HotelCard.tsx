@@ -37,10 +37,10 @@ export default function HotelCard({ hotel, conditional }) {
           </div>
         </div>
         <div className="flex flex-col justify-between items-end">
-          <p className="text-orange-500 text-xl font-semibold">
+          <p className="text-teal-500 text-xl font-semibold">
             {hotel.total_price} {hotel.price_currency} <span className="text-sm">per night</span>
           </p>
-          <button className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600" onClick={handleGetRooms}>
+          <button className="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600" onClick={handleGetRooms}>
             Select
           </button>
           <button className="mt-2 text-blue-500 hover:underline">

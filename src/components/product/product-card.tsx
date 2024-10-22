@@ -11,7 +11,7 @@ export default function ProductCard({ room, selectedRoom, onSelect }) {
   // console.log(room.images[0].urls[0].url)
 
   return (
-    <div className={`p-4 mb-4 border rounded-lg ${isSelected ? 'border-orange-500' : 'border-gray-200'} bg-white shadow-sm`}>
+    <div className={`p-4 mb-4 border rounded-lg ${isSelected ? 'border-teal-500' : 'border-gray-200'} bg-white shadow-sm`}>
     {/* Room Image and Title */}
     <div className="flex justify-between items-start">
       <div className="flex flex-col">
@@ -33,7 +33,7 @@ export default function ProductCard({ room, selectedRoom, onSelect }) {
   
       {/* Rate and Price */}
       <div className="ml-4 text-right">
-        <p className="text-xl font-semibold text-orange-500">{rate.full_rate} {rate.currency}</p>
+        <p className="text-xl font-semibold text-teal-500">{rate.full_rate} {rate.currency}</p>
         <p className="text-sm text-gray-500">Taxes and fees included</p>
       </div>
     </div>
@@ -52,7 +52,7 @@ export default function ProductCard({ room, selectedRoom, onSelect }) {
     {/* Select Button */}
     <div className="mt-4 flex justify-end">
       <button
-        className={`px-4 py-2 rounded-md ${isSelected ? 'bg-green-500 text-white' : 'bg-orange-500 text-white hover:bg-orange-600'}`}
+        className={`px-4 py-2 rounded-md ${isSelected ? 'bg-green-500 text-white' : 'bg-teal-500 text-white hover:bg-orange-600'}`}
         onClick={() => onSelect(room)}
       >
         {isSelected ? 'Selected' : 'Select & Book'}

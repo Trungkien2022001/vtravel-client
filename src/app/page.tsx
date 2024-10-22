@@ -8,15 +8,21 @@ import moment from 'moment';
 import { useRouter } from "next/navigation";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
+import { REGION_TYPE_NAME } from "@/shared/constants";
 
 export default function Home() {
   const router = useRouter();
   const [checkinDate, setCheckinDate] = useState(new Date());
   const [checkoutDate, setCheckoutDate] = useState(new Date(Date.now() + 24 * 60 * 60 * 1000));
+  const [departureAirport, setDepartureAirport] = useState();
+  const [arrivalAirport, setArrivalAirport] = useState();
   const [showDropdown, setShowDropdown] = useState(false);
+  const [hotelId, setHotelId] = useState(false);
+  const [propertyType, setPropertyType] = useState('');
   const dropdownRef = useRef(null);
   const [showDropdownArrival, setShowDropdownArrival] = useState(false);
   const dropdownRefArrival = useRef(null);
+  const dropdownRefTravellers = useRef(null);
   const [isOpen, setIsOpen] = useState(false); // Trạng thái hiển thị DatePicker
   const [activeInput, setActiveInput] = useState('checkin'); // Để xác định input đang hoạt động
   const [showTravellerDropdown, setShowTravellerDropdown] = useState(false);
@@ -29,10 +35,6 @@ export default function Home() {
   const [filteredDepartures, setFilteredDepartures] = useState([]);
   const [arrival, setArrival] = useState({} as any)
   const [filteredArrivals, setFilteredArrivals] = useState([]);
-
-  const handleToggleDropdown = () => {
-    setShowDropdown(!showDropdown);
-  };
 
   const handleCheckinChange = (date) => {
     setCheckinDate(date);
@@ -58,7 +60,7 @@ export default function Home() {
     setQuery(value);
     setShowDropdown(true)
   };
-  
+
   const handleInputChangeArrival = (e) => {
     setShowDropdownArrival(true)
     const value = e.target.value.toLowerCase();
@@ -100,14 +102,14 @@ export default function Home() {
       }))
       const regions: any[] = res.data.regions.map(h => ({
         ...h,
-        text: h.region_name,
-        type: h.region_type
-      })).filter(i=>i.region_type !== 'airport')
+        text: h.region_name_full,
+        type: REGION_TYPE_NAME[h.region_type] || "Region"
+      })).filter(i => i.region_type !== 'airport')
       // console.log(hotels, regions)
       const list = [...airports, ...regions, ...hotels]
       // console.log(list)
-        setFilteredDepartures(list as SetStateAction<never[]>)
-        // setShowDropdown(true)
+      setFilteredDepartures(list as SetStateAction<never[]>)
+      // setShowDropdown(true)
     } catch (error) {
       console.error("Error fetching suggestions:", error);
     }
@@ -150,12 +152,14 @@ export default function Home() {
       const regions: any[] = res.data.regions.map(h => ({
         ...h,
         text: h.region_name,
-        type: h.region_type
-      })).filter(i=>i.region_type !== 'airport')
+        type: REGION_TYPE_NAME[h.region_type] || "Region"
+      })).filter(i => i.region_type !== 'airport')
+
+
       // console.log(hotels, regions)
       const list = [...airports, ...regions, ...hotels]
       // console.log(list)
-        setFilteredArrivals(list as SetStateAction<never[]>)
+      setFilteredArrivals(list as SetStateAction<never[]>)
     } catch (error) {
       console.error("Error fetching suggestions:", error);
     }
@@ -207,14 +211,38 @@ export default function Home() {
 
   const handleSubmit = async () => {
     // const result = await Promise.all(task)
-    const params = new URLSearchParams({
-      region_id: (departure as any).region_id,
-      checkin: checkinDate,
-      checkout: checkoutDate,
+    let propertyId
+    switch (propertyType) {
+      case 'region':
+        propertyId = (arrival as any).region_id
+        break;
+    
+      case 'hotel':
+        propertyId = hotelId
+        break;
+    
+      case 'airport':
+        propertyId = (arrival as any).airport_code
+        break;
+    
+      default:
+        break;
+    }
+    const body = {
+      property_id: propertyId,
+      property_type: propertyType,
+      hotel_id: hotelId,
+      checkin: moment(checkinDate).format('YYYY-MM-DD'),
+      checkout: moment(checkoutDate).format('YYYY-MM-DD'),
       rooms: JSON.stringify(rooms), // Assuming rooms is an object or array
-      region_name_full: departure.region_name_full,
-      currency: 'USD'
-    } as Record<string, any>).toString();
+      region_name_full: arrival.region_name_full || arrival.airport_name,
+      currency: 'USD',
+      departure_airport: departureAirport,
+      arrival_airport: arrivalAirport,
+    }
+
+
+    const params = new URLSearchParams( body as Record<string, any>).toString();
     router.push(`/shopping?${params}`);
     // console.log(result)
   }
@@ -238,28 +266,162 @@ export default function Home() {
     setShowTravellerDropdown(!showTravellerDropdown);
   };
 
-  // useEffect(() => {
-  //   const handleClickOutside = (event) => {
-  //     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-  //       setShowDropdown(false);
-  //     }
-  //   };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRefTravellers.current && !dropdownRefTravellers.current.contains(event.target)) {
+        setShowTravellerDropdown(false);
+        console.log("hello")
+      }
+    };
 
-  //   document.addEventListener('mousedown', handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener('mousedown', handleClickOutside);
-  //   };
-  // }, []);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
-  const handleSelectDeparture = (destination) => {
-    setDeparture(destination);  
+  const handleSelectDeparture = async (destination) => {
+    setDeparture(destination);
     setQuery(destination.text)
     setShowDropdown(false);
+    console.log(destination)
+    switch (destination.type) {
+      case 'Airport':
+        setDepartureAirport(destination.airport_code)
+        break;
+      case 'Hotel':
+        try {
+          const _res = await fetch(
+            `${process.env.NEXT_PUBLIC_MICRO_SERVICE_URL}/api/v1/data-center/nearest-airport`,
+            {
+              method: "POST", // Specify the HTTP method
+              headers: {
+                "x-key": "superkey", // Add your x-key header
+                "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwid29ya3NwYWNlIjoiYWdlbnQsIiwiaWF0IjoxNzI5NTE3OTYyLCJleHAiOjE3MzAzODE5NjJ9.0OUoZjnmvGW5L7aqMWqWA-OUT_fNzVl14nHEDmvLYlw", // Add your token
+                "Content-Type": "application/json", // Ensure the request sends JSON
+              },
+              body: JSON.stringify({
+                property_id: destination.hotel_id,
+                property_type: "hotel"
+              }), // Set the body of the request
+              cache: "no-cache", // Prevents caching
+            }
+          );
+
+          // Check if the response is OK
+          if (!_res.ok) {
+            throw new Error("Failed to fetch suggestions");
+          }
+          const res = await _res.json();
+          console.log(res.data.data.airport_code)
+          setDepartureAirport(res.data.data.airport_code)
+        } catch (error) {
+          console.error("Error fetching suggestions:", error);
+        }
+        break;
+      default:
+        try {
+          const _res = await fetch(
+            `${process.env.NEXT_PUBLIC_MICRO_SERVICE_URL}/api/v1/data-center/nearest-airport`,
+            {
+              method: "POST", // Specify the HTTP method
+              headers: {
+                "x-key": "superkey", // Add your x-key header
+                "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwid29ya3NwYWNlIjoiYWdlbnQsIiwiaWF0IjoxNzI5NTE3OTYyLCJleHAiOjE3MzAzODE5NjJ9.0OUoZjnmvGW5L7aqMWqWA-OUT_fNzVl14nHEDmvLYlw", // Add your token
+                "Content-Type": "application/json", // Ensure the request sends JSON
+              },
+              body: JSON.stringify({
+                property_id: destination.region_id,
+                property_type: "region"
+              }), // Set the body of the request
+              cache: "no-cache", // Prevents caching
+            }
+          );
+
+          // Check if the response is OK
+          if (!_res.ok) {
+            throw new Error("Failed to fetch suggestions");
+          }
+          const res = await _res.json();
+          console.log(res.data)
+          setDepartureAirport(res.data.airport_code)
+        } catch (error) {
+          console.error("Error fetching suggestions:", error);
+        }
+        break;
+    }
   }
-  const handleSelectArrival = (destination) => {
-    setArrival(destination);  
+  const handleSelectArrival = async (destination) => {
+    setArrival(destination);
     setQueryArrival(destination.text)
     setShowDropdownArrival(false);
+    switch (destination.type) {
+      case 'Airport':
+        setPropertyType('airport')
+        setArrivalAirport(destination.airport_code)
+        break;
+      case 'Hotel':
+        setPropertyType('hotel')
+        setHotelId(destination.hotel_id)
+        try {
+          const _res = await fetch(
+            `${process.env.NEXT_PUBLIC_MICRO_SERVICE_URL}/api/v1/data-center/nearest-airport`,
+            {
+              method: "POST", // Specify the HTTP method
+              headers: {
+                "x-key": "superkey", // Add your x-key header
+                "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwid29ya3NwYWNlIjoiYWdlbnQsIiwiaWF0IjoxNzI5NTE3OTYyLCJleHAiOjE3MzAzODE5NjJ9.0OUoZjnmvGW5L7aqMWqWA-OUT_fNzVl14nHEDmvLYlw", // Add your token
+                "Content-Type": "application/json", // Ensure the request sends JSON
+              },
+              body: JSON.stringify({
+                property_id: destination.hotel_id,
+                property_type: "hotel"
+              }), // Set the body of the request
+              cache: "no-cache", // Prevents caching
+            }
+          );
+
+          // Check if the response is OK
+          if (!_res.ok) {
+            throw new Error("Failed to fetch suggestions");
+          }
+          const res = await _res.json();
+          setArrivalAirport(res.data.airport_code)
+        } catch (error) {
+          console.error("Error fetching suggestions:", error);
+        }
+        break;
+      default:
+        try {
+          setPropertyType('region')
+          const _res = await fetch(
+            `${process.env.NEXT_PUBLIC_MICRO_SERVICE_URL}/api/v1/data-center/nearest-airport`,
+            {
+              method: "POST", // Specify the HTTP method
+              headers: {
+                "x-key": "superkey", // Add your x-key header
+                "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwid29ya3NwYWNlIjoiYWdlbnQsIiwiaWF0IjoxNzI5NTE3OTYyLCJleHAiOjE3MzAzODE5NjJ9.0OUoZjnmvGW5L7aqMWqWA-OUT_fNzVl14nHEDmvLYlw", // Add your token
+                "Content-Type": "application/json", // Ensure the request sends JSON
+              },
+              body: JSON.stringify({
+                property_id: destination.region_id,
+                property_type: "region"
+              }), // Set the body of the request
+              cache: "no-cache", // Prevents caching
+            }
+          );
+
+          // Check if the response is OK
+          if (!_res.ok) {
+            throw new Error("Failed to fetch suggestions");
+          }
+          const res = await _res.json();
+          setArrivalAirport(res.data.airport_code)
+        } catch (error) {
+          console.error("Error fetching suggestions:", error);
+        }
+        break;
+    }
   }
 
   return (
@@ -285,7 +447,7 @@ export default function Home() {
                 placeholder="Search airport, destination, hotel"
                 className="w-96 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 p-2"
               />
-              {query && showDropdown&& (
+              {query && showDropdown && (
                 <ul className="absolute left-0 right-0 mt-2 max-h-96 overflow-y-auto bg-white border border-gray-300 rounded-lg shadow-lg z-10">
                   {filteredDepartures.length > 0 ? (
                     filteredDepartures.map((destination: any, index) => (
@@ -301,7 +463,7 @@ export default function Home() {
                           </div>
 
                           {/* Destination Type */}
-                          <div className="ml-4">
+                          <div className="ml-4 whitespace-nowrap text-teal-500">
                             {destination.type}
                           </div>
                         </div>
@@ -321,7 +483,7 @@ export default function Home() {
                 placeholder="Search airport, destination, hotel"
                 className="w-96 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 p-2"
               />
-              {queryArrival && showDropdownArrival &&(
+              {queryArrival && showDropdownArrival && (
                 <ul className="absolute left-0 right-0 mt-2 max-h-96 overflow-y-auto bg-white border border-gray-300 rounded-lg shadow-lg z-10">
                   {filteredArrivals.length > 0 ? (
                     filteredArrivals.map((destination: any, index) => (
@@ -337,7 +499,7 @@ export default function Home() {
                           </div>
 
                           {/* Destination Type */}
-                          <div className="ml-4">
+                          <div className="ml-4 whitespace-nowrap text-teal-500">
                             {destination.type}
                           </div>
                         </div>
@@ -427,13 +589,14 @@ export default function Home() {
               <div
                 className="flex items-center border rounded-md cursor-pointer p-2 w-72"
                 onClick={toggleTravellerDropdown}
+                onFocus={toggleTravellerDropdown}
               >
                 <span className="text-gray-500">
                   {rooms.length} rooms, {rooms.reduce((acc, room) => acc + room.adult, 0)} adult, {rooms.reduce((acc, room) => acc + room.children, 0)} children, {rooms.reduce((acc, room) => acc + room.infant, 0)} infant
                 </span>
               </div>
               {showTravellerDropdown && (
-                <div className="absolute  z-10 mt bg-white border rounded-md shadow-lg">
+                <div className="absolute  z-10 mt bg-white border rounded-md shadow-lg" ref={dropdownRefTravellers}>
                   <div className="p-4">
                     {rooms.map((room, index) => (
                       <div key={index} className="mb-4 border-b pb-2">
@@ -449,7 +612,7 @@ export default function Home() {
                                   setRooms(newRooms);
                                 }
                               }}
-                              className="bg-gray-200 p-1 rounded"
+                              className="bg-teal-500 px-3 h-8 rounded-full text-white"
                             >
                               -
                             </button>
@@ -460,7 +623,7 @@ export default function Home() {
                                 newRooms[index].adult++;
                                 setRooms(newRooms);
                               }}
-                              className="bg-gray-200 p-1 rounded"
+                              className="bg-teal-500 px-3 h-8 rounded-full text-white"
                             >
                               +
                             </button>
@@ -477,7 +640,7 @@ export default function Home() {
                                   setRooms(newRooms);
                                 }
                               }}
-                              className="bg-gray-200 p-1 rounded"
+                              className="bg-teal-500 px-3 h-8 rounded-full text-white"
                             >
                               -
                             </button>
@@ -488,7 +651,7 @@ export default function Home() {
                                 newRooms[index].children++;
                                 setRooms(newRooms);
                               }}
-                              className="bg-gray-200 p-1 rounded"
+                              className="bg-teal-500 px-3 h-8 rounded-full text-white"
                             >
                               +
                             </button>
@@ -505,7 +668,7 @@ export default function Home() {
                                   setRooms(newRooms);
                                 }
                               }}
-                              className="bg-gray-200 p-1 rounded"
+                              className="bg-teal-500 px-3 h-8 rounded-full text-white"
                             >
                               -
                             </button>
@@ -516,7 +679,7 @@ export default function Home() {
                                 newRooms[index].infant++;
                                 setRooms(newRooms);
                               }}
-                              className="bg-gray-200 p-1 rounded"
+                              className="bg-teal-500 px-3 h-8 rounded-full text-white"
                             >
                               +
                             </button>
@@ -530,8 +693,8 @@ export default function Home() {
                         </button>
                       </div>
                     ))}
-                    <div className="mt-4 text-orange-500 cursor-pointer" onClick={addRoom}>
-                      <button className="bg-teal-500 text-white rounded px-20 h-12 font-bold" style={{whiteSpace: 'nowrap' }} onClick={handleSubmit}>ADD ROOM</button>
+                    <div className="mt-4 text-teal-500 cursor-pointer" onClick={addRoom}>
+                      <button className="bg-teal-500 text-white rounded px-20 h-12 font-bold" style={{ whiteSpace: 'nowrap' }}>ADD ROOM</button>
                     </div>
                     <p className="text-sm text-gray-500 mt-2">
                       Maximum room is 5 per booking. Age of children/infant should be considered from the date of departure.

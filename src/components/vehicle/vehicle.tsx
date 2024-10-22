@@ -61,7 +61,7 @@ const Vehicle = ({ vehicles }) => {
           {/* </div> */}
           {/* Booking Button */}
           <div className="text-center">
-            <button className="bg-orange-500 text-white py-2 px-4rounded-lg text-lg">
+            <button className="bg-teal-500 text-white py-2 px-4rounded-lg text-lg">
               BOOK NOW - SR 960.00
             </button>
           </div>

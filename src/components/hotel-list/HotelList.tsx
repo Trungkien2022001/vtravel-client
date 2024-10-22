@@ -12,7 +12,7 @@ export default function HotelList({list, conditional}) {
     location: [],
   });
 
-  const filteredHotels = list.filter((hotel) => {
+  const filteredHotels = list?.filter((hotel) => {
     // const matchesStars =
     //   !filters.stars.length || filters.stars.includes(hotel.rating);
     // const matchesBudget =
@@ -28,14 +28,14 @@ export default function HotelList({list, conditional}) {
 
   return (
     <>
-    <div className='text-center font-bold text-2xl'>We find {filteredHotels.length} hotels!</div>
+    <div className='text-center font-bold text-2xl'>We find {filteredHotels?.length} hotels!</div>
     <div className="flex">
       <div className="w-1/4">
         <Filters filters={filters} setFilters={setFilters} />
       </div>
       <div className="w-3/4 pl-8">
-        {filteredHotels.length > 0 ? (
-          filteredHotels.slice(0,10).map((hotel, index) => (
+        {filteredHotels?.length > 0 ? (
+          filteredHotels?.slice(0,10).map((hotel, index) => (
             <HotelCard key={index} hotel={hotel} conditional = {conditional}/>
           ))
         ) : (

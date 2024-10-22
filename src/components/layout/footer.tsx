@@ -6,8 +6,9 @@ export default function Footer() {
         <div>
           <h3 className="text-lg font-bold">VTravel</h3>
           <p>Contact Us: +84 989 983 025</p>
+          <p>Email: nguyenkien2022001@gmail.com</p>
           <p>LV Center (Registered Office)</p>
-          <p>10.69 Thuy Khe Street, Thuy Khe, HaNoi City, Vietnam</p>
+          <p>69 Thuy Khe Street, Thuy Khe, Hanoi, Vietnam</p>
         </div>
 
         <div>
@@ -25,7 +26,7 @@ export default function Footer() {
           <ul>
             <li><a href="#" className="hover:underline">About Us</a></li>
             <li><a href="#" className="hover:underline">Partner</a></li>
-            <li><a href="#" className="hover:underline">Contribute</a></li>
+            <li><a href="#" className="hover:underline">Contributer</a></li>
           </ul>
         </div>
 
@@ -33,12 +34,12 @@ export default function Footer() {
           <h3 className="text-lg font-bold">Resources</h3>
           <ul>
             <li><a href="#" className="hover:underline">Packages</a></li>
-            <li><a href="#" className="hover:underline">Trips</a></li>
             <li><a href="#" className="hover:underline">Flights</a></li>
             <li><a href="#" className="hover:underline">Hotels</a></li>
             <li><a href="#" className="hover:underline">Tours</a></li>
             <li><a href="#" className="hover:underline">Vehicles</a></li>
             <li><a href="#" className="hover:underline">Insurances</a></li>
+            <li><a href="#" className="hover:underline">Tour guides</a></li>
           </ul>
         </div>
       </div>
@@ -46,7 +47,7 @@ export default function Footer() {
       {/* Copyright Section */}
       <div className="bg-teal-600 text-center py-4">
         <p className="text-sm">
-          &copy; {new Date().getFullYear()} VTravel. All rights reserved. Author: nguyenkien2022001@gmail.com
+          &copy; 09.2024 VTravel. All rights reserved. Author: nguyenkien2022001
         </p>
       </div>
     </footer>

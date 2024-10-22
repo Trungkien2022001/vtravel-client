@@ -1,19 +1,19 @@
 import { useState } from 'react';
 
-const tabItems = ['Rooms', 'Amenities', 'About', 'General Policy', 'Location'];
+const tabItems = ['Hotels', 'Flights', 'Tours', 'Vehicles', 'Tour Guide', 'Insurances'];
 
 export default function RoomTabs() {
-  const [activeTab, setActiveTab] = useState('Rooms');
+  const [activeTab, setActiveTab] = useState('Hotels');
 
   return (
-    <div className="mt-6">
+    <div className="mt-2">
       <div className="border-b border-gray-200 mb-4">
-        <nav className="flex space-x-4">
+        <nav className="flex space-x-6 justify-between">
           {tabItems.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-4 py-2 ${activeTab === tab ? 'border-b-2 border-orange-500 text-orange-500' : 'text-gray-600 hover:text-gray-800'}`}
+              className={`px-4 py-2 w-full ${activeTab === tab ? 'border-b-2 border-teal-500 text-teal-500' : 'text-gray-600 hover:text-gray-800'}`}
             >
               {tab}
             </button>

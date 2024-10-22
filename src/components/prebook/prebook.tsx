@@ -40,9 +40,9 @@ const PreBookPage = () => {
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex space-x-4">
-            <span className="text-orange-500">Search Results</span>
-            <span className="text-orange-500">Add On</span>
-            <span className="text-orange-500 font-bold">Traveler Details</span>
+            <span className="text-teal-500">Search Results</span>
+            <span className="text-teal-500">Add On</span>
+            <span className="text-teal-500 font-bold">Traveler Details</span>
             <span>Payment</span>
           </div>
         </div>
@@ -139,7 +139,7 @@ const PreBookPage = () => {
                 <div className="flex justify-between items-center mb-4">
                   <h3 className="text-lg font-semibold">Traveller 1</h3>
                   <button
-                    className="text-orange-500"
+                    className="text-teal-500"
                     onClick={copyFromContact}
                   >
                     Copy From Contact
@@ -210,7 +210,7 @@ const PreBookPage = () => {
             <div className="border-b pb-4 mb-4">
               <h3 className="text-xl font-semibold mb-2">Hotel in North Corniche Road, Jeddah</h3>
               <p>08/10/2024 - 09/10/2024</p>
-              <p className="text-orange-500">Jeddah Hilton</p>
+              <p className="text-teal-500">Jeddah Hilton</p>
               <p>North Corniche Road, Jeddah...</p>
             </div>
             <div className="mb-6">
@@ -218,7 +218,7 @@ const PreBookPage = () => {
               <p>Jeddah Hilton</p>
               <p>Total: <span className="font-bold text-lg">SR 914.16</span></p>
             </div>
-            <button className="w-full py-3 bg-orange-500 text-white font-bold rounded-lg">Continue</button>
+            <button className="w-full py-3 bg-teal-500 text-white font-bold rounded-lg">Continue</button>
           </div>
         </div>
       </div>
