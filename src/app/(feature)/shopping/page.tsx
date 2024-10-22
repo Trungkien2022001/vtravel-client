@@ -288,17 +288,17 @@ const Page = () => {
 
       <div className="flex border rounded-lg shadow-sm p-4 mb-4 bg-white">
         {/* Left side with flight details */}
-        <div className="flex flex-col w-3/4">
+        <div className="flex flex-col w-full justify-center">
           {/* Outbound Flight */}
-          <div className="border-b mb-5">
+          <div className="border-b pb-2 mb-2">
             {flight.outbound.map((leg, index) => (
               <div key={index} className="flex items-center mb-1">
-                <div className="w-14 h-14 rounded-3xl bg-teal-500 text-white flex items-center justify-center text-xl font-bold">
+                <div className="w-14 h-14 mr-5 rounded-3xl bg-teal-500 text-white flex items-center justify-center text-xl font-bold">
                   {airlineName}
                 </div>
-                <div key={index} className="flex flex-col items-center">
+                <div key={index} className="flex flex-grow flex-col items-center">
                   {/* Row for time */}
-                  <div className="flex justify-between items-center w-96 text-sm text-teal-500 px-8 py-1">
+                  <div className="flex justify-between items-center w-full text-sm text-teal-500 px-8 py-1">
                     {/* Departure time */}
                     <p>{leg.departure_airport_code}</p>
 
@@ -331,39 +331,39 @@ const Page = () => {
           {/* Inbound Flight */}
           <div>
             {flight.inbound.map((leg, index) => (
-              <div key={index} className="flex items-center mb-1">
-                <div className="w-14 h-14 rounded-3xl bg-teal-500 text-white flex items-center justify-center text-xl font-bold">
-                  {airlineName}
-                </div>
-                <div key={index} className="flex flex-col items-center">
-                  {/* Row for time */}
-                  <div className="flex justify-between items-center w-96 text-sm text-teal-500 px-8 py-1">
-                    {/* Departure time */}
-                    <p>{leg.departure_airport_code}</p>
+             <div key={index} className="flex items-center mb-1">
+             <div className="w-14 h-14 mr-5 rounded-3xl bg-teal-500 text-white flex items-center justify-center text-xl font-bold">
+               {airlineName}
+             </div>
+             <div key={index} className="flex flex-grow flex-col items-center">
+               {/* Row for time */}
+               <div className="flex justify-between items-center w-full text-sm text-teal-500 px-8 py-1">
+                 {/* Departure time */}
+                 <p>{leg.departure_airport_code}</p>
 
-                    <div className="relative w-full mx-4 ">
-                      <hr className="border-gray-300" />
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="bg-white px-2">
-                          {leg.flight_no}
-                        </span>
-                        <div className='relative'>
+                 <div className="relative w-full mx-4 ">
+                   <hr className="border-gray-300" />
+                   <div className="absolute inset-0 flex items-center justify-center">
+                     <span className="bg-white px-2">
+                       {leg.flight_no}
+                     </span>
+                     <div className='relative'>
 
 
-                        </div>
-                      </div>
-                    </div>
+                     </div>
+                   </div>
+                 </div>
 
-                    <p>{leg.arrival_airport_code}</p>
-                  </div>
+                 <p>{leg.arrival_airport_code}</p>
+               </div>
 
-                  <div className="flex justify-between items-center w-full text-sm text-gray-500 ">
-                    <p>{moment(leg.departure_date_time).format('HH:mm DD/MM/YY')}</p>
-                    <p>{calculateDuration(leg)}</p>
-                    <p>{moment(leg.arrival_date_time).format('HH:mm DD/MM/YY')}</p>
-                  </div>
-                </div>
-              </div>
+               <div className="flex justify-between items-center w-full text-sm text-gray-500 ">
+                 <p>{moment(leg.departure_date_time).format('HH:mm DD/MM/YY')}</p>
+                 <p>{calculateDuration(leg)}</p>
+                 <p>{moment(leg.arrival_date_time).format('HH:mm DD/MM/YY')}</p>
+               </div>
+             </div>
+           </div>
             ))}
           </div>
         </div>
