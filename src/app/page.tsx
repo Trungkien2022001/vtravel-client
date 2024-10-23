@@ -151,7 +151,7 @@ export default function Home() {
       }))
       const regions: any[] = res.data.regions.map(h => ({
         ...h,
-        text: h.region_name,
+        text: h.region_name_full,
         type: REGION_TYPE_NAME[h.region_type] || "Region"
       })).filter(i => i.region_type !== 'airport')
 
