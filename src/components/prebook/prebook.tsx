@@ -214,7 +214,7 @@ const PreBookPage = () => {
               <p>North Corniche Road, Jeddah...</p>
             </div>
             <div className="mb-6">
-              <h4 className="text-lg font-semibold">Prices</h4>
+              <h4 className="text-lg text-teal-500 font-semibold">Prices</h4>
               <p>Jeddah Hilton</p>
               <p>Total: <span className="font-bold text-lg">USD 914.16</span></p>
             </div>

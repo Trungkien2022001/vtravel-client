@@ -751,10 +751,10 @@ const Page = () => {
         <div className='flex'>
           <div className="w-1/4">
             <div className="w-64 bg-white border p-4 rounded-lg shadow-sm">
-              <h2 className="text-lg font-bold mb-4">Filters</h2>
+              <h2 className="text-lg font-bold mb-4 text-teal-500">Filters</h2>
 
               <div className="mb-4">
-                <h3 className="font-semibold mb-2">Stars</h3>
+                <h3 className="font-semibold mb-2 text-teal-500">Stars</h3>
                 <div className="space-y-2">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <label key={star} className="flex items-center space-x-2">
@@ -772,7 +772,7 @@ const Page = () => {
               </div>
 
               <div className="mb-4">
-                <h3 className="font-semibold mb-2">Budget</h3>
+                <h3 className="font-semibold mb-2 text-teal-500">Budget</h3>
                 <div className="space-y-2">
                   <label className="flex items-center space-x-2">
                     <input
@@ -808,7 +808,7 @@ const Page = () => {
               </div>
 
               <div>
-                <h3 className="font-semibold mb-2">Nearby Locations</h3>
+                <h3 className="font-semibold mb-2 text-teal-500">Nearby Locations</h3>
                 <div className="space-y-2">
                 </div>
               </div>
@@ -832,7 +832,7 @@ const Page = () => {
       <div className="flex">
         <div className="w-1/4">
           <div className="w-64 bg-white border p-4 rounded-lg shadow-sm">
-            <h2 className="text-lg font-bold mb-4">Filters</h2>
+            <h2 className="text-lg font-bold mb-4 text-teal-500">Filters</h2>
             <div className="mb-4">
               <input
                 type="text"
@@ -843,7 +843,7 @@ const Page = () => {
               />
             </div>
             <div className="mb-4">
-              <h3 className="font-semibold mb-2">Stars</h3>
+              <h3 className="font-semibold mb-2 text-teal-500">Stars</h3>
               <div className="flex space-x-1">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <FaStar
@@ -858,7 +858,7 @@ const Page = () => {
             </div>
 
             <div className="mb-4">
-              <h3 className="font-semibold mb-2">Budget</h3>
+              <h3 className="font-semibold mb-2 text-teal-500">Budget</h3>
               <div className="space-y-2">
                 <label className="flex items-center space-x-2">
                   <input
@@ -894,7 +894,7 @@ const Page = () => {
             </div>
 
             <div>
-              <h3 className="font-semibold mb-2">Nearby Locations</h3>
+              <h3 className="font-semibold mb-2 text-teal-500">Nearby Locations</h3>
               <div className="space-y-2 h-[495px] overflow-y-scroll">
                 {[...regionDetail?.pointOfInterests || [], ...regionDetail?.cities || [], ...regionDetail?.trainStations || [], ...regionDetail?.metroStations || []].map(
                   (location) => (
@@ -966,10 +966,10 @@ const Page = () => {
         <div className='flex'>
           <div className="w-1/4">
             <div className="w-64 bg-white border p-4 rounded-lg shadow-sm">
-              <h2 className="text-lg font-bold mb-4">Filters</h2>
+              <h2 className="text-lg font-bold mb-4 text-teal-500">Filters</h2>
 
               <div className="mb-4">
-                <h3 className="font-semibold mb-2">Stars</h3>
+                <h3 className="font-semibold mb-2 text-teal-500">Stars</h3>
                 <div className="space-y-2">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <label key={star} className="flex items-center space-x-2">
@@ -987,7 +987,7 @@ const Page = () => {
               </div>
 
               <div className="mb-4">
-                <h3 className="font-semibold mb-2">Budget</h3>
+                <h3 className="font-semibold mb-2 text-teal-500">Budget</h3>
                 <div className="space-y-2">
                   <label className="flex items-center space-x-2">
                     <input
@@ -1023,7 +1023,7 @@ const Page = () => {
               </div>
 
               <div>
-                <h3 className="font-semibold mb-2">Nearby Locations</h3>
+                <h3 className="font-semibold mb-2 text-teal-500">Nearby Locations</h3>
                 <div className="space-y-2">
                   {['Central Fish Market', 'Shorbanty House', 'Fakieh Aquarium'].map(
                     (location) => (
@@ -1122,10 +1122,10 @@ const Page = () => {
         <div className='flex'>
           <div className="w-1/4">
             <div className="w-64 bg-white border p-4 rounded-lg shadow-sm">
-              <h2 className="text-lg font-bold mb-4">Filters</h2>
+              <h2 className="text-lg font-bold mb-4 text-teal-500">Filters</h2>
 
               <div className="mb-4">
-                <h3 className="font-semibold mb-2">Stars</h3>
+                <h3 className="font-semibold mb-2 text-teal-500">Stars</h3>
                 <div className="space-y-2">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <label key={star} className="flex items-center space-x-2">
@@ -1143,7 +1143,7 @@ const Page = () => {
               </div>
 
               <div className="mb-4">
-                <h3 className="font-semibold mb-2">Budget</h3>
+                <h3 className="font-semibold mb-2 text-teal-500">Budget</h3>
                 <div className="space-y-2">
                   <label className="flex items-center space-x-2">
                     <input
@@ -1179,7 +1179,7 @@ const Page = () => {
               </div>
 
               <div>
-                <h3 className="font-semibold mb-2">Nearby Locations</h3>
+                <h3 className="font-semibold mb-2 text-teal-500">Nearby Locations</h3>
                 <div className="space-y-2">
                   {['Central Fish Market', 'Shorbanty House', 'Fakieh Aquarium'].map(
                     (location) => (
@@ -1248,7 +1248,7 @@ const Page = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div className="min-h-screen bg-gray-100 p-8 mx">
-        <h1 className=" mx-12 text-2xl font-bold">Your trip in {region_name_full}</h1>
+        <h1 className=" mx-12 text-2xl  text-teal-500 font-bold">Your trip in {region_name_full}</h1>
         <div className='mx-12 flex'>
           <div className="product w-full">
             <div className="mt-2">
@@ -1281,7 +1281,7 @@ const Page = () => {
             </div>
           </div>
           <div className="bg-white shadow-lg rounded-lg p-6 w-[450px] mx-5 mt-15">
-            <h2 className="text-xl font-bold mb-4">Prices</h2>
+            <h2 className="text-xl font-bold mb-4 text-teal-500">Prices</h2>
             <hr className="mb-5" />
             <div className="space-y-4">
               <div className="flex justify-between items-center">
