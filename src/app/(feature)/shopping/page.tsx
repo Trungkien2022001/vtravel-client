@@ -118,7 +118,7 @@ const Page = () => {
   };
 
   const searchRegionDetail = async () => {
-    if (propertyType !== 'region') {
+    if (propertyType === 'hotel') {
       return
     }
     try {
@@ -132,7 +132,8 @@ const Page = () => {
             "Content-Type": "application/json", // Make sure you're sending JSON
           },
           body: JSON.stringify({
-            region_id: propertyId
+            property_id: propertyId,
+            property_type: propertyType
           }),
           cache: "no-cache", // Avoid caching the response
         }

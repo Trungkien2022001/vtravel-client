@@ -313,8 +313,7 @@ export default function Home() {
             throw new Error("Failed to fetch suggestions");
           }
           const res = await _res.json();
-          console.log(res.data.data.airport_code)
-          setDepartureAirport(res.data.data.airport_code)
+          setDepartureAirport(res.data.airport_code)
         } catch (error) {
           console.error("Error fetching suggestions:", error);
         }
