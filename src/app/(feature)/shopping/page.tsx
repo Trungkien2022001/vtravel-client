@@ -10,7 +10,7 @@ import TourOutlinedIcon from '@mui/icons-material/TourOutlined';
 import DirectionsCarFilledOutlinedIcon from '@mui/icons-material/DirectionsCarFilledOutlined';
 import SupportAgentOutlinedIcon from '@mui/icons-material/SupportAgentOutlined';
 import HealthAndSafetyOutlinedIcon from '@mui/icons-material/HealthAndSafetyOutlined';
-import Guilder from '../guider/page';
+import Guilder from '../../../../dev/guider/page';
 import { FaStar } from "react-icons/fa";
 
 const tabItems = ['Hotels', 'Flights', 'Tours', 'Vehicles', 'Tour Guide', 'Insurances'];
@@ -214,7 +214,7 @@ const Page = () => {
     }
     try {
       const data = {
-        departure_date: checkin,  // Replace with your dynamic date
+        departure_date: moment().format('YYYY-MM-DD') ===  checkin ? checkin : moment(checkin).subtract(1, 'day').format('YYYY-MM-DD'),  // Replace with your dynamic date
         return_date: checkout,      // Replace with your dynamic date
         is_round_trip: true,
         cabin_class: "Economy",
@@ -539,7 +539,7 @@ const Page = () => {
             {/* Images chiếm 1/4 */}
             {room.images && room.images.length > 0 && room.images[0].urls.length > 0 ? (
               <div className="relative ">
-                <Image
+                <img
                   src={room.images[0].urls[3] ? room.images[0].urls[3].url : room.images[0].urls[0].url}
                   alt={`Image of ${room.name}`}
                   width={520}
@@ -644,7 +644,7 @@ const Page = () => {
   // console.log(tours, hotels, vehicles)
 
   const FlightPane = ({ flight }) => {
-    const airlineName = flight.flight_id.substring(0, 2)
+    const airlineName = flight?.flight_id?.substring(0, 2)
     return (
 
       <div className="flex border rounded-lg shadow-sm p-4 mb-4 bg-white">
@@ -1301,7 +1301,7 @@ const Page = () => {
                     {packages.hotel.name}
                   </span>
                 </div>
-                <span className="whitespace-nowrap min-w-16 text-teal-500 ml-2">{packages.hotel.currency} {packages.hotel.total_price}</span>
+                <span className="whitespace-nowrap min-w-16 text-teal-500 ml-2">{'USD'} {packages.hotel.total_price}</span>
               </div>
               <hr className="" />
               <div className="flex justify-between items-center">
@@ -1328,10 +1328,10 @@ const Page = () => {
                 <div className="flex items-center space-x-2">
                   <SupportAgentOutlinedIcon className='text-teal-500' />
                   <span className="text-sm overflow-hidden text-ellipsis line-clamp-2 max-w-[200px]">
-                    Leonel Messii
+                    Nguyen Kieu Anh
                   </span>
                 </div>
-                <span className="whitespace-nowrap min-w-16 text-teal-500 ml-2">USD 50</span>
+                <span className="whitespace-nowrap min-w-16 text-teal-500 ml-2">USD 49.99</span>
               </div>
               <hr className="" />
             </div>
@@ -1348,7 +1348,7 @@ const Page = () => {
                   Travel Insurance
                 </span>
               </div>
-              <span className="whitespace-nowrap min-w-16 text-teal-500 ml-2">USD 1101.01</span>
+              <span className="whitespace-nowrap min-w-16 text-teal-500 ml-2">USD 19.99</span>
             </div>
             <hr className="mt-5" />
 

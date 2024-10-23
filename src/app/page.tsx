@@ -216,15 +216,15 @@ export default function Home() {
       case 'region':
         propertyId = (arrival as any).region_id
         break;
-    
+
       case 'hotel':
         propertyId = hotelId
         break;
-    
+
       case 'airport':
         propertyId = (arrival as any).airport_code
         break;
-    
+
       default:
         break;
     }
@@ -242,7 +242,7 @@ export default function Home() {
     }
 
 
-    const params = new URLSearchParams( body as Record<string, any>).toString();
+    const params = new URLSearchParams(body as Record<string, any>).toString();
     router.push(`/shopping?${params}`);
     // console.log(result)
   }
@@ -418,7 +418,7 @@ export default function Home() {
           let res = await _res.json();
           setArrivalAirport(res.data.airport_code)
           console.log(destination)
-          if(destination.region_type === 'point_of_interest'){
+          if (destination.region_type === 'point_of_interest') {
             _res = await fetch(
               `${process.env.NEXT_PUBLIC_MICRO_SERVICE_URL}/api/v1/data-center/region/parent`,
               {
@@ -436,7 +436,7 @@ export default function Home() {
             );
             res = await _res.json();
             console.log(res)
-            setArrival(prev=>({
+            setArrival(prev => ({
               ...prev,
               region_id: res.data.id,
               region_type: res.data.type
@@ -472,6 +472,14 @@ export default function Home() {
                 placeholder="Search airport, destination, hotel"
                 className="w-96 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 p-2"
               />
+              <label
+                htmlFor="Arrival"
+                className="absolute left-2 top-[-8px] text-gray-500 text-sm transform -translate-y-1/2 transition-all 
+                  peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400
+                  peer-focus:top-1 peer-focus:text-sm peer-focus:text-blue-400"
+              >
+                Departure Destination
+              </label>
               {query && showDropdown && (
                 <ul className="absolute left-0 right-0 mt-2 max-h-96 overflow-y-auto bg-white border border-gray-300 rounded-lg shadow-lg z-10">
                   {filteredDepartures.length > 0 ? (
@@ -508,6 +516,14 @@ export default function Home() {
                 placeholder="Search airport, destination, hotel"
                 className="w-96 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 p-2"
               />
+              <label
+                htmlFor="Arrival"
+                className="absolute left-2 top-[-8px] text-gray-500 text-sm transform -translate-y-1/2 transition-all 
+                  peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400
+                  peer-focus:top-1 peer-focus:text-sm peer-focus:text-blue-400"
+              >
+                Arrival Destination
+              </label>
               {queryArrival && showDropdownArrival && (
                 <ul className="absolute left-0 right-0 mt-2 max-h-96 overflow-y-auto bg-white border border-gray-300 rounded-lg shadow-lg z-10">
                   {filteredArrivals.length > 0 ? (
@@ -559,6 +575,14 @@ export default function Home() {
                   value={moment(checkinDate).format('DD-MM-YYYY')}
                   onClick={() => togglePicker('checkin')}
                 />
+                <label
+                  htmlFor="Arrival"
+                  className="absolute left-0 top-[-8px] text-gray-500 text-sm transform -translate-y-1/2 transition-all 
+                  peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400
+                  peer-focus:top-1 peer-focus:text-sm peer-focus:text-blue-400"
+                >
+                  Checkin
+                </label>
 
                 {/* Check-out */}
                 <span className="p-2 text-gray-500">-</span>
@@ -570,6 +594,14 @@ export default function Home() {
                   value={moment(checkoutDate).format('DD-MM-YYYY')}
                   onClick={() => togglePicker('checkout')}
                 />
+                <label
+                  htmlFor="Arrival"
+                  className="absolute right-[47px] top-[-8px] text-gray-500 text-sm transform -translate-y-1/2 transition-all 
+                  peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400
+                  peer-focus:top-1 peer-focus:text-sm peer-focus:text-blue-400"
+                >
+                  Checkout
+                </label>
                 {isOpen && activeInput === 'checkin' && (
                   <div className="absolute top-11">
 
@@ -620,6 +652,14 @@ export default function Home() {
                   {rooms.length} rooms, {rooms.reduce((acc, room) => acc + room.adult, 0)} adult, {rooms.reduce((acc, room) => acc + room.children, 0)} children, {rooms.reduce((acc, room) => acc + room.infant, 0)} infant
                 </span>
               </div>
+              <label
+                htmlFor="Arrival"
+                className="absolute top-[-8px] text-gray-500 text-sm transform -translate-y-1/2 transition-all 
+                  peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400
+                  peer-focus:top-1 peer-focus:text-sm peer-focus:text-blue-400"
+              >
+                Passengers
+              </label>
               {showTravellerDropdown && (
                 <div className="absolute  z-10 mt bg-white border rounded-md shadow-lg" ref={dropdownRefTravellers}>
                   <div className="p-4">

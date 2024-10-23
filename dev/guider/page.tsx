@@ -6,7 +6,7 @@ export default function Guilder() {
 
   const guilder = {
     "id": 744606,
-    "name": "Anh Nguyen Thi",
+    "name": "Nguyen Kieu Anh",
     age: 25,
     "country_code": "GT",
     "airport_code_code": null,
