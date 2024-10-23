@@ -1301,7 +1301,7 @@ const Page = () => {
                     {packages.hotel.name}
                   </span>
                 </div>
-                <span className="whitespace-nowrap min-w-16 text-teal-500 ml-2">{'USD'} {packages.hotel.total_price}</span>
+                <span className="whitespace-nowrap min-w-16 text-teal-500 ml-2">{packages.hotel.total_price ? 'USD': ""} {packages.hotel.total_price}</span>
               </div>
               <hr className="" />
               <div className="flex justify-between items-center">
