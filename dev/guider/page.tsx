@@ -313,9 +313,9 @@ export default function Guilder() {
           {/* Danh sách dịch vụ chiếm 2/3 */}
           <div className="flex-basis-2/3 flex-grow">
             <h3 className="text-lg font-semibold truncate mb-2">Choose Additional Services</h3>
-            <div className="flex flex-wrap">
+            <div className="grid grid-cols-3 gap-4">
               {guilder.services.map((service, index) => (
-                <div key={index} className="w-1/3 sm:w-1/3 flex items-center mb-1">
+                <div key={index} className="flex items-center mb-1">
                   <input type="checkbox" id={`service-${index}`} className="mr-2" />
                   <label htmlFor={`service-${index}`}>{service.name}</label>
                 </div>
@@ -324,7 +324,7 @@ export default function Guilder() {
           </div>
 
           {/* Group select chiếm 1/3 */}
-          <div className="ml-5 bg-white border border-teal-500 text-teal-500 rounded-lg p-4 text-center w-80 flex flex-col ">
+          <div className=" flex-basis-1/3 ml-5 bg-white border border-teal-500 text-teal-500 rounded-lg p-4 text-center w-64 flex flex-col ">
             {/* Tích xanh hoặc dấu chéo đỏ */}
             <div className="flex justify-center items-center mb-1">
               {false ? (
