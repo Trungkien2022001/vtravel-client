@@ -1045,7 +1045,7 @@ const Page = () => {
           </div>
           <div className='w-3/4'>
 
-            {tours.slice(0, 250).map(tour => (
+            {tours?.slice(0, 250).map(tour => (
               <div key={tour.id} className="border rounded-lg shadow-sm p-4 mb-4 bg-white">
                 {/* Header Section */}
                 <div className="flex justify-between items-center mb-6">
@@ -1200,7 +1200,7 @@ const Page = () => {
             </div>
           </div>
           <div className='w-3/4'>
-            {vehicles.slice(0, 5).map(vehicle => (
+            {vehicles?.map(vehicle => (
               <div key={vehicle.id} className="border rounded-lg shadow-sm p-4 mb-4 bg-white">
                 <div className="flex gap-4 w-full justify-items-end">
                   <div className="relative basis-1/4">

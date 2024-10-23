@@ -88,7 +88,7 @@ const Vehicle = ({ vehicles }) => {
           </div>
         </div>
         <div className='w-3/4'>
-          {vehicles.slice(0, 5).map(vehicle => (
+          {vehicles?.map(vehicle => (
             <div key={vehicle.id} className="border rounded-lg shadow-sm p-4 mb-4 bg-white">
               <div className="flex gap-4 w-full justify-items-end">
                 <div className="relative basis-1/4">

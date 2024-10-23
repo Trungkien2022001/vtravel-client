@@ -89,7 +89,7 @@ const Tour = ({ tours }) => {
         </div>
         <div className='w-3/4'>
 
-          {tours.slice(0, 250).map(tour => (
+          {tours?.slice(0, 250).map(tour => (
             <div key={tour.id} className="border rounded-lg shadow-sm p-4 mb-4 bg-white">
               {/* Header Section */}
               <div className="flex justify-between items-center mb-6">
