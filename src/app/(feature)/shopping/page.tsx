@@ -655,7 +655,7 @@ const Page = () => {
             {flight.outbound.map((leg, index) => (
               <div key={index} className="flex items-center mb-1">
                 <div className="w-14 h-14 mr-5 rounded-3xl bg-teal-500 text-white flex items-center justify-center text-xl font-bold">
-                  {airlineName}
+                  {leg?.flight_no?.substring(0, 2)}
                 </div>
                 <div key={index} className="flex flex-grow flex-col items-center">
                   {/* Row for time */}
@@ -694,7 +694,7 @@ const Page = () => {
             {flight.inbound.map((leg, index) => (
               <div key={index} className="flex items-center mb-1">
                 <div className="w-14 h-14 mr-5 rounded-3xl bg-teal-500 text-white flex items-center justify-center text-xl font-bold">
-                  {airlineName}
+                 {leg?.flight_no?.substring(0, 2)}
                 </div>
                 <div key={index} className="flex flex-grow flex-col items-center">
                   {/* Row for time */}
