@@ -9,7 +9,7 @@ export default function Filters({ filters, setFilters }) {
     };
   
     return (
-      <div className="w-64 bg-white border p-4 rounded-lg shadow-sm">
+      <div className="w-72 bg-white border p-4 rounded-lg shadow-sm">
         <h2 className="text-lg font-bold mb-4">Filters</h2>
   
         <div className="mb-4">

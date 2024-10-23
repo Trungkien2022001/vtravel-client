@@ -12,23 +12,33 @@ import SupportAgentOutlinedIcon from '@mui/icons-material/SupportAgentOutlined';
 import HealthAndSafetyOutlinedIcon from '@mui/icons-material/HealthAndSafetyOutlined';
 import Guilder from '../../../../dev/guider/page';
 import { FaStar } from "react-icons/fa";
+import * as _ from 'lodash'
+import Header from '@/components/header/Header';
 
 const tabItems = ['Hotels', 'Flights', 'Tours', 'Vehicles', 'Tour Guide', 'Insurances'];
 const Page = () => {
-  const popupHotelDetailRef = useRef(null);
   const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState('Hotels');
   const [hotelId, setHotelId] = useState('');
+  const [selectedFlight, setSelectedFlight] = useState()
+  const [selectedTour, setSelectedTour] = useState()
+  const [selectedRoom, setSelectedRoom] = useState()
+  const [selectedRoomRate, setSelectedRoomRate] = useState()
+  const [selectedHotel, setSelectedHotel] = useState()
+  const [selectedVehicle, setSelectedVehicle] = useState()
+  const [hotel, setHotel] = useState({} as any)
   const propertyId = searchParams.get('property_id');
   const propertyType = searchParams.get('property_type');
   const region_name_full = searchParams.get('region_name_full');
   const departureAirport = searchParams.get('departure_airport');
   const arrivalAirport = searchParams.get('arrival_airport');
   const checkin = searchParams.get('checkin');
+  const maxDistance = 0.25
   const checkout = searchParams.get('checkout');
   const rooms = JSON.parse(searchParams.get('rooms') || '{}');
   const currency = searchParams.get('currency');
   const [hotels, setHotels] = useState([])
+  const [initialHotels, setInitialHotels] = useState([])
   const [tours, setTours] = useState([])
   const [flights, setFlights] = useState([])
   const [vehicles, setVehicles] = useState([])
@@ -42,21 +52,118 @@ const Page = () => {
     flight: {},
     vehicle: {},
     insurance: {},
-    guilder: {}
+    guilder: {},
+    room_rate: {}
   })
 
-  console.log(regionDetail)
+  const [filterCon, setFilterCon] = useState({
+    price: [0, 9e11],
+    star: 0,
+    name: '',
+    location: {}
+  })
 
-  const [selectedRoom, setSelectedRoom] = useState();
+  function calculateDistance(d1, d2) {
+    if (!d1.latitude || !d2.latitude || !d1.latitude || !d2.latitude) {
+      return 0
+    }
+    return Math.sqrt(
+      (d1.latitude - d2.latitude) * (d1.latitude - d2.latitude) +
+      (d1.longitude - d2.longitude) * (d1.longitude - d2.longitude),
+    );
+  }
+
+
+  function filteredHotel(type, value) {
+    switch (type) {
+      case 'star':
+        if (value == filterCon.star) {
+          value = 0
+        }
+        setFilterCon(prev => ({
+          ...prev,
+          star: value
+        }))
+        setHotels(initialHotels.filter(i => {
+          const nameCond = filterCon.name ? i.name?.includes(filterCon.name) : true
+          const priceCond = i.total_price > filterCon.price[0] && i.total_price < filterCon.price[1]
+          const starCond = value == 0 && i.rating ? true : parseInt(i.rating) === parseInt(value)
+          console.log(i.rating)
+          return nameCond && priceCond && starCond && calculateDistance(filterCon.location, i) < maxDistance
+        }))
+        break;
+      case 'name':
+        setFilterCon(prev => ({
+          ...prev,
+          name: value
+        }))
+        value = value.toLowerCase()
+        setHotels(initialHotels.filter(i => {
+          const nameCond = value ? i.name?.toLowerCase().includes(value) : true
+          const priceCond = i.total_price > filterCon.price[0] && i.total_price < filterCon.price[1]
+          const starCond = filterCon.star === 0 ? true : parseInt(i.rating) === filterCon.star
+          return nameCond && priceCond && starCond && calculateDistance(filterCon.location, i) < maxDistance
+        }))
+        break;
+
+      case 'price':
+        if (value[0] === filterCon.price[0] && value[1] === filterCon.price[1]) {
+          value = [0, 9e11]
+        }
+        setFilterCon(prev => ({
+          ...prev,
+          price: value
+        }))
+
+        setHotels(initialHotels.filter(i => {
+          const nameCond = filterCon.name ? i.name?.toLowerCase().includes(filterCon.name) : true
+          const priceCond = i.total_price > value[0] && i.total_price < value[1]
+          const starCond = filterCon.star === 0 ? true : parseInt(i.rating) === filterCon.star
+          return nameCond && priceCond && starCond && calculateDistance(filterCon.location, i) < maxDistance
+        }))
+        break;
+
+      case 'location':
+        console.log(filterCon.star)
+        // console.log(value, filterCon.price)
+        if (value.region_id === filterCon.location?.region_id) {
+          value = {}
+        }
+        setFilterCon(prev => ({
+          ...prev,
+          location: value
+        }))
+        setHotels(initialHotels.filter(i => {
+          const nameCond = filterCon.name ? i.name?.toLowerCase().includes(filterCon.name) : true
+          const priceCond = i.total_price > filterCon.price[0] && i.total_price < filterCon.price[1]
+          const starCond = filterCon.star === 0 ? true : parseInt(i.rating) === filterCon.star
+          return nameCond && priceCond && starCond && calculateDistance(value, i) < maxDistance
+        }))
+        break;
+
+      default:
+        break;
+    }
+  }
 
   const handleSelectRoom = (room) => {
     setSelectedRoom(room);
+    console.log(room, "iennn")
   };
   const [filters, setFilters] = useState({
     stars: [],
     budget: '',
     location: [],
   });
+
+  const handleSelectRoomRate = (rate) => {
+    setSelectedRoomRate(rate);
+    console.log(rate)
+    setPackages(prev => ({
+      ...prev,
+      room_rate: rate,
+    }))
+  };
 
   const searchHotels = async () => {
     try {
@@ -106,7 +213,10 @@ const Page = () => {
 
       const res = await _res.json();
       // console.log(res.data);
-      setHotels(res.data || [])
+      const hotelList = res.data || []
+      // let hotelList = (res.data ||[]).sort((a, b)=>a?.total_price > b?.total_price  ? 1 : -1)
+      setHotels(hotelList)
+      setInitialHotels(hotelList)
       setPackages(prev => ({
         ...prev,
         hotel: res.data?.[0] || []
@@ -215,7 +325,7 @@ const Page = () => {
     }
     try {
       const data = {
-        departure_date: moment().format('YYYY-MM-DD') ===  checkin ? checkin : moment(checkin).subtract(1, 'day').format('YYYY-MM-DD'),  // Replace with your dynamic date
+        departure_date: moment().format('YYYY-MM-DD') === checkin ? checkin : moment(checkin).subtract(1, 'day').format('YYYY-MM-DD'),  // Replace with your dynamic date
         return_date: checkout,      // Replace with your dynamic date
         is_round_trip: true,
         cabin_class: "Economy",
@@ -318,57 +428,84 @@ const Page = () => {
     setHotelId(hotel_id)
   }
 
-  const Hotel = () => {
-    const searchParams = useSearchParams();
-    const checkin = searchParams.get('checkin');
-    const checkout = searchParams.get('checkout');
-    const rooms = JSON.parse(searchParams.get('rooms') || '{}');
-    const currency = searchParams.get('currency');
-    const [hotel, setHotel] = useState({} as any)
-    const searchHotelsByRegion = async () => {
-      try {
-        const data = {
-          rooms,
-          checkin,
-          checkout,
-          hotel_id: hotelId,
-          currency
-        }
-        const _res = await fetch(
-          `${process.env.NEXT_PUBLIC_MICRO_SERVICE_URL}/api/v1/hotel/detail`,
-          {
-            method: "POST", // HTTP method
-            headers: {
-              "x-key": "superkey", // Add x-key header
-              "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwid29ya3NwYWNlIjoiYWdlbnQsIiwiaWF0IjoxNzI5NDMxNDEzLCJleHAiOjE4MTU4MzE0MTN9.Td4LHircGbJxDfepwE4oMkQfM-tbXqOgPf9o7DLhEsQ", // Add your access token
-              "Content-Type": "application/json", // Make sure you're sending JSON
-            },
-            body: JSON.stringify(data),
-            cache: "no-cache", // Avoid caching the response
-          }
-        );
+  const handleSelectedFlight = (flight) => {
+    setSelectedFlight(flight);
+    setPackages(prev => ({
+      ...prev, flight
+    }))
+  }
 
-        if (!_res.ok) {
-          throw new Error("Failed to search hotels");
-        }
+  const handleSelectedTour = (tour) => {
+    setSelectedTour(tour);
+    setPackages(prev => ({
+      ...prev, tour
+    }))
+  }
 
-        const res = await _res.json();
-        setHotel(res.data)
-        return res.data // Handle the response (e.g., update the UI or state)
-      } catch (error) {
-        console.error("Error searching hotels:", error);
+  const handleSelectedVehicle = (vehicle) => {
+    setSelectedVehicle(vehicle);
+    setPackages(prev => ({
+      ...prev, vehicle
+    }))
+    console.log(vehicle)
+  }
+
+  const handleSelectedHotel = (hotel) => {
+    setSelectedHotel(hotel);
+    setPackages(prev => ({
+      ...prev, hotel
+    }))
+    setHotelDetailOpen(true);
+    setHotelId(hotel.hotel_id)
+    // console.log(hotel)
+  }
+
+  const searchHotelsByRegion = async () => {
+    try {
+      const data = {
+        rooms,
+        checkin,
+        checkout,
+        hotel_id: hotelId,
+        currency
       }
-    };
-    const getData = async () => {
+      const _res = await fetch(
+        `${process.env.NEXT_PUBLIC_MICRO_SERVICE_URL}/api/v1/hotel/detail`,
+        {
+          method: "POST", // HTTP method
+          headers: {
+            "x-key": "superkey", // Add x-key header
+            "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwid29ya3NwYWNlIjoiYWdlbnQsIiwiaWF0IjoxNzI5NDMxNDEzLCJleHAiOjE4MTU4MzE0MTN9.Td4LHircGbJxDfepwE4oMkQfM-tbXqOgPf9o7DLhEsQ", // Add your access token
+            "Content-Type": "application/json", // Make sure you're sending JSON
+          },
+          body: JSON.stringify(data),
+          cache: "no-cache", // Avoid caching the response
+        }
+      );
 
-      await searchHotelsByRegion()
+      if (!_res.ok) {
+        throw new Error("Failed to search hotels");
+      }
+
+      const res = await _res.json();
+      setHotel(res.data)
+      return res.data // Handle the response (e.g., update the UI or state)
+    } catch (error) {
+      console.error("Error searching hotels:", error);
     }
-    useEffect(() => {
-      getData()
-    }, [])
+  };
+  const getDataHotelDetail = async () => {
+
+    await searchHotelsByRegion()
+  }
+  useEffect(() => {
+    getDataHotelDetail()
+  }, [hotelId])
+
+  const Hotel = () => {
     return (
       <Suspense fallback={<div>Loading...</div>}>
-        {hotel.id ?
+        {hotel?.id ?
           <div className="max-w-7xl mx-auto">
             <div className="max-w-7xl mx-auto mb-5 bg-white shadow-lg rounded-lg overflow-hidden">
               {/* Hotel Name and Star Rating */}
@@ -526,14 +663,10 @@ const Page = () => {
   }
 
   const ProductCard = ({ room, selectedRoom, onSelect }) => {
-    const roomLength = room.rate.length;
-    const idx = Math.floor(Math.random() * roomLength);
-
-    const isSelected = selectedRoom?.id === room.id;
     // console.log(room.images[0].urls[0].url)
 
     return (
-      <div className={` h-auto p-4 mb-4 border rounded-lg ${isSelected ? 'border-teal-500' : 'border-gray-200'} bg-white shadow-sm`}>
+      <div className={` h-auto p-4 mb-4 border rounded-lg'border-teal-500 bg-white shadow-sm`}>
         {/* Room Image and Title */}
         <div className="flex">
           <div className="">
@@ -593,8 +726,12 @@ const Page = () => {
                 </div>
                 {/* button chiếm 1 phần */}
                 <div className="flex-basis-1/8 text-center ml-5">
-                  <button className="bg-teal-500 text-white rounded-lg py-2 px-6 hover:bg-teal-800">
-                    Select
+                  <button
+                    className={`${selectedRoomRate?.id === rate.id ? 'bg-red-500' : 'bg-teal-500'
+                      } text-white rounded-lg py-2 px-8 mt-0 hover:bg-red-200 w-32`}
+                    onClick={() => handleSelectRoomRate(rate)}
+                  >
+                    {selectedRoomRate?.id === rate.id ? 'Selected' : 'Select'}
                   </button>
                 </div>
               </div>
@@ -613,6 +750,17 @@ const Page = () => {
       [event.target.name]: event.target.value,
     });
   };
+
+  function calculateTotalPrice() {
+    return ((parseFloat(packages.flight?.fares?.[0]?.total_fare) || 0) +
+      (parseFloat(packages.room_rate?.full_rate || packages.hotel.total_price) || 0) +
+      (parseFloat(packages.tour?.price?.toFixed(2)) || 0) +
+      (parseFloat(packages.vehicle?.price?.toFixed(2)) || 0) + 49.99 || 0).toFixed(2)
+  }
+  function calculateTotalPriceWithInsurance() {
+    const basePrice = calculateTotalPrice()
+    return (parseFloat(basePrice) + 19.99).toFixed(2)
+  }
 
   function calculateDuration(leg) {
     const departureTime = moment(leg.departure_date_time);
@@ -695,7 +843,7 @@ const Page = () => {
             {flight.inbound.map((leg, index) => (
               <div key={index} className="flex items-center mb-1">
                 <div className="w-14 h-14 mr-5 rounded-3xl bg-teal-500 text-white flex items-center justify-center text-xl font-bold">
-                 {leg?.flight_no?.substring(0, 2)}
+                  {leg?.flight_no?.substring(0, 2)}
                 </div>
                 <div key={index} className="flex flex-grow flex-col items-center">
                   {/* Row for time */}
@@ -731,12 +879,16 @@ const Page = () => {
         </div>
 
         {/* Right side with price and actions */}
-        <div className="ml-5 bg-white border border-teal-500 text-teal-500 rounded-lg p-4 text-center w-64 flex flex-col">
+        <div className="ml-5 bg-white border border-teal-500 text-teal-500 rounded-lg p-4 text-center w-72 flex flex-col">
           <p className="text-lg">PRICE</p>
           <p className="text-2xl font-bold">{flight.fares[0].total_fare} {flight.fares[0].currency}</p>
           <p className="text-sm">Round Trip</p>
-          <button className="bg-teal-500 text-white rounded-lg py-2 px-6 mt-4 hover:bg-teal-800">
-            Select
+          <button
+            className={`${selectedFlight?.flight_id === flight.flight_id ? 'bg-red-500' : 'bg-teal-500'
+              } text-white rounded-lg py-2 px-8 mt-0 hover:bg-red-200`}
+            onClick={() => handleSelectedFlight(flight)}
+          >
+            {selectedFlight?.flight_id === flight.flight_id ? 'Selected' : 'Select'}
           </button>
           <p className="text-xs mt-2 underline cursor-pointer">Price Breakdown</p>
         </div>
@@ -747,11 +899,11 @@ const Page = () => {
 
   const FlightCard = () => {
     return (
-      <div className="min-h-screen bg-gray-100">
-        <div className='text-center font-bold text-xl text-teal-500'>Total: {flights?.length} flights!</div>
+      <div >
+        <div className='text-center font-bold text-xl text-teal-500 mt-3 mb-2'>{flights?.length} flights found</div>
         <div className='flex'>
           <div className="w-1/4">
-            <div className="w-64 bg-white border p-4 rounded-lg shadow-sm">
+            <div className="w-72 bg-white border p-4 rounded-lg shadow-sm">
               <h2 className="text-lg font-bold mb-4 text-teal-500">Filters</h2>
 
               <div className="mb-4">
@@ -827,146 +979,16 @@ const Page = () => {
     )
   }
 
-  const HotelCard = () => {
-    return (<>
-      <div className='text-center font-bold text-xl text-teal-500'>Total: {hotels?.length} hotels!</div>
-      <div className="flex">
-        <div className="w-1/4">
-          <div className="w-64 bg-white border p-4 rounded-lg shadow-sm">
-            <h2 className="text-lg font-bold mb-4 text-teal-500">Filters</h2>
-            <div className="mb-4">
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search by name..."
-                className="border border-gray-300 rounded p-2 w-full"
-              />
-            </div>
-            <div className="mb-4">
-              <h3 className="font-semibold mb-2 text-teal-500">Stars</h3>
-              <div className="flex space-x-1">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <FaStar
-                    key={star}
-                    size={24}
-                    onClick={() => setRating(star)}
-                    className={star <= rating ? "text-blue-500" : "text-gray-300"}
-                    style={{ cursor: "pointer" }}
-                  />
-                ))}
-              </div>
-            </div>
-
-            <div className="mb-4">
-              <h3 className="font-semibold mb-2 text-teal-500">Budget</h3>
-              <div className="space-y-2">
-                <label className="flex items-center space-x-2">
-                  <input
-                    type="radio"
-                    name="budget"
-                    value="0-100"
-                    onChange={handleFilterChange}
-                    className="form-radio"
-                  />
-                  <span>Less than USD 100</span>
-                </label>
-                <label className="flex items-center space-x-2">
-                  <input
-                    type="radio"
-                    name="budget"
-                    value="100-500"
-                    onChange={handleFilterChange}
-                    className="form-radio"
-                  />
-                  <span>USD 100 - USD 500</span>
-                </label>
-                <label className="flex items-center space-x-2">
-                  <input
-                    type="radio"
-                    name="budget"
-                    value="500-1000"
-                    onChange={handleFilterChange}
-                    className="form-radio"
-                  />
-                  <span>USD 500 - USD 1000</span>
-                </label>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="font-semibold mb-2 text-teal-500">Nearby Locations</h3>
-              <div className="space-y-2 h-[495px] overflow-y-scroll">
-                {[...regionDetail?.pointOfInterests || [], ...regionDetail?.cities || [], ...regionDetail?.trainStations || [], ...regionDetail?.metroStations || []].map(
-                  (location) => (
-                    <label key={location.region_id} className="flex items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        name="location"
-                        value={location.region_id}
-                        onChange={handleFilterChange}
-                        className="form-checkbox"
-                      />
-                      <span>{location.region_name}</span>
-                    </label>
-                  )
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="w-3/4">
-          {hotels?.length > 0 ? (
-            hotels?.slice(0, 250).map((hotel, index) => (
-              <div key={index} className="flex border rounded-lg shadow-sm p-4 mb-4 bg-white">
-                <img
-                  src={hotel.images?.[0]?.url}
-                  alt={hotel.name}
-                  className="w-32 h-32 object-cover rounded-md"
-                />
-                <div className="ml-4 flex-grow">
-                  <h3 className="text-lg font-bold">{hotel.name}</h3>
-                  <p className="text-sm text-gray-500">{hotel.address}</p>
-                  <div className="flex items-center mt-2">
-                    {Array.from({ length: hotel.rating }, (_, i) => (
-                      <span key={i} className="text-yellow-400">&#9733;</span>
-                    ))}
-                    {Array.from({ length: 5 - hotel.rating }, (_, i) => (
-                      <span key={i} className="text-gray-300">&#9733;</span>
-                    ))}
-                  </div>
-                </div>
-                <div className="flex flex-col justify-between items-end">
-                  <p className="text-teal-500 text-xl font-semibold">
-                    {hotel.total_price} {hotel.price_currency} <span className="text-sm">per night</span>
-                  </p>
-                  <button className="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600" onClick={() => handleGetRooms(hotel.hotel_id)}>
-                    Select
-                  </button>
-                  <button className="mt-2 text-blue-500 hover:underline">
-                    View on Map
-                  </button>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p>No hotels match your criteria.</p>
-          )}
-        </div>
-      </div>
-    </>)
-  }
-
   const Tour = ({ tours }) => {
     const handleFilterChange = (event) => {
 
     };
     return (
       <>
-        <div className='text-center font-bold text-xl text-teal-500'>Total: {tours?.length} tours!</div>
+        <div className='text-center font-bold text-xl text-teal-500 mt-3 mb-2'>{tours?.length} tours found</div>
         <div className='flex'>
           <div className="w-1/4">
-            <div className="w-64 bg-white border p-4 rounded-lg shadow-sm">
+            <div className="w-72 bg-white border p-4 rounded-lg shadow-sm">
               <h2 className="text-lg font-bold mb-4 text-teal-500">Filters</h2>
 
               <div className="mb-4">
@@ -1053,15 +1075,19 @@ const Page = () => {
                   <div>
                     <h1 className=" font-bold text-lg text-teal-500">{tour.name}</h1>
                     {/* <p className="text-gray-600">{tour.city_code}</p> */}
-                    <ul className="text-gray-600 space-y-1">
+                    <ul className="text-gray-600 space-y-1 text-teal-500 mt-3">
                       <li>🕒 Duration: {tour.duration}</li>
                     </ul>
                   </div>
                   <div>
-                    <p className="font-bold text-red-600">From {Math.round(tour.price)} {tour.currency}</p>
+                    <div className="font-bold text-teal-500 text-center text-lg">From {Math.round(tour.price)} {tour.currency}</div>
                     {/* <p className="text-sm text-gray-500">08/10/2024 - 09/10/2024</p> */}
-                    <button className="bg-teal-500  text-white rounded-lg py-2 px-8 mt-0 hover:bg-gray-200">
-                      Select
+                    <button
+                      className={`w-36 ${selectedTour?.id === tour.id ? 'bg-red-500' : 'bg-teal-500'
+                        } text-white rounded-lg py-2 px-8 mt-0 hover:bg-red-200`}
+                      onClick={() => handleSelectedTour(tour)}
+                    >
+                      {selectedTour?.id === tour.id ? 'Selected' : 'Select'}
                     </button>
                   </div>
                 </div>
@@ -1119,10 +1145,10 @@ const Page = () => {
     };
     return (
       <>
-        <div className='text-center font-bold text-xl text-teal-500'>Total: {vehicles?.length} vehicles!</div>
+        <div className='text-center font-bold text-xl text-teal-500 mt-3 mb-2'>{vehicles?.length} vehicles found</div>
         <div className='flex'>
           <div className="w-1/4">
-            <div className="w-64 bg-white border p-4 rounded-lg shadow-sm">
+            <div className="w-72 bg-white border p-4 rounded-lg shadow-sm">
               <h2 className="text-lg font-bold mb-4 text-teal-500">Filters</h2>
 
               <div className="mb-4">
@@ -1230,10 +1256,14 @@ const Page = () => {
                       Maximum pax allowed: 4
                     </div>
                   </div>
-                  <div className="ml-5 bg-white border border-teal-500 text-teal-500 rounded-lg p-4 text-center w-64 flex flex-col">
+                  <div className="ml-5 bg-white border border-teal-500 text-teal-500 rounded-lg p-4 text-center w-72 flex flex-col">
                     <p className="text-xl font-bold">From {Math.round(vehicle.price)} {vehicle.currency}</p>
-                    <button className="bg-teal-500 text-white rounded-lg py-2 px-6 mt-4 hover:bg-teal-800">
-                      Select
+                    <button
+                      className={`${selectedVehicle?.id === vehicle.id ? 'bg-red-500' : 'bg-teal-500'
+                        } text-white rounded-lg py-2 px-8 mt-0 hover:bg-red-200`}
+                      onClick={() => handleSelectedVehicle(vehicle)}
+                    >
+                      {selectedVehicle?.id === vehicle.id ? 'Selected' : 'Select'}
                     </button>
                     <p className="text-xs mt-2 underline cursor-pointer">Price Breakdown</p>
                   </div>
@@ -1248,18 +1278,19 @@ const Page = () => {
   };
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <div className="min-h-screen bg-gray-100 p-8 mx">
-        <h1 className=" mx-12 text-2xl  text-teal-500 font-bold">Your trip in {region_name_full}</h1>
+      <Header style={{height: 16}}/>
+      <div className=" min-h-screen bg-gray-100 px-8mx">
+        <h1 className=" mx-12 mt-2 text-2xl  text-teal-500 font-bold">Your trip to {region_name_full}</h1>
         <div className='mx-12 flex'>
-          <div className="product w-full">
+          <div className="product  w-full">
             <div className="mt-2">
-              <div className="border-b border-gray-200 mb-4">
+              <div className=" border-gray-200 px-16">
                 <nav className="flex space-x-6 justify-between">
                   {tabItems.map((tab) => (
                     <button
                       key={tab}
                       onClick={() => setActiveTab(tab)}
-                      className={`px-4 py-2 w-full ${activeTab === tab ? 'border-b-2 border-teal-500 text-teal-500' : 'text-gray-600 hover:text-gray-800'}`}
+                      className={`px-4 py-2 w-full text-lg font-bold ${activeTab === tab ? ' border-teal-500 text-white bg-teal-400 rounded-t-lg' : 'text-gray-600 hover:text-gray-800'}`}
                     >
                       {tab}
                     </button>
@@ -1267,21 +1298,169 @@ const Page = () => {
                 </nav>
               </div>
 
-              <div>
-                {activeTab === 'Hotels' && <HotelCard />}
+              <div className='border-t-4 border-teal-400 relative rounded-t-[70px]'>
+                {/* <div className="absolute top-3 left-0 h-[30px] w-0 border-l-2 border-teal-500 rounded-tl-sm"></div>
+                <div className="absolute top-0 right-0 h-[30px] w-0 border-l-2 border-teal-500 rounded-tr-sm"></div> */}
+                {activeTab === 'Hotels' && <>
+                  <div className='text-center font-bold text-xl text-teal-500 mt-3 mb-2'>{hotels?.length} hotels found</div>
+                  <div className="flex">
+                    <div className="w-1/4">
+                      <div className="w-72 bg-white border p-4 rounded-lg shadow-sm">
+                        <h2 className="text-lg font-bold mb-4 text-teal-500">Filters</h2>
+                        <div className="mb-4">
+                          <input
+                            type="text"
+                            value={filterCon.name}
+                            onChange={(e) => filteredHotel('name', e.target.value)}
+                            // value={searchTerm}
+                            // onChange={e => setSearchTerm(e.target.value)}
+                            placeholder="Search by name..."
+                            className="border border-gray-300 rounded p-2 w-full"
+                          />
+                        </div>
+                        <div className="mb-4">
+                          <h3 className="font-semibold mb-2 text-teal-500">Stars</h3>
+                          <div className="flex space-x-1">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                              <FaStar
+                                key={star}
+                                size={24}
+                                onClick={() => filteredHotel('star', star)}
+                                className={star <= filterCon.star ? "text-yellow-300" : "text-gray-300"}
+                                style={{ cursor: "pointer" }}
+                              />
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="mb-4">
+                          <h3 className="font-semibold mb-2 text-teal-500">Budget</h3>
+                          <div className="space-y-2">
+                            <label className="flex items-center space-x-2">
+                              <input
+                                type="radio"
+                                name="budget"
+                                checked={filterCon.price[0] === 0 && filterCon.price[1] === 100}
+                                value={[0, 100]}
+                                onChange={() => filteredHotel('price', [0, 100])}
+                                onClick={() => filteredHotel('price', [0, 100])}
+                                className="form-radio"
+                              />
+                              <span>Less than USD 100</span>
+                            </label>
+                            <label className="flex items-center space-x-2">
+                              <input
+                                type="radio"
+                                name="budget"
+                                checked={filterCon.price[0] === 100 && filterCon.price[1] === 500}
+                                value={[100, 500]}
+                                onChange={() => filteredHotel('price', [100, 500])}
+                                onClick={() => filteredHotel('price', [100, 500])}
+                                className="form-radio"
+                              />
+                              <span>USD 100 - USD 500</span>
+                            </label>
+                            <label className="flex items-center space-x-2">
+                              <input
+                                type="radio"
+                                name="budget"
+                                checked={filterCon.price[0] === 500 && filterCon.price[1] === 9e11}
+                                value={[500, 9e11]}
+                                onChange={() => filteredHotel('price', [500, 9e11])}
+                                onClick={() => filteredHotel('price', [500, 9e11])}
+                                className="form-radio"
+                              />
+                              <span>More than USD 500</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div>
+                          <h3 className="font-semibold mb-2 text-teal-500">Nearby Locations</h3>
+                          <div className="space-y-2 h-[495px] overflow-y-scroll">
+                            {_.uniqBy([...regionDetail?.pointOfInterests || [], ...regionDetail?.cities || [], ...regionDetail?.trainStations || [], ...regionDetail?.metroStations || []], 'region_id').map(
+                              (location) => (
+                                <label key={location.region_id} className="flex items-center space-x-2">
+                                  <input
+                                    type="radio"
+                                    name="location"
+                                    value={location.region_id}
+                                    checked={filterCon.location?.region_id === location.region_id}
+                                    onChange={() => filteredHotel('location', location)}
+                                    onClick={() => filteredHotel('location', location)}
+                                    className="form-checkbox"
+                                  />
+                                  <span>{location.region_name}</span>
+                                </label>
+                              )
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="w-3/4">
+                      {hotels?.length > 0 ? (
+                        hotels?.slice(0, 250).map((hotel, index) => (
+                          <div key={index} className="flex border rounded-lg shadow-sm p-4 mb-4 bg-white">
+                            <img
+                              src={hotel.images?.[0]?.url}
+                              alt={hotel.name}
+                              className="w-32 h-32 object-cover rounded-md"
+                            />
+                            <div className="ml-4 flex-grow">
+                              <h3 className="text-lg font-bold">{hotel.name}</h3>
+                              <p className="text-sm text-gray-500">{hotel.address}</p>
+                              <div className="flex items-center mt-2">
+                                {Array.from({ length: hotel.rating }, (_, i) => (
+                                  <span key={i} className="text-yellow-400">&#9733;</span>
+                                ))}
+                                {Array.from({ length: 5 - hotel.rating }, (_, i) => (
+                                  <span key={i} className="text-gray-300">&#9733;</span>
+                                ))}
+                              </div>
+                            </div>
+                            <div className="flex flex-col justify-between items-end">
+                              <p className="text-teal-500 text-xl font-semibold">
+                                {hotel.total_price} {hotel.price_currency} <span className="text-sm">per night</span>
+                              </p>
+                              {/* <button className="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600" onClick={() => handleGetRooms(hotel.hotel_id)}> */}
+                              <button
+                                className={`${selectedHotel?.hotel_id === hotel.hotel_id ? 'bg-red-500' : 'bg-teal-500'
+                                  } text-white rounded-lg py-2 px-8 mt-0 hover:bg-red-200`}
+                                onClick={() => handleSelectedHotel(hotel)}
+                              >
+                                {selectedHotel?.hotel_id === hotel.hotel_id ? 'Selected' : 'Select'}
+                              </button>
+                              <button className="mt-2 text-teal-500 hover:underline">
+                                View on Map
+                              </button>
+                            </div>
+                          </div>
+                        ))
+                      ) : (
+                        <p>No hotels match your criteria.</p>
+                      )}
+                    </div>
+                  </div>
+                </>}
                 {activeTab === 'Flights' &&
                   <FlightCard />}
                 {activeTab === 'Tours' && <Tour tours={tours} />}
                 {activeTab === 'Vehicles' && <Vehicle vehicles={vehicles} />}
                 {activeTab === 'Tour Guide' && <Guilder />}
-                {activeTab === 'Insurances' && <div className=' px-24 text-center font-bold text-2xl text-teal-500'>
-                  Currently, we offer only one insurance service: You can enjoy your travel experience with peace of mind.
-                  If anything differs from what we have described, please call our customer service center.
-                  If what you report is correct, you will receive a full refund of your travel expenses.!</div>}
+                {activeTab === 'Insurances' &&
+                  <div>
+                    <div className='text-center font-bold text-xl text-teal-500 mt-3 mb-2'>Hi customer !</div>
+                    <div className='py-8 px-24 text-center font-bold text-2xl text-teal-500  border rounded-lg shadow-sm mb-4 bg-white'>
+                      Currently, we offer only one insurance service: You can enjoy your travel experience with peace of mind.
+                      If anything differs from what we have described, please call our customer service center.
+                      If what you report is correct, you will receive a full refund of your travel expenses.!</div>
+                  </div>
+                }
               </div>
             </div>
           </div>
-          <div className="bg-white shadow-lg rounded-lg p-6 w-[450px] mx-5 mt-15">
+          <div className="bg-white shadow-lg rounded-lg p-6 w-[450px] ml-5 mt-15">
             <h2 className="text-xl font-bold mb-4 text-teal-500">Prices</h2>
             <hr className="mb-5" />
             <div className="space-y-4">
@@ -1302,7 +1481,7 @@ const Page = () => {
                     {packages.hotel.name}
                   </span>
                 </div>
-                <span className="whitespace-nowrap min-w-16 text-teal-500 ml-2">{packages.hotel.total_price ? 'USD': ""} {packages.hotel.total_price}</span>
+                <span className="whitespace-nowrap min-w-16 text-teal-500 ml-2">{packages.hotel.total_price ? 'USD' : ""} {packages.room_rate?.full_rate || packages.hotel.total_price}</span>
               </div>
               <hr className="" />
               <div className="flex justify-between items-center">
@@ -1319,10 +1498,10 @@ const Page = () => {
                 <div className="flex items-center space-x-2">
                   <DirectionsCarFilledOutlinedIcon className='text-teal-500' />
                   <span className="text-sm overflow-hidden text-ellipsis line-clamp-2 max-w-[200px]">
-                    {packages.transfer?.name}
+                    {packages.vehicle?.name}
                   </span>
                 </div>
-                <span className="whitespace-nowrap min-w-16 text-teal-500 ml-2">{packages.transfer?.currency} {packages.transfer?.price?.toFixed(2)}</span>
+                <span className="whitespace-nowrap min-w-16 text-teal-500 ml-2">{packages.vehicle?.currency} {packages.vehicle?.price?.toFixed(2)}</span>
               </div>
               <hr className="" />
               <div className="flex justify-between items-center">
@@ -1339,7 +1518,7 @@ const Page = () => {
 
             <button className="mt-6 w-full bg-teal-500 text-white py-2 rounded-lg font-bold flex flex-col items-center">
               <span className='text-lg'>CONTINUE</span>
-              <span className="text-sm mt-1">1200 USD</span>
+              <span className="text-sm mt-1">USD {calculateTotalPrice()}</span>
             </button>
             <hr className='mt-16 mb-5' />
             <div className="flex justify-between items-center">
@@ -1355,7 +1534,7 @@ const Page = () => {
 
             <button className="mt-6 w-full bg-teal-500 text-white py-2 rounded-lg font-bold flex flex-col items-center">
               <span className='text-lg'>CONTINUE WITH INSURANCES</span>
-              <span className="text-sm mt-1">1200 USD</span>
+              <span className="text-sm mt-1">USD {calculateTotalPriceWithInsurance()}</span>
             </button>
 
             <div className='text-sm text-teal-500 mt-2'>Adding travel insurance ensures your safety and protects your rights during unexpected events on your journey.</div>

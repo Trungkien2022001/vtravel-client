@@ -6,10 +6,10 @@ const Tour = ({ tours }) => {
   };
   return (
     <>
-      <div className='text-center font-bold text-xl text-teal-500'>Total: {tours?.length} tours!</div>
+      <div className='text-center font-bold text-xl text-teal-500'>{tours?.length} tours found</div>
       <div className='flex'>
         <div className="w-1/4">
-          <div className="w-64 bg-white border p-4 rounded-lg shadow-sm">
+          <div className="w-72 bg-white border p-4 rounded-lg shadow-sm">
             <h2 className="text-lg font-bold mb-4">Filters</h2>
 
             <div className="mb-4">

@@ -47,7 +47,7 @@ export default function Footer() {
       {/* Copyright Section */}
       <div className="bg-teal-600 text-center py-4">
         <p className="text-sm">
-          &copy; 09.2024 VTravel. All rights reserved. Author: nguyenkien2022001
+          &copy; 09.2024 VTravel. All rights reserved. Powered by nguyenkien2022001
         </p>
       </div>
     </footer>

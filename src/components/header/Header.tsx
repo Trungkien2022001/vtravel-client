@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Header = () => {
+const Header = ({style}) => {
     const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
 
     const toggleLanguageDropdown = () => {
@@ -12,7 +12,7 @@ const Header = () => {
         setIsCurrencyDropdownOpen((prev) => !prev);
     };
     return (
-        <div className='h-28 flex justify-between items-center px-10 bg-teal-500 text-xl'>
+        <div className={`h-${style?.height || '28'} flex justify-between items-center px-12 bg-teal-500 text-lg`}>
             <div className="text-2xl font-bold text-purple-50">VTRAVEL</div>
             <div className="flex space-x-4">
                 <div className="relative">

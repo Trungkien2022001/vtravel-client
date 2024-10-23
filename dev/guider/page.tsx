@@ -191,167 +191,171 @@ export default function Guilder() {
   }
 
   return (
-    <div className="flex border rounded-lg shadow-sm mb-4 bg-white">
-      <div className="max-w-7xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-        <div className="w-full m-2 bg-white shadow-lg rounded-lg overflow-hidden p-4">
-          {/* Hotel Name and Star Rating */}
-          <div className="px-6 py-4">
-            <h1 className="text-2xl font-semibold text-teal-500">{guilder.name}</h1>
-            <div className="flex items-center mt-1">
-              {/* Placeholder for star rating (replace with dynamic star rating if available) */}
-              <span className="text-yellow-500 text-lg">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-            </div>
-          </div>
-
-          {/* Images Section */}
-          <div className="flex">
-            <div className="w-1/2">
-              <img
-                src={guilder.images[0].urls[0].url}
-                alt={guilder.name}
-                width={480}
-                height={480}
-                className="w-full h-full object-cover rounded-lg"
-              />
+    <div>
+       <div className='text-center font-bold text-xl text-teal-500 mt-3 mb-2'>1 tour guide found</div>
+      <div className="flex border rounded-lg shadow-sm mb-4 bg-white">
+        <div className="max-w-7xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+          <div className="w-full m-2 bg-white shadow-lg rounded-lg overflow-hidden p-4">
+            {/* Hotel Name and Star Rating */}
+            <div className="px-6 py-4">
+              <h1 className="text-2xl font-semibold text-teal-500">{guilder.name}</h1>
+              <div className="flex items-center mt-1">
+                {/* Placeholder for star rating (replace with dynamic star rating if available) */}
+                <span className="text-yellow-500 text-lg">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              </div>
             </div>
 
-            <div className="w-1/2 grid grid-cols-3 gap-3 pl-3 overflow-y-scroll" style={{ height: "500px" }}>
-              {guilder.images.map((image, idx) => (
+            {/* Images Section */}
+            <div className="flex">
+              <div className="w-1/2">
                 <img
-                  key={idx}
-                  src={image.urls[0].url}
-                  alt={`Image ${idx + 1}`}
-                  className="w-full h-40 object-cover rounded-lg"
+                  src={guilder.images[0].urls[0].url}
+                  alt={guilder.name}
+                  width={480}
+                  height={480}
+                  className="w-full h-full object-cover rounded-lg"
                 />
-              ))}
+              </div>
+
+              <div className="w-1/2 grid grid-cols-3 gap-3 pl-3 overflow-y-scroll" style={{ height: "500px" }}>
+                {guilder.images.map((image, idx) => (
+                  <img
+                    key={idx}
+                    src={image.urls[0].url}
+                    alt={`Image ${idx + 1}`}
+                    className="w-full h-40 object-cover rounded-lg"
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Address Section */}
+          </div>
+          {/* Thông tin cá nhân */}
+          <div className="m-2 shadow-lg rounded-lg p-4 bg-white">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+              {/* Ảnh và thông tin cá nhân */}
+              <div className="flex items-start">
+                <div>
+                  <h2 className="text-2xl font-bold">{guilder.name}</h2>
+                  <p>Age: {guilder.age}</p>
+                  <p>Nationality: {guilder.country_name}</p>
+                  <p>Gender: {guilder.gender}</p>
+                  <p>Body Measurements: {guilder.body_measurements}</p>
+                  <p>Weight: {guilder.weight}</p>
+                  <p>Height: {guilder.height}</p>
+
+                </div>
+              </div>
+
+              {/* Thông tin ngôn ngữ */}
+              <div>
+                <h3 className="text-xl font-bold text-gray-800">Languages</h3>
+                <div className="flex flex-wrap">
+                  {guilder.languages.map((language, index) => (
+                    <div key={index} className="flex-none w-full py-1 pr-1 flex items-center">
+                      <span className="text-green-500 mr-1">&#10003;</span> {/* Dấu tích xanh */}
+                      {language.name}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Kinh nghiệm */}
+              <div>
+                <h3 className="text-xl font-bold text-gray-800">Experience</h3>
+                <div className="flex flex-wrap">
+                  {guilder.experiences.map((experience, index) => (
+                    <div key={index} className="flex-none w-full py-1 pr-1 flex items-center">
+                      <span className="text-green-500 mr-1">&#10003;</span>
+                      {experience.name}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Chuyên môn */}
+              <div>
+                <h3 className="text-xl font-bold text-gray-800">Specialization</h3>
+                <div className="flex flex-wrap">
+                  {guilder.specializations.map((specialization, index) => (
+                    <div key={index} className="flex-none w-full py-1 pr-1 flex items-center">
+                      <span className="text-green-500 mr-1">&#10003;</span>
+                      {specialization.name}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Địa điểm hoạt động */}
+              <div>
+                <h3 className="text-xl font-bold text-gray-800">Operating Area</h3>
+                <div className="flex flex-wrap">
+                  {guilder.areas.map((area, index) => (
+                    <div key={index} className="flex-none w-full py-1 pr-1 flex items-center">
+                      <span className="text-green-500 mr-1">&#10003;</span>
+                      {area.name}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Giới thiệu ngắn */}
+              <div>
+                <h3 className="text-xl font-bold text-gray-800">About Me</h3>
+                <p>
+                  {guilder.about_me}
+                </p>
+              </div>
             </div>
           </div>
 
-          {/* Address Section */}
-        </div>
-        {/* Thông tin cá nhân */}
-        <div className="m-2 shadow-lg rounded-lg p-4 bg-white">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-            {/* Ảnh và thông tin cá nhân */}
-            <div className="flex items-start">
-              <div>
-                <h2 className="text-2xl font-bold">{guilder.name}</h2>
-                <p>Age: {guilder.age}</p>
-                <p>Nationality: {guilder.country_name}</p>
-                <p>Gender: {guilder.gender}</p>
-                <p>Body Measurements: {guilder.body_measurements}</p>
-                <p>Weight: {guilder.weight}</p>
-                <p>Height: {guilder.height}</p>
-
-              </div>
-            </div>
-
-            {/* Thông tin ngôn ngữ */}
-            <div>
-              <h3 className="text-xl font-bold text-gray-800">Languages</h3>
-              <div className="flex flex-wrap">
-                {guilder.languages.map((language, index) => (
-                  <div key={index} className="flex-none w-full py-1 pr-1 flex items-center">
-                    <span className="text-green-500 mr-1">&#10003;</span> {/* Dấu tích xanh */}
-                    {language.name}
+          <div className="m-2 h-auto border text-teal-500 rounded-lg p-4 flex mt-5 bg-white">
+            {/* Danh sách dịch vụ chiếm 2/3 */}
+            <div className="flex-basis-2/3 flex-grow">
+              <h3 className="text-lg font-semibold truncate mb-2">Choose Additional Services</h3>
+              <div className="grid grid-cols-3 gap-4">
+                {guilder.services.map((service, index) => (
+                  <div key={index} className="flex items-center mb-1">
+                    <input type="checkbox" id={`service-${index}`} className="mr-2" />
+                    <label htmlFor={`service-${index}`}>{service.name}</label>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Kinh nghiệm */}
-            <div>
-              <h3 className="text-xl font-bold text-gray-800">Experience</h3>
-              <div className="flex flex-wrap">
-                {guilder.experiences.map((experience, index) => (
-                  <div key={index} className="flex-none w-full py-1 pr-1 flex items-center">
-                    <span className="text-green-500 mr-1">&#10003;</span>
-                    {experience.name}
-                  </div>
-                ))}
+            {/* Group select chiếm 1/3 */}
+            <div className=" flex-basis-1/3 ml-5 bg-white border border-teal-500 text-teal-500 rounded-lg p-4 text-center w-72 flex flex-col ">
+              {/* Tích xanh hoặc dấu chéo đỏ */}
+              <div className="flex justify-center items-center mb-1">
+                {false ? (
+                  <span className="text-green-500">&#10003; Refundable</span> // Tích xanh
+                ) : (
+                  <span className="text-red-500">&#10007; Non-refundable</span> // Dấu chéo đỏ
+                )}
               </div>
-            </div>
 
-            {/* Chuyên môn */}
-            <div>
-              <h3 className="text-xl font-bold text-gray-800">Specialization</h3>
-              <div className="flex flex-wrap">
-                {guilder.specializations.map((specialization, index) => (
-                  <div key={index} className="flex-none w-full py-1 pr-1 flex items-center">
-                    <span className="text-green-500 mr-1">&#10003;</span>
-                    {specialization.name}
-                  </div>
-                ))}
-              </div>
-            </div>
+              {/* Giá */}
+              <p className="text-xl font-bold mb-5">500000 VND</p> {/* Tăng kích thước chữ cho giá */}
 
-            {/* Địa điểm hoạt động */}
-            <div>
-              <h3 className="text-xl font-bold text-gray-800">Operating Area</h3>
-              <div className="flex flex-wrap">
-                {guilder.areas.map((area, index) => (
-                  <div key={index} className="flex-none w-full py-1 pr-1 flex items-center">
-                    <span className="text-green-500 mr-1">&#10003;</span>
-                    {area.name}
-                  </div>
-                ))}
-              </div>
-            </div>
+              {/* Button Select */}
+              <button className="bg-teal-500 text-white rounded-lg py-2 px-6 hover:bg-teal-800 mb-1">
+                Select
+              </button>
 
-            {/* Giới thiệu ngắn */}
-            <div>
-              <h3 className="text-xl font-bold text-gray-800">About Me</h3>
-              <p>
-                {guilder.about_me}
+              {/* Chính sách pháp lý nằm dưới button */}
+              <p className="text-xs underline cursor-pointer text-center">
+                Legal Policy
               </p>
             </div>
           </div>
+
+
+
         </div>
-
-        <div className="m-2 h-auto border text-teal-500 rounded-lg p-4 flex mt-5 bg-white">
-          {/* Danh sách dịch vụ chiếm 2/3 */}
-          <div className="flex-basis-2/3 flex-grow">
-            <h3 className="text-lg font-semibold truncate mb-2">Choose Additional Services</h3>
-            <div className="grid grid-cols-3 gap-4">
-              {guilder.services.map((service, index) => (
-                <div key={index} className="flex items-center mb-1">
-                  <input type="checkbox" id={`service-${index}`} className="mr-2" />
-                  <label htmlFor={`service-${index}`}>{service.name}</label>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Group select chiếm 1/3 */}
-          <div className=" flex-basis-1/3 ml-5 bg-white border border-teal-500 text-teal-500 rounded-lg p-4 text-center w-64 flex flex-col ">
-            {/* Tích xanh hoặc dấu chéo đỏ */}
-            <div className="flex justify-center items-center mb-1">
-              {false ? (
-                <span className="text-green-500">&#10003; Refundable</span> // Tích xanh
-              ) : (
-                <span className="text-red-500">&#10007; Non-refundable</span> // Dấu chéo đỏ
-              )}
-            </div>
-
-            {/* Giá */}
-            <p className="text-xl font-bold mb-5">500000 VND</p> {/* Tăng kích thước chữ cho giá */}
-
-            {/* Button Select */}
-            <button className="bg-teal-500 text-white rounded-lg py-2 px-6 hover:bg-teal-800 mb-1">
-              Select
-            </button>
-
-            {/* Chính sách pháp lý nằm dưới button */}
-            <p className="text-xs underline cursor-pointer text-center">
-              Legal Policy
-            </p>
-          </div>
-        </div>
-
-
-
       </div>
     </div>
+    
   );
 }

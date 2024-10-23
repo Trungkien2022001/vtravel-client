@@ -6,10 +6,10 @@ const Vehicle = ({ vehicles }) => {
   };
   return (
     <>
-      <div className='text-center font-bold text-xl text-teal-500'>Total: {vehicles?.length} vehicles!</div>
+      <div className='text-center font-bold text-xl text-teal-500'>{vehicles?.length} vehicles found</div>
       <div className='flex'>
         <div className="w-1/4">
-          <div className="w-64 bg-white border p-4 rounded-lg shadow-sm">
+          <div className="w-72 bg-white border p-4 rounded-lg shadow-sm">
             <h2 className="text-lg font-bold mb-4">Filters</h2>
 
             <div className="mb-4">
@@ -117,7 +117,7 @@ const Vehicle = ({ vehicles }) => {
                     Maximum pax allowed: 4
                   </div>
                 </div>
-                <div className="ml-5 bg-white border border-teal-500 text-teal-500 rounded-lg p-4 text-center w-64 flex flex-col">
+                <div className="ml-5 bg-white border border-teal-500 text-teal-500 rounded-lg p-4 text-center w-72 flex flex-col">
                   <p className="text-xl font-bold">From {Math.round(vehicle.price)} {vehicle.currency}</p>
                   <button className="bg-teal-500 text-white rounded-lg py-2 px-6 mt-4 hover:bg-teal-800">
                     Select

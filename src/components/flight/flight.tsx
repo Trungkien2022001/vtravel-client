@@ -28,7 +28,7 @@ export default function FlightCard(flight) {
       </div>
 
       {/* Right side with price and actions */}
-      <div className="bg-teal-500 text-white rounded-lg p-4 text-center w-64">
+      <div className="bg-teal-500 text-white rounded-lg p-4 text-center w-72">
         <p className="text-lg">PRICE</p>
         <p className="text-2xl font-bold">{price}</p>
         <p className="text-sm">Round Trip</p>

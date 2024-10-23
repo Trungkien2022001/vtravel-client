@@ -769,7 +769,7 @@ export default function Home() {
             </div>
 
             {/* Search Button */}
-            <button className="bg-teal-500 text-white rounded-lg px-8 h-10 ml-2 font-bold" onClick={handleSubmit}>SEARCH</button>
+            <button className="bg-teal-500 hover:bg-teal-900 text-white rounded-lg px-8 h-10 ml-2 font-bold" onClick={handleSubmit}>SEARCH</button>
           </div>
         </div>
       </div>

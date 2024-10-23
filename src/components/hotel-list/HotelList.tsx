@@ -28,7 +28,7 @@ export default function HotelList({list, conditional}) {
 
   return (
     <>
-    <div className='text-center font-bold text-2xl'>Total: {filteredHotels?.length} hotels!</div>
+    <div className='text-center font-bold text-2xl'>{filteredHotels?.length} hotels found</div>
     <div className="flex">
       <div className="w-1/4">
         <Filters filters={filters} setFilters={setFilters} />
