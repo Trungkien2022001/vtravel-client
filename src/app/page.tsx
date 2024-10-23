@@ -394,7 +394,7 @@ export default function Home() {
       default:
         try {
           setPropertyType('region')
-          const _res = await fetch(
+          let _res = await fetch(
             `${process.env.NEXT_PUBLIC_MICRO_SERVICE_URL}/api/v1/data-center/nearest-airport`,
             {
               method: "POST", // Specify the HTTP method
@@ -415,8 +415,33 @@ export default function Home() {
           if (!_res.ok) {
             throw new Error("Failed to fetch suggestions");
           }
-          const res = await _res.json();
+          let res = await _res.json();
           setArrivalAirport(res.data.airport_code)
+          console.log(destination)
+          if(destination.region_type === 'point_of_interest'){
+            _res = await fetch(
+              `${process.env.NEXT_PUBLIC_MICRO_SERVICE_URL}/api/v1/data-center/region/parent`,
+              {
+                method: "POST", // Specify the HTTP method
+                headers: {
+                  "x-key": "superkey", // Add your x-key header
+                  "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwid29ya3NwYWNlIjoiYWdlbnQsIiwiaWF0IjoxNzI5NTE3OTYyLCJleHAiOjE3MzAzODE5NjJ9.0OUoZjnmvGW5L7aqMWqWA-OUT_fNzVl14nHEDmvLYlw", // Add your token
+                  "Content-Type": "application/json", // Ensure the request sends JSON
+                },
+                body: JSON.stringify({
+                  region_id: destination.region_id,
+                }), // Set the body of the request
+                cache: "no-cache", // Prevents caching
+              }
+            );
+            res = await _res.json();
+            console.log(res)
+            setArrival(prev=>({
+              ...prev,
+              region_id: res.data.id,
+              region_type: res.data.type
+            }))
+          }
         } catch (error) {
           console.error("Error fetching suggestions:", error);
         }

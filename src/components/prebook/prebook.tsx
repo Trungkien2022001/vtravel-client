@@ -216,7 +216,7 @@ const PreBookPage = () => {
             <div className="mb-6">
               <h4 className="text-lg font-semibold">Prices</h4>
               <p>Jeddah Hilton</p>
-              <p>Total: <span className="font-bold text-lg">SR 914.16</span></p>
+              <p>Total: <span className="font-bold text-lg">USD 914.16</span></p>
             </div>
             <button className="w-full py-3 bg-teal-500 text-white font-bold rounded-lg">Continue</button>
           </div>

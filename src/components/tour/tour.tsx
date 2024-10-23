@@ -41,7 +41,7 @@ const Tour = ({ tours }) => {
                     onChange={handleFilterChange}
                     className="form-radio"
                   />
-                  <span>Less than SR 100</span>
+                  <span>Less than USD 100</span>
                 </label>
                 <label className="flex items-center space-x-2">
                   <input
@@ -51,7 +51,7 @@ const Tour = ({ tours }) => {
                     onChange={handleFilterChange}
                     className="form-radio"
                   />
-                  <span>SR 100 - SR 500</span>
+                  <span>USD 100 - USD 500</span>
                 </label>
                 <label className="flex items-center space-x-2">
                   <input
@@ -61,7 +61,7 @@ const Tour = ({ tours }) => {
                     onChange={handleFilterChange}
                     className="form-radio"
                   />
-                  <span>SR 500 - SR 1000</span>
+                  <span>USD 500 - USD 1000</span>
                 </label>
               </div>
             </div>
@@ -166,7 +166,7 @@ export default Tour;
       <p className="text-gray-600">Jeddah</p>
     </div>
     <div>
-      <p className="text-xl font-bold text-red-600">From SR 960.00</p>
+      <p className="text-xl font-bold text-red-600">From USD 960.00</p>
       <p className="text-sm text-gray-500">08/10/2024 - 09/10/2024</p>
     </div>
   </div>
@@ -231,7 +231,7 @@ export default Tour;
   </div>
   <div className="text-center">
     <button className="bg-teal-500 text-white py-2 px-4 rounded-lg text-lg">
-      BOOK NOW - SR 960.00
+      BOOK NOW - USD 960.00
     </button>
   </div>
 </div> */}

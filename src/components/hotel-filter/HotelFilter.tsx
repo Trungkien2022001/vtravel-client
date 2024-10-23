@@ -41,7 +41,7 @@ export default function Filters({ filters, setFilters }) {
                 onChange={handleFilterChange}
                 className="form-radio"
               />
-              <span>Less than SR 100</span>
+              <span>Less than USD 100</span>
             </label>
             <label className="flex items-center space-x-2">
               <input
@@ -51,7 +51,7 @@ export default function Filters({ filters, setFilters }) {
                 onChange={handleFilterChange}
                 className="form-radio"
               />
-              <span>SR 100 - SR 500</span>
+              <span>USD 100 - USD 500</span>
             </label>
             <label className="flex items-center space-x-2">
               <input
@@ -61,7 +61,7 @@ export default function Filters({ filters, setFilters }) {
                 onChange={handleFilterChange}
                 className="form-radio"
               />
-              <span>SR 500 - SR 1000</span>
+              <span>USD 500 - USD 1000</span>
             </label>
           </div>
         </div>

@@ -6,7 +6,8 @@ export default function Guilder() {
 
   const guilder = {
     "id": 744606,
-    "name": "Holiday Inn Guatemala City, an IHG Hotel",
+    "name": "Anh Nguyen Thi",
+    age: 25,
     "country_code": "GT",
     "airport_code_code": null,
     "city_code": null,
@@ -90,17 +91,9 @@ export default function Guilder() {
       {
         "urls": [
           {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/e7bbaaee_b.jpg",
+            "url": "https://cellphones.com.vn/sforum/wp-content/uploads/2024/04/anh-rose-4.jpg",
             "size": "350px"
           },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/e7bbaaee_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/e7bbaaee_z.jpg",
-            "size": "1000px"
-          }
         ],
         "caption": "Primary image",
         "category": 3,
@@ -109,840 +102,91 @@ export default function Guilder() {
       {
         "urls": [
           {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/c9835338_b.jpg",
+            "url": "https://cellphones.com.vn/sforum/wp-content/uploads/2024/04/anh-rose-2.jpg",
             "size": "350px"
           },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/c9835338_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/c9835338_z.jpg",
-            "size": "1000px"
-          }
         ],
-        "caption": "Reception",
-        "category": 10002,
-        "hero_image": false
+        "caption": "Primary image",
+        "category": 3,
+        "hero_image": true
       },
       {
         "urls": [
           {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/157144b5_b.jpg",
+            "url": "https://cellphones.com.vn/sforum/wp-content/uploads/2024/04/anh-rose-3.jpg",
             "size": "350px"
           },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/157144b5_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/157144b5_z.jpg",
-            "size": "1000px"
-          }
         ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
+        "caption": "Primary image",
+        "category": 3,
+        "hero_image": true
       },
       {
         "urls": [
           {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/16d14a60_b.jpg",
+            "url": "https://cellphones.com.vn/sforum/wp-content/uploads/2024/04/anh-rose-1.jpg",
             "size": "350px"
           },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/16d14a60_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/16d14a60_z.jpg",
-            "size": "1000px"
-          }
         ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
+        "caption": "Primary image",
+        "category": 3,
+        "hero_image": true
       },
       {
         "urls": [
           {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/50f0c422_b.jpg",
+            "url": "https://cellphones.com.vn/sforum/wp-content/uploads/2024/04/anh-rose-5.jpg",
             "size": "350px"
           },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/50f0c422_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/50f0c422_z.jpg",
-            "size": "1000px"
-          }
         ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
+        "caption": "Primary image",
+        "category": 3,
+        "hero_image": true
       },
       {
         "urls": [
           {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/548254e3_b.jpg",
+            "url": "https://cellphones.com.vn/sforum/wp-content/uploads/2024/04/anh-rose-6.jpg",
             "size": "350px"
           },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/548254e3_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/548254e3_z.jpg",
-            "size": "1000px"
-          }
         ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
+        "caption": "Primary image",
+        "category": 3,
+        "hero_image": true
       },
       {
         "urls": [
           {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/a31325b6_b.jpg",
+            "url": "https://cellphones.com.vn/sforum/wp-content/uploads/2024/04/anh-rose-7.jpg",
             "size": "350px"
           },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/a31325b6_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/a31325b6_z.jpg",
-            "size": "1000px"
-          }
         ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
+        "caption": "Primary image",
+        "category": 3,
+        "hero_image": true
       },
       {
         "urls": [
           {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/aa68aad3_b.jpg",
+            "url": "https://cellphones.com.vn/sforum/wp-content/uploads/2024/04/anh-rose-8.jpg",
             "size": "350px"
           },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/aa68aad3_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/aa68aad3_z.jpg",
-            "size": "1000px"
-          }
         ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
+        "caption": "Primary image",
+        "category": 3,
+        "hero_image": true
       },
       {
         "urls": [
           {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/f90c664c_b.jpg",
+            "url": "https://cellphones.com.vn/sforum/wp-content/uploads/2024/04/anh-rose-9.jpg",
             "size": "350px"
           },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/f90c664c_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/f90c664c_z.jpg",
-            "size": "1000px"
-          }
         ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
+        "caption": "Primary image",
+        "category": 3,
+        "hero_image": true
       },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/fbb94887_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/fbb94887_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/fbb94887_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/9bacfab1_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/9bacfab1_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/9bacfab1_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/6073874c_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/6073874c_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/6073874c_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/c1d8366d_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/c1d8366d_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/c1d8366d_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/1f917ef5_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/1f917ef5_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/1f917ef5_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/919dd0a6_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/919dd0a6_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/919dd0a6_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/bbf72417_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/bbf72417_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/bbf72417_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/46955567_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/46955567_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/46955567_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/faf6a7b2_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/faf6a7b2_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/faf6a7b2_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/w3832h2880x4y0-a51a50b0_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/w3832h2880x4y0-a51a50b0_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/w3832h2880x4y0-a51a50b0_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/15d29cb7_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/15d29cb7_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/15d29cb7_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/06014bbb_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/06014bbb_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/06014bbb_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/w3835h2880x5y0-81b08eb9_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/w3835h2880x5y0-81b08eb9_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/w3835h2880x5y0-81b08eb9_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/7be8bf1d_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/7be8bf1d_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/7be8bf1d_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/e18d182a_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/e18d182a_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/e18d182a_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/09f8d75b_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/09f8d75b_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/09f8d75b_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/w3836h2880x4y0-0b6671c5_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/w3836h2880x4y0-0b6671c5_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/w3836h2880x4y0-0b6671c5_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/ffb6ca90_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/ffb6ca90_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/ffb6ca90_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/1d801bcf_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/1d801bcf_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/1d801bcf_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/3d4bfd7f_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/3d4bfd7f_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/3d4bfd7f_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/e9354a5b_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/e9354a5b_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/e9354a5b_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/87e1011f_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/87e1011f_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/87e1011f_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/dc98d28b_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/dc98d28b_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/dc98d28b_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/0e724a80_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/0e724a80_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/0e724a80_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/95225c20_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/95225c20_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/95225c20_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/18f3b61f_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/18f3b61f_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/18f3b61f_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room",
-        "category": 21001,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/w4999h2503x0y0-428d2351_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/w4999h2503x0y0-428d2351_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/w4999h2503x0y0-428d2351_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Private kitchenette",
-        "category": 22004,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/w3836h2880x4y0-4031b74a_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/w3836h2880x4y0-4031b74a_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/w3836h2880x4y0-4031b74a_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room amenity",
-        "category": 22009,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/06656749_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/06656749_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/06656749_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Room amenity",
-        "category": 22009,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/72733ba9_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/72733ba9_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/72733ba9_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "View from room",
-        "category": 22013,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/a78a6653_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/a78a6653_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/a78a6653_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Bathroom",
-        "category": 23000,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/483eb312_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/483eb312_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/483eb312_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Bathroom",
-        "category": 23000,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/5a8c07fd_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/5a8c07fd_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/5a8c07fd_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Bathroom",
-        "category": 23000,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/8a2f5fd6_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/8a2f5fd6_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/8a2f5fd6_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Bathroom",
-        "category": 23000,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/07da1520_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/07da1520_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/07da1520_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Pool",
-        "category": 30000,
-        "hero_image": false
-      },
-      {
-        "urls": [
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/64672d05_b.jpg",
-            "size": "350px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/64672d05_t.jpg",
-            "size": "70px"
-          },
-          {
-            "url": "https://i.travelapi.com/lodging/1000000/10000/1300/1234/64672d05_z.jpg",
-            "size": "1000px"
-          }
-        ],
-        "caption": "Pool",
-        "category": 30000,
-        "hero_image": false
-      }
-
     ]
   }
 
@@ -963,7 +207,7 @@ export default function Guilder() {
           <div className="flex">
             <div className="w-1/2">
               <img
-                src={guilder.images[0].urls[2].url}
+                src={guilder.images[0].urls[0].url}
                 alt={guilder.name}
                 width={480}
                 height={480}
@@ -993,7 +237,7 @@ export default function Guilder() {
             <div className="flex items-start">
               <div>
                 <h2 className="text-2xl font-bold">{guilder.name}</h2>
-                <p>Age: {guilder.name}</p>
+                <p>Age: {guilder.age}</p>
                 <p>Nationality: {guilder.country_name}</p>
                 <p>Gender: {guilder.gender}</p>
                 <p>Body Measurements: {guilder.body_measurements}</p>
