@@ -109,7 +109,7 @@ const Page = () => {
       setHotels(res.data || [])
       setPackages(prev => ({
         ...prev,
-        hotel: res.data[0] || []
+        hotel: res.data?.[0] || []
       }))
       return res.data // Handle the response (e.g., update the UI or state)
     } catch (error) {
@@ -201,7 +201,7 @@ const Page = () => {
       setTours(res.data)
       setPackages(prev => ({
         ...prev,
-        tour: res.data[0]
+        tour: res.data?.[0] || []
       }))
     } catch (error) {
       console.error("Error searching tours:", error);
@@ -249,7 +249,7 @@ const Page = () => {
       setFlights(Array.isArray(res.data) ? res.data : []); // Assuming you have a state setter for flights
       setPackages(prev => ({
         ...prev,
-        flight: res.data[0]
+        flight: res.data?.[0] || []
       }))
     } catch (error) {
       console.error("Error fetching flights:", error);
@@ -305,7 +305,7 @@ const Page = () => {
       setVehicles(res.data)
       setPackages(prev => ({
         ...prev,
-        transfer: res.data[0]
+        transfer: res.data?.[0] || []
       }))
     } catch (error) {
       console.error("Error searching transfers:", error);
