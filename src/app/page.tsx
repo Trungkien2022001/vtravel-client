@@ -450,7 +450,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      <Header />
+      <Header style={{height: 28}}/>
       <div
         className="banner w-full bg-cover bg-center"
         style={{ backgroundImage: "url('http://res.cloudinary.com/trungkien2022001/image/upload/v1729522787/upload/qirc6q8dea7l5imbv9rf.jpg')" }}
