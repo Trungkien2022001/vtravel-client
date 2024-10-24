@@ -437,8 +437,8 @@ export default function Home() {
             console.log(res)
             setArrival(prev => ({
               ...prev,
-              region_id: res.data.id,
-              region_type: res.data.type
+              region_id: res.data?.id,
+              region_type: res.data?.type
             }))
           }
         } catch (error) {
