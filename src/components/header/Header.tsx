@@ -12,7 +12,7 @@ const Header = ({style}) => {
         setIsCurrencyDropdownOpen((prev) => !prev);
     };
     return (
-        <div className={`h-${style?.height || '28'} flex justify-between items-center px-12 bg-teal-500 text-lg`}>
+        <div className={`${style?.height ? 'h-' + style?.height : 'h-28'} flex justify-between items-center px-12 bg-teal-500 text-lg`}>
             <div className="text-2xl font-bold text-purple-50">VTRAVEL</div>
             <div className="flex space-x-4">
                 <div className="relative">
