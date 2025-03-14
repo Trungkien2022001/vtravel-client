@@ -7,8 +7,8 @@ export default function Footer() {
           <h3 className="text-lg font-bold">VTravel</h3>
           <p>Contact Us: +84 989 983 025</p>
           <p>Email: nguyenkien2022001@gmail.com</p>
-          <p>LV Center (Registered Office)</p>
-          <p>69 Thuy Khe Street, Thuy Khe, Hanoi, Vietnam</p>
+          <p>KT Center (Registered Office)</p>
+          <p>Nguyễn Trung Kiên Viproooo, Hanoi, Vietnam</p>
         </div>
 
         <div>

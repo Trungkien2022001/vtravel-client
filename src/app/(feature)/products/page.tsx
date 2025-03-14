@@ -31,7 +31,7 @@ export default function Hotel() {
           method: "POST", // HTTP method
           headers: {
             "x-key": "superkey", // Add x-key header
-            "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwid29ya3NwYWNlIjoiYWdlbnQsIiwiaWF0IjoxNzI5NDMxNDEzLCJleHAiOjE4MTU4MzE0MTN9.Td4LHircGbJxDfepwE4oMkQfM-tbXqOgPf9o7DLhEsQ", // Add your access token
+            "x-access-token": process.env.NEXT_PUBLIC_MICRO_SERVICE_TOKEN || '', // Add your access token
             "Content-Type": "application/json", // Make sure you're sending JSON
           },
           body: JSON.stringify(data),

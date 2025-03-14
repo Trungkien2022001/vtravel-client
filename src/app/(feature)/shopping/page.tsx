@@ -199,7 +199,7 @@ const Page = () => {
           method: "POST", // HTTP method
           headers: {
             "x-key": "superkey", // Add x-key header
-            "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwid29ya3NwYWNlIjoiYWdlbnQsIiwiaWF0IjoxNzI5NDMxNDEzLCJleHAiOjE4MTU4MzE0MTN9.Td4LHircGbJxDfepwE4oMkQfM-tbXqOgPf9o7DLhEsQ", // Add your access token
+            "x-access-token": process.env.NEXT_PUBLIC_MICRO_SERVICE_TOKEN || '', // Add your access token
             "Content-Type": "application/json", // Make sure you're sending JSON
           },
           body: JSON.stringify(data),
@@ -238,7 +238,7 @@ const Page = () => {
           method: "POST", // HTTP method
           headers: {
             "x-key": "superkey", // Add x-key header
-            "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwid29ya3NwYWNlIjoiYWdlbnQsIiwiaWF0IjoxNzI5NDMxNDEzLCJleHAiOjE4MTU4MzE0MTN9.Td4LHircGbJxDfepwE4oMkQfM-tbXqOgPf9o7DLhEsQ", // Add your access token
+            "x-access-token": process.env.NEXT_PUBLIC_MICRO_SERVICE_TOKEN || '', // Add your access token
             "Content-Type": "application/json", // Make sure you're sending JSON
           },
           body: JSON.stringify({
@@ -295,7 +295,7 @@ const Page = () => {
           method: "POST", // HTTP method
           headers: {
             "x-key": "superkey", // Add x-key header
-            "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwid29ya3NwYWNlIjoiYWdlbnQsIiwiaWF0IjoxNzI4OTY4MTQ5LCJleHAiOjE3Mjk4MzIxNDl9.gQCd3T4gl48gyh6slUQ2Y0VrmjXtgMq58SJ2tUK5JvQ", // Add your access token
+            "x-access-token": process.env.NEXT_PUBLIC_MICRO_SERVICE_TOKEN || '', // Add your access token
             "Content-Type": "application/json", // Make sure you're sending JSON
           },
           body: JSON.stringify(data),
@@ -343,7 +343,7 @@ const Page = () => {
           method: "POST", // HTTP method
           headers: {
             "x-key": "superkey", // Add your x-key header
-            "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwid29ya3NwYWNlIjoiYWdlbnQsIiwiaWF0IjoxNzI5NTE3OTYyLCJleHAiOjE3MzAzODE5NjJ9.0OUoZjnmvGW5L7aqMWqWA-OUT_fNzVl14nHEDmvLYlw", // Add your access token
+            "x-access-token": process.env.NEXT_PUBLIC_MICRO_SERVICE_TOKEN || '', // Add your access token
             "Content-Type": "application/json", // Make sure you're sending JSON
           },
           body: JSON.stringify(data),
@@ -399,7 +399,7 @@ const Page = () => {
           method: "POST", // HTTP method
           headers: {
             "x-key": "superkey", // Add x-key header
-            "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwid29ya3NwYWNlIjoiYWdlbnQsIiwiaWF0IjoxNzI4OTY4MTQ5LCJleHAiOjE3Mjk4MzIxNDl9.gQCd3T4gl48gyh6slUQ2Y0VrmjXtgMq58SJ2tUK5JvQ", // Add your access token
+            "x-access-token": process.env.NEXT_PUBLIC_MICRO_SERVICE_TOKEN || '', // Add your access token
             "Content-Type": "application/json", // Ensure the request sends JSON
           },
           body: JSON.stringify(data),
@@ -475,7 +475,7 @@ const Page = () => {
           method: "POST", // HTTP method
           headers: {
             "x-key": "superkey", // Add x-key header
-            "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwid29ya3NwYWNlIjoiYWdlbnQsIiwiaWF0IjoxNzI5NDMxNDEzLCJleHAiOjE4MTU4MzE0MTN9.Td4LHircGbJxDfepwE4oMkQfM-tbXqOgPf9o7DLhEsQ", // Add your access token
+            "x-access-token": process.env.NEXT_PUBLIC_MICRO_SERVICE_TOKEN || '', // Add your access token
             "Content-Type": "application/json", // Make sure you're sending JSON
           },
           body: JSON.stringify(data),
@@ -705,7 +705,7 @@ const Page = () => {
         <div className='border-t-2 pt-2 mt-2 overflow-y-scroll' style={{ height: "440px" }}>
 
           {
-            room.rate.map(rate => (
+            room.rate?.map(rate => (
               <div className=" ml-2 h-16 bg-white border border-teal-500 mb-2 text-teal-500 rounded-lg p-4 flex items-center">
                 {/* rate_name chiếm 5 phần */}
                 <div className="flex-basis-5/8 flex-grow">
@@ -1450,7 +1450,7 @@ const Page = () => {
                 {activeTab === 'Tour Guide' && <Guilder />}
                 {activeTab === 'Insurances' &&
                   <div>
-                    <div className='text-center font-bold text-xl text-teal-500 mt-3 mb-2'>Hi customer !</div>
+                    <div className='text-center font-bold text-xl text-teal-500 mt-3 mb-2'>Hi con gà nhé hahaha. Cháu đã bị lừa hahahaaha beach !</div>
                     <div className='py-8 px-24 text-center font-bold text-2xl text-teal-500  border rounded-lg shadow-sm mb-4 bg-white'>
                       Currently, we offer only one insurance service: You can enjoy your travel experience with peace of mind.
                       If anything differs from what we have described, please call our customer service center.

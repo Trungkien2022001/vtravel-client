@@ -74,7 +74,7 @@ export default function Home() {
           method: "POST", // Specify the HTTP method
           headers: {
             "x-key": "superkey", // Add your x-key header
-            "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwid29ya3NwYWNlIjoiYWdlbnQsIiwiaWF0IjoxNzI5NDMxNDEzLCJleHAiOjE4MTU4MzE0MTN9.Td4LHircGbJxDfepwE4oMkQfM-tbXqOgPf9o7DLhEsQ", // Add your token
+            "x-access-token": process.env.NEXT_PUBLIC_MICRO_SERVICE_TOKEN || '', // Add your token
             "Content-Type": "application/json", // Ensure the request sends JSON
           },
           body: JSON.stringify({
@@ -123,7 +123,7 @@ export default function Home() {
           method: "POST", // Specify the HTTP method
           headers: {
             "x-key": "superkey", // Add your x-key header
-            "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwid29ya3NwYWNlIjoiYWdlbnQsIiwiaWF0IjoxNzI5NDMxNDEzLCJleHAiOjE4MTU4MzE0MTN9.Td4LHircGbJxDfepwE4oMkQfM-tbXqOgPf9o7DLhEsQ", // Add your token
+            "x-access-token": process.env.NEXT_PUBLIC_MICRO_SERVICE_TOKEN || '', // Add your token
             "Content-Type": "application/json", // Ensure the request sends JSON
           },
           body: JSON.stringify({
@@ -297,7 +297,7 @@ export default function Home() {
               method: "POST", // Specify the HTTP method
               headers: {
                 "x-key": "superkey", // Add your x-key header
-                "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwid29ya3NwYWNlIjoiYWdlbnQsIiwiaWF0IjoxNzI5NTE3OTYyLCJleHAiOjE3MzAzODE5NjJ9.0OUoZjnmvGW5L7aqMWqWA-OUT_fNzVl14nHEDmvLYlw", // Add your token
+                "x-access-token": process.env.NEXT_PUBLIC_MICRO_SERVICE_TOKEN || '', // Add your token
                 "Content-Type": "application/json", // Ensure the request sends JSON
               },
               body: JSON.stringify({
@@ -326,7 +326,7 @@ export default function Home() {
               method: "POST", // Specify the HTTP method
               headers: {
                 "x-key": "superkey", // Add your x-key header
-                "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwid29ya3NwYWNlIjoiYWdlbnQsIiwiaWF0IjoxNzI5NTE3OTYyLCJleHAiOjE3MzAzODE5NjJ9.0OUoZjnmvGW5L7aqMWqWA-OUT_fNzVl14nHEDmvLYlw", // Add your token
+                "x-access-token": process.env.NEXT_PUBLIC_MICRO_SERVICE_TOKEN || '', // Add your token
                 "Content-Type": "application/json", // Ensure the request sends JSON
               },
               body: JSON.stringify({
@@ -369,7 +369,7 @@ export default function Home() {
               method: "POST", // Specify the HTTP method
               headers: {
                 "x-key": "superkey", // Add your x-key header
-                "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwid29ya3NwYWNlIjoiYWdlbnQsIiwiaWF0IjoxNzI5NTE3OTYyLCJleHAiOjE3MzAzODE5NjJ9.0OUoZjnmvGW5L7aqMWqWA-OUT_fNzVl14nHEDmvLYlw", // Add your token
+                "x-access-token": process.env.NEXT_PUBLIC_MICRO_SERVICE_TOKEN || '', // Add your token
                 "Content-Type": "application/json", // Ensure the request sends JSON
               },
               body: JSON.stringify({
@@ -399,7 +399,7 @@ export default function Home() {
               method: "POST", // Specify the HTTP method
               headers: {
                 "x-key": "superkey", // Add your x-key header
-                "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwid29ya3NwYWNlIjoiYWdlbnQsIiwiaWF0IjoxNzI5NTE3OTYyLCJleHAiOjE3MzAzODE5NjJ9.0OUoZjnmvGW5L7aqMWqWA-OUT_fNzVl14nHEDmvLYlw", // Add your token
+                "x-access-token": process.env.NEXT_PUBLIC_MICRO_SERVICE_TOKEN || '', // Add your token
                 "Content-Type": "application/json", // Ensure the request sends JSON
               },
               body: JSON.stringify({
@@ -424,7 +424,7 @@ export default function Home() {
                 method: "POST", // Specify the HTTP method
                 headers: {
                   "x-key": "superkey", // Add your x-key header
-                  "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwid29ya3NwYWNlIjoiYWdlbnQsIiwiaWF0IjoxNzI5NTE3OTYyLCJleHAiOjE3MzAzODE5NjJ9.0OUoZjnmvGW5L7aqMWqWA-OUT_fNzVl14nHEDmvLYlw", // Add your token
+                  "x-access-token": process.env.NEXT_PUBLIC_MICRO_SERVICE_TOKEN || '', // Add your token
                   "Content-Type": "application/json", // Ensure the request sends JSON
                 },
                 body: JSON.stringify({

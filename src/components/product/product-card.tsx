@@ -49,7 +49,7 @@ export default function ProductCard({ room, selectedRoom, onSelect }) {
       <div className='border-t-2 pt-2 mt-2 overflow-y-scroll' style={{height: "440px"}}>
 
         {
-          room.rate.map(rate => (
+          room.rate?.map(rate => (
             <div className=" ml-2 h-16 bg-white border border-teal-500 mb-2 text-teal-500 rounded-lg p-4 flex items-center">
               {/* rate_name chiếm 5 phần */}
               <div className="flex-basis-5/8 flex-grow">
